@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script type="text/javascript">
+window.onload=function(){
+}
+	function fn_sendMember() {
+		
+		var frmMember = document.rgister;
+		var id = frmMember.rgister_id.value;
+		var pwd = frmMember.register_pwd.value;
+
+		if(id.length==0 || id==""){
+			alert("아이디는 필수입니다.");
+		}
+		else if(pwd.length==0 || pwd == ""){
+			alert("비밀번호는 필수입니다.")
+		}
+		else
+			{
+			frmMember.method = "post";
+			frmMember.action = "MemberServlet";
+			frmMember.submit();
+			}
+	}
+</script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
+<form name="rgister" class="form-box">
+<h3 class="h4 text-black mb-4">Sign Up</h3>
+	<div class="form-group">
+	<input class="form-control" placeholder="id" type="text" name="rgister_id">
+	</div>
+	<div class="form-group">
+	<input class="form-control" placeholder="password" type="password" name="register_pwd" >
+	</div>
+	<div class="form-group">
+    <input type="email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+	<input class="btn btn-primary btn-pill" type="button" value="확인" onClick="fn_sendMember()">
+	</div>
+	<input type="hidden" name="command" value="add_member">
+</form>
+</div>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
