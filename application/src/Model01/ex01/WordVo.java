@@ -9,6 +9,14 @@ public class WordVo {
 	private String saveDate;
 	private String M_wORD;
 	private String M_Mean;
+	private int count;
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getM_wORD() {
 		return M_wORD;
 	}

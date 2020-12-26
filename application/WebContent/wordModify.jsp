@@ -128,6 +128,7 @@
  			<td><p data-aos="fade-up" data-aos-delay="100">Front_Card</p></td>
  			<td><p data-aos="fade-up" data-aos-delay="100">Back_Card</p></td>
  			<td><p align="center" data-aos="fade-up" data-aos-delay="100">저장날짜</p></td>
+ 			<td><p align="center" data-aos="fade-up" data-aos-delay="100">맞춘횟수</p></td>
  		</tr>
 		<%for(WordVo s:list){%>
 			<tr>
@@ -138,10 +139,10 @@
 				<td><input class="form-control" type="text" name="mean" value="<%= s.getMean() %>"></td>
 				</div>
 				<td><%= s.getSaveDate() %></td>
+				<td><%= s.getCount() %></td>
 				<td>
-				<div class="col-md">
 				<a href="wordModify_window.jsp?word=<%=s.getwORD()%>&mean=<%=s.getMean()%>&S_ID=<%=S_ID %>" onClick="window.open(this.href, '', 'width=400, height=430'); return false;">수정</a></td>
-				</div>
+				</td>
 			</tr>
 		<%}%>
 	</table>

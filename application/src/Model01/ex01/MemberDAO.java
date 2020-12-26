@@ -2,6 +2,7 @@ package Model01.ex01;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,9 +21,11 @@ public class MemberDAO {
 	public MemberDAO()
 	{
 		try {
-			Context ctx=new InitialContext();
-			Context envContext = (Context)ctx.lookup("java:/comp/env");
-			dataFactory = (DataSource)envContext.lookup("jdbc/oracle");
+			String dbURL="jdbc:mysql://localhost:3306/Project1?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";                             
+            String dbID="root";
+            String dbPassword="8465123z";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con=DriverManager.getConnection(dbURL,dbID,dbPassword);
 		}
 		catch(Exception e) {
 			e.printStackTrace();	
@@ -34,7 +37,6 @@ public class MemberDAO {
 		String id = memberVO.getId();
 		String pwd = memberVO.getPwd();
 		try {
-			Connection con = dataFactory.getConnection();
 			String query = "insert into WORD_USER1";
 			query +="(ID,PWD) ";
 			query +="values(?,?)";
@@ -57,7 +59,6 @@ public class MemberDAO {
 		try {
 			String id = memberVO.getId();
 			String pwd = memberVO.getPwd();
-			Connection con = dataFactory.getConnection();
 			String query = "select PWD FROM WORD_USER1 where ID=?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1,id);
@@ -89,11 +90,11 @@ public class MemberDAO {
 		String _ID = vo.getUserId();
 		String _Word = vo.getwORD();
 		String _mean = vo.getMean();
+		System.out.println(_Word);
 		try {
-		Connection con = dataFactory.getConnection();
 		String query="insert into WORD2";
 				query+=" values(?,?,?,";
-				query+="to_char(sysdate+9/24,'yyyy-mm-dd hh24:mi:ss'),";
+				query+="DATE_FORMAT(sysdate()+9/24,'%Y%m%d-%h%i'),";
 				query+="0)";
 		pstmt = con.prepareStatement(query);
 		pstmt.setString(1,_ID);
@@ -115,9 +116,8 @@ public class MemberDAO {
 		List<WordVo> membersList = new ArrayList<WordVo>();
 		try {
 			String id=vo.getUserId();
-			Connection con = dataFactory.getConnection();
-			String query = "select * from WORD2 where rownum=1 AND USERID=? AND "
-					+ "WORDDATE <=to_char(sysdate+9/24,'yyyy-mm-dd hh24:mi:ss')";
+			String query = "select * from WORD2 where id=? AND "
+					+ "save_date <= DATE_FORMAT(sysdate()+9/24,'%Y%m%d-%h%i')";
 			System.out.println("prepareStatement:"+query);
 			System.out.println(id);
 			pstmt = con.prepareStatement(query);
@@ -125,10 +125,10 @@ public class MemberDAO {
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{
-				String _id=	rs.getString("USERID");
-				String _FRONT= rs.getString("FRONTCARD");
-				String _BACK=rs.getString("BACKCARD");
-				String _DATE=rs.getString("WORDDATE");
+				String _id=	rs.getString("id");
+				String _FRONT= rs.getString("Word");
+				String _BACK=rs.getString("Mean");
+				String _DATE=rs.getString("save_date");
 				WordVo wordvo = new WordVo();
 				wordvo.setUserId(_id);
 				wordvo.setwORD(_FRONT);
@@ -152,7 +152,7 @@ public class MemberDAO {
 			String id=vo.getUserId();
 			String search_Word = vo.getwORD();
 			Connection con = dataFactory.getConnection();
-			String query = "select * from WORD2 where USERID=? AND FRONTCARD=?";
+			String query = "select * from WORD2 where id=? AND Word=?";
 			System.out.println("prepareStatement:"+query);
 			System.out.println(id);
 			pstmt = con.prepareStatement(query);
@@ -161,10 +161,10 @@ public class MemberDAO {
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{
-				String _id=	rs.getString("USERID");
-				String _FRONT= rs.getString("FRONTCARD");
-				String _BACK=rs.getString("BACKCARD");
-				String _DATE=rs.getString("WORDDATE");
+				String _id=	rs.getString("id");
+				String _FRONT= rs.getString("Word");
+				String _BACK=rs.getString("Mean");
+				String _DATE=rs.getString("save_date");
 				WordVo wordvo = new WordVo();
 				wordvo.setUserId(_id);
 				wordvo.setwORD(_FRONT);
@@ -186,24 +186,23 @@ public class MemberDAO {
 		List<WordVo> membersList = new ArrayList<WordVo>();
 		try {
 			String id=vo.getUserId();
-			Connection con = dataFactory.getConnection();
-			String query = "select * from WORD2 where UserId=?";
-			System.out.println("prepareStatement:"+query);
-			System.out.println(id);
+			String query = "select * from WORD2 where id=?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1,id);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{
-				String _id=	rs.getString("USERID");
-				String _FRONT= rs.getString("FRONTCARD");
-				String _BACK=rs.getString("BACKCARD");
-				String _DATE=rs.getString("WORDDATE");
+				String _id=	rs.getString("id");
+				String _FRONT= rs.getString("Word");
+				String _BACK=rs.getString("Mean");
+				String _DATE=rs.getString("save_date");
+				int _count = rs.getInt("count");
 				WordVo wordvo = new WordVo();
 				wordvo.setUserId(_id);
 				wordvo.setwORD(_FRONT);
 				wordvo.setMean(_BACK);
 				wordvo.setSaveDate(_DATE);
+				wordvo.setCount(_count);
 				membersList.add(wordvo);
 			}
 			rs.close();
@@ -224,7 +223,7 @@ public class MemberDAO {
 		String M_Mean=vo.getM_Mean();
 		try {
 			Connection con = dataFactory.getConnection();
-			String query = "UPDATE WORD2 SET FRONTCARD = ?, BACKCARD=? WHERE userid=? AND frontcard=? OR backcard=?";
+			String query = "UPDATE WORD2 SET word = ?, mean=? WHERE id=? AND word=? OR mean=?";
 			System.out.println("prepareStatement:"+query);
 			System.out.println(id);
 			pstmt = con.prepareStatement(query);
@@ -246,8 +245,7 @@ public class MemberDAO {
 		String id=vo.getUserId();
 		String Word=vo.getwORD();
 		try {
-			Connection con = dataFactory.getConnection();
-			String query = "DELETE FROM WORD2 where USERID=? and frontcard=?";
+			String query = "DELETE FROM WORD2 where id=? and word=?";
 			System.out.println("prepareStatement:"+query);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1,id);
@@ -267,10 +265,10 @@ public class MemberDAO {
 		String _Word = vo.getwORD();
 		String _mean = vo.getMean();
 		try {
-		Connection con = dataFactory.getConnection();
-		String query="UPDATE WORD2 set WORDDATE=to_char(sysdate+10/(24*60)+9/24,'yyyy-mm-dd hh24:mi:ss'),CCOUNT=0 "; //10분 추가.
-				query+="where userid=? and ";
-				query+="frontcard=? ";
+			
+		String query="UPDATE WORD2 set save_date=DATE_FORMAT(sysdate()+10/(24*60)+9/24,'%Y%m%d-%h%i'),count=0 "; //10분 추가.
+				query+="where id=? and ";
+				query+="word=? ";
 		pstmt = con.prepareStatement(query);
 		pstmt.setString(1,_ID);
 		pstmt.setString(2,_Word);
@@ -289,14 +287,15 @@ public class MemberDAO {
 		String _Word = vo.getwORD();
 		String _mean = vo.getMean();
 		try {
-		Connection con = dataFactory.getConnection();
-		String query="UPDATE WORD2 set CCOUNT=CCOUNT+1, WORDDATE=decode(ccount,0,to_char(sysdate+1+9/24,'yyyy-mm-dd hh24:mi:ss')"
-				+ ",1,to_char(sysdate+3+9/24,'yyyy-mm-dd hh24:mi:ss')"
-				+ ",2,sysdate+7"
-				+ ",3,sysdate+30"
-				+ ",4,sysdate+365)";
-				query+="where userid=? and ";
-				query+="frontcard=? ";
+			
+		String query="UPDATE WORD2 set count=count+1, save_date=case("
+				+ "when count=0 then DATE_FORMAT(sysdate()+1+9/24,'%Y%m%d-%h%i')"
+				+ "when count=1 then DATE_FORMAT(sysdate()+3+9/24,'%Y%m%d-%h%i')"
+				+ "when count=2 then sysdate()+7"
+				+ "when count=3 then sysdate()+30"
+				+ "when count=4 then sysdate()+365)";
+				query+="where id=? and ";
+				query+="word=? ";
 		pstmt = con.prepareStatement(query);
 		pstmt.setString(1,_ID);
 		pstmt.setString(2,_Word);

@@ -91,8 +91,6 @@ public class nmtReturnResult extends HttpServlet {
                 response.append(inputLine);
             }
             br.close();
-            System.out.println(response.toString());
-            
             resultString = response.toString();
         } catch (Exception e) {
             System.out.println(e);
