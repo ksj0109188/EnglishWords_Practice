@@ -11,10 +11,11 @@ public class viewInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        try{
+        try {
+
             String viewName = getViewName(request);
-            request.setAttribute("viewNAme",viewName);
-        }catch (Exception e){
+            request.setAttribute("viewNAme", viewName);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
@@ -22,17 +23,16 @@ public class viewInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(
-            HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
-            throws Exception {
+            HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
     }
 
 
     @Override
     public void afterCompletion(
-            HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-            throws Exception {
+            HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
     }
-    private String getViewName(HttpServletRequest request) throws Exception {
+
+    private String getViewName(HttpServletRequest request) {
         String contextPath = request.getContextPath();
         String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
         if (uri == null || uri.trim().equals("")) {
@@ -58,7 +58,7 @@ public class viewInterceptor extends HandlerInterceptorAdapter {
             fileName = fileName.substring(0, fileName.lastIndexOf("."));
         }
         if (fileName.lastIndexOf("/") != -1) {
-            fileName = fileName.substring(fileName.lastIndexOf("/",1), fileName.length());
+            fileName = fileName.substring(fileName.lastIndexOf("/", 1), fileName.length());
         }
         return fileName;
     }

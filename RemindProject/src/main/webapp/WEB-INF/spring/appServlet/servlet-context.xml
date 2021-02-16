@@ -26,7 +26,6 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*/*.do"/>
-			<mvc:mapping path="/*/*/*.do"/>
 			<beans:bean class="com.project.common.Interceptor.viewInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
