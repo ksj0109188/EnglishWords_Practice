@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.word">
+    <resultMap id="wordResult" type="wordVO">
+        <result property="wordId" column="wordId"/>
+        <result property="word" column="word"/>
+        <result property="mean" column="mean"/>
+        <result property="SaveDate" column="SaveDate"/>
+        <result property="wordcount" column="wordcount"/>
+        <result property="user_id" column="user_id"/>
+        <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
+    </resultMap>
+
+    <select id="maxWordId" resultType="int">
+        <![CDATA[
+        select IFNULL(MAX(wordId), 0) + 1
+        from savedword;
+        ]]>
+    </select>
+
+    <insert id="addword" parameterType="wordVO">
+		<![CDATA[
+        insert into savedword(wordId, word, mean, wordcount, user_id)
+        values (#{wordId}, #{word}, #{mean}, 0, #{user_id})
+        ]]>
+	</insert>
+
+    <select id="login" resultType="String" parameterType="java.util.Map">
+        <![CDATA[
+        select id
+        from member
+        where id = #{userId}
+          and pwd = #{userPwd}
+        ]]>
+    </select>
+
+
+</mapper>
