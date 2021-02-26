@@ -9,7 +9,7 @@
         <result property="wordId" column="wordId"/>
         <result property="word" column="word"/>
         <result property="mean" column="mean"/>
-        <result property="SaveDate" column="SaveDate"/>
+        <result property="savedDate" column="savedDate"/>
         <result property="wordcount" column="wordcount"/>
         <result property="user_id" column="user_id"/>
         <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
@@ -29,14 +29,12 @@
         ]]>
 	</insert>
 
-    <select id="login" resultType="String" parameterType="java.util.Map">
-        <![CDATA[
-        select id
-        from member
-        where id = #{userId}
-          and pwd = #{userPwd}
+    <select id="selectWord" resultMap="wordResult" parameterType="java.util.Map">
+    <![CDATA[
+        select *
+        from savedword
+        where user_id = #{user_id} and savedDate<= current_timestamp
+        LIMIT #{quantity, jdbcType=INTEGER} OFFSET 0
         ]]>
     </select>
-
-
 </mapper>

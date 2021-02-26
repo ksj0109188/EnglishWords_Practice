@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.project.word.dao.wordDAO;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 @Service("wordservice")
 public class wordServiceImpl implements wordService{
@@ -21,5 +23,10 @@ public class wordServiceImpl implements wordService{
     @Override
     public int maxWordId(wordVO wordvo) throws SQLException {
         return worddao.maxWordId(wordvo);
+    }
+
+    @Override
+    public List<wordVO> selectWord(Map studyMap) {
+        return worddao.selectWord(studyMap);
     }
 }

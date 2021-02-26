@@ -9,15 +9,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,10 +58,16 @@ public class wordControllerImpl extends BaseController implements wordController
 
     @RequestMapping(value="/study.do", method =RequestMethod.GET)
     @Override
-    public ResponseEntity<List<wordVO>> study(HttpServletRequest request, HttpServletResponse response, Map<String, String> wordvo) {
-        return null;
+    public ModelAndView study(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity) {
+        Map studyMap = new HashMap();
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("userId");
+        studyMap.put("user_id",user_id);
+        studyMap.put("quantity", quantity);
+        List<wordVO> wordVo=wordservice.selectWord(studyMap);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("wordvo",wordVo);
+        modelAndView.setViewName("/word/studyPage");
+        return modelAndView;
     }
-
-
-
 }

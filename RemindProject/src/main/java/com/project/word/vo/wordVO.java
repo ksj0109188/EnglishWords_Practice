@@ -9,19 +9,9 @@ public class wordVO {
     private int wordId;
     private String word;
     private String mean;
-    private Timestamp SaveDate;
+    private Timestamp savedDate;
     private int wordcount;
     private String user_id;
-
-    public String getDailyWord_dailyId() {
-        return dailyWord_dailyId;
-    }
-
-    public void setDailyWord_dailyId(String dailyWord_dailyId) {
-        this.dailyWord_dailyId = dailyWord_dailyId;
-    }
-
-    private String dailyWord_dailyId;
 
     public int getWordId() {
         return wordId;
@@ -47,17 +37,19 @@ public class wordVO {
         this.mean = mean;
     }
 
-    public Timestamp getSaveDate() {
-        return SaveDate;
+    public Timestamp getSavedDate() {
+        return savedDate;
     }
 
-    public void setSaveDate(Timestamp saveDate) {
-        SaveDate = saveDate;
+    public void setSavedDate(Timestamp savedDate) {
+        this.savedDate = savedDate;
     }
 
-    public int getwordcount() { return wordcount; }
+    public int getWordcount() {
+        return wordcount;
+    }
 
-    public void setwordcount(int wordcount) {
+    public void setWordcount(int wordcount) {
         this.wordcount = wordcount;
     }
 
