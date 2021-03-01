@@ -9,5 +9,6 @@ import java.util.Map;
 public interface wordService {
     void addWord  (wordVO wordvo) throws SQLException;
     int maxWordId(wordVO wordvo) throws SQLException;
-    List<wordVO> selectWord(Map studyMap);
+    List<wordVO> selectReviewCard(Map studyMap);
+    List<wordVO> selectNewCard(Map studyMap);
 }

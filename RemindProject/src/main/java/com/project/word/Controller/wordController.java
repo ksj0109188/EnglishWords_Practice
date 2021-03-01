@@ -16,5 +16,6 @@ import java.util.Map;
 public interface wordController {
 
     ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
-    ModelAndView study(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
+    ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
+    ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
 }

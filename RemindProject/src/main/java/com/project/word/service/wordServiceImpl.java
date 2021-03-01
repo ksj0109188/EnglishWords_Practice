@@ -26,7 +26,14 @@ public class wordServiceImpl implements wordService{
     }
 
     @Override
-    public List<wordVO> selectWord(Map studyMap) {
-        return worddao.selectWord(studyMap);
+    public List<wordVO> selectReviewCard(Map studyMap) {
+        return worddao.selectReviewCard(studyMap);
     }
+
+    @Override
+    public List<wordVO> selectNewCard(Map studyMap) {
+        return worddao.selectNewCard(studyMap);
+    }
+
+
 }

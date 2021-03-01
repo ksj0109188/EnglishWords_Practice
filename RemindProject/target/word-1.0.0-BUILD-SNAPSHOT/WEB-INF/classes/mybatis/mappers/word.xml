@@ -13,6 +13,7 @@
         <result property="wordcount" column="wordcount"/>
         <result property="user_id" column="user_id"/>
         <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
+        <result property="isNewCard" column="isNewCard"/>
     </resultMap>
 
     <select id="maxWordId" resultType="int">
@@ -29,12 +30,21 @@
         ]]>
 	</insert>
 
-    <select id="selectWord" resultMap="wordResult" parameterType="java.util.Map">
+    <select id="selectReviewCard" resultMap="wordResult" parameterType="java.util.Map">
     <![CDATA[
         select *
         from savedword
-        where user_id = #{user_id} and savedDate<= current_timestamp
+        where user_id = #{user_id} and savedDate <= current_timestamp and isNewCard == 0
         LIMIT #{quantity, jdbcType=INTEGER} OFFSET 0
+        ]]>
+    </select>
+
+    <select id="selectNewCard" resultMap="wordResult" parameterType="java.util.Map">
+    <![CDATA[
+        select *
+        from savedword
+        where user_id = #{user_id} and isNewCard = 1
+            LIMIT #{quantity, jdbcType=INTEGER} OFFSET 0
         ]]>
     </select>
 </mapper>

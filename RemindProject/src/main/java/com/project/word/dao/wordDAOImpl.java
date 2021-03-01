@@ -24,8 +24,15 @@ public class wordDAOImpl implements wordDAO {
     }
 
     @Override
-    public List<wordVO> selectWord(Map studyMap) {
-        return session.selectList("mapper.word.selectWord",studyMap);
+    public List<wordVO> selectReviewCard(Map studyMap) {
+        return session.selectList("mapper.word.selectReviewCard",studyMap);
     }
+
+    @Override
+    public List<wordVO> selectNewCard(Map studyMap) {
+        return session.selectList("mapper.word.selectNewCard",studyMap);
+    }
+
+
 
 }

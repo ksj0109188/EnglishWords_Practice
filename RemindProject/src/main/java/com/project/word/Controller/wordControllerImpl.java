@@ -58,13 +58,28 @@ public class wordControllerImpl extends BaseController implements wordController
 
     @RequestMapping(value="/study.do", method =RequestMethod.GET)
     @Override
-    public ModelAndView study(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity) {
+    public ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity) {
         Map studyMap = new HashMap();
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
         studyMap.put("user_id",user_id);
         studyMap.put("quantity", quantity);
-        List<wordVO> wordVo=wordservice.selectWord(studyMap);
+        List<wordVO> wordVo=wordservice.selectReviewCard(studyMap);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("wordvo",wordVo);
+        modelAndView.setViewName("/word/studyPage");
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/newCard.do", method =RequestMethod.GET)
+    @Override
+    public ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity) {
+        Map studyMap = new HashMap();
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("userId");
+        studyMap.put("user_id",user_id);
+        studyMap.put("quantity", quantity);
+        List<wordVO> wordVo=wordservice.selectNewCard(studyMap);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("wordvo",wordVo);
         modelAndView.setViewName("/word/studyPage");

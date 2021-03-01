@@ -12,6 +12,7 @@ public class wordVO {
     private Timestamp savedDate;
     private int wordcount;
     private String user_id;
+    private boolean isNewCard;
 
     public int getWordId() {
         return wordId;
@@ -59,5 +60,14 @@ public class wordVO {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+
+    public boolean getIsNewCard() {
+        return isNewCard;
+    }
+
+    public void setIsNewCard(boolean isNewCard) {
+        this.isNewCard = isNewCard;
     }
 }
