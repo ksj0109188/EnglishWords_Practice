@@ -29,7 +29,7 @@ public class wordControllerImpl extends BaseController implements wordController
     @Autowired
     wordService wordservice;
 
-    @RequestMapping(value = "/addWord.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/addWord.do", method = RequestMethod.POST)
     @Override
     public ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo) {
         String message;
@@ -53,7 +53,7 @@ public class wordControllerImpl extends BaseController implements wordController
             message += "location.href='" + Context + "/word/saveWordForm.do';";
             message += "</script>";
         }
-        return new ResponseEntity(message,responseHeader ,HttpStatus.OK);
+        return new ResponseEntity(message, responseHeader, HttpStatus.OK);
     }
 
     @RequestMapping(value="/study.do", method =RequestMethod.GET)
@@ -62,27 +62,56 @@ public class wordControllerImpl extends BaseController implements wordController
         Map studyMap = new HashMap();
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
-        studyMap.put("user_id",user_id);
-        studyMap.put("quantity", quantity);
-        List<wordVO> wordVo=wordservice.selectReviewCard(studyMap);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("wordvo",wordVo);
-        modelAndView.setViewName("/word/studyPage");
-        return modelAndView;
+        studyMap.put("user_id", user_id);
+        try {
+            wordvo = wordservice.selectReviewCard(studyMap);
+            wordvo.setStudyQuantity(quantity);
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("wordvo", wordvo);
+            modelAndView.setViewName("/word/studyPage");
+            return modelAndView;
+        } catch (SQLException e) {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("/main/mainContent");
+            return modelAndView;
+        }
     }
 
-    @RequestMapping(value="/newCard.do", method =RequestMethod.GET)
+    @RequestMapping(value = "/newCard.do", method = RequestMethod.GET)
     @Override
     public ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity) {
         Map studyMap = new HashMap();
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
-        studyMap.put("user_id",user_id);
-        studyMap.put("quantity", quantity);
-        List<wordVO> wordVo=wordservice.selectNewCard(studyMap);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("wordvo",wordVo);
-        modelAndView.setViewName("/word/studyPage");
-        return modelAndView;
+        studyMap.put("user_id", user_id);
+        try {
+            wordvo = wordservice.selectNewCard(studyMap);
+            wordvo.setStudyQuantity(quantity);
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("wordvo", wordvo);
+            modelAndView.setViewName("/word/studyPage");
+            return modelAndView;
+        } catch (SQLException e) {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("/main/mainContent");
+            return modelAndView;
+        }
+    }
+
+    @RequestMapping(value = "/review.do", method = RequestMethod.PUT)
+    @Override
+    public ResponseEntity review(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("wordvo") wordVO wordvo) {
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("userId");
+        int StudyQuantity =wordvo.getStudyQuantity();
+        wordvo.setUser_id(user_id);
+        //            wordservice.updateReviewCard(wordvo);
+        return null;
+    }
+
+    @RequestMapping(value = "/appropriate.do")
+    @Override
+    public ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo) {
+        return null;
     }
 }

@@ -10,6 +10,8 @@ import java.util.Map;
 public interface wordDAO {
     void addWord(wordVO wordvo) throws SQLException;
     int maxWordId(wordVO wordvo) throws  SQLException;
-    List<wordVO> selectReviewCard(Map studyMap);
-    List<wordVO> selectNewCard(Map studyMap);
+    wordVO selectReviewCard(Map studyMap) throws SQLException;
+    wordVO selectNewCard(Map studyMap) throws SQLException;
+
+    void updateReviewCard(wordVO wordvo) throws SQLException;
 }

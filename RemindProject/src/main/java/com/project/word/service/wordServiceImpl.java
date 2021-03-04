@@ -26,14 +26,17 @@ public class wordServiceImpl implements wordService{
     }
 
     @Override
-    public List<wordVO> selectReviewCard(Map studyMap) {
+    public wordVO selectReviewCard(Map studyMap) throws SQLException {
         return worddao.selectReviewCard(studyMap);
     }
 
     @Override
-    public List<wordVO> selectNewCard(Map studyMap) {
+    public wordVO selectNewCard(Map studyMap) throws SQLException {
         return worddao.selectNewCard(studyMap);
     }
 
-
+    @Override
+    public void updateReviewCard(wordVO wordvo) throws SQLException {
+        worddao.updateReviewCard(wordvo);
+    }
 }

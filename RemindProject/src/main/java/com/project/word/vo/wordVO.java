@@ -10,9 +10,11 @@ public class wordVO {
     private String word;
     private String mean;
     private Timestamp savedDate;
-    private int wordcount;
+    private int wordCount;
     private String user_id;
     private boolean isNewCard;
+    private int studyQuantity;
+    private String dailyWord_dailyId;
 
     public int getWordId() {
         return wordId;
@@ -46,14 +48,6 @@ public class wordVO {
         this.savedDate = savedDate;
     }
 
-    public int getWordcount() {
-        return wordcount;
-    }
-
-    public void setWordcount(int wordcount) {
-        this.wordcount = wordcount;
-    }
-
     public String getUser_id() {
         return user_id;
     }
@@ -69,5 +63,37 @@ public class wordVO {
 
     public void setIsNewCard(boolean isNewCard) {
         this.isNewCard = isNewCard;
+    }
+
+    public int getStudyQuantity() {
+        return studyQuantity;
+    }
+
+    public void setStudyQuantity(int studyQuantity) {
+        this.studyQuantity = studyQuantity;
+    }
+
+    public String getDailyWord_dailyId() {
+        return dailyWord_dailyId;
+    }
+
+    public void setDailyWord_dailyId(String dailyWord_dailyId) {
+        this.dailyWord_dailyId = dailyWord_dailyId;
+    }
+
+    public int getWordCount() {
+        return wordCount;
+    }
+
+    public void setWordCount(int wordCount) {
+        this.wordCount = wordCount;
+    }
+
+    public boolean isNewCard() {
+        return isNewCard;
+    }
+
+    public void setNewCard(boolean newCard) {
+        isNewCard = newCard;
     }
 }

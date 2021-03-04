@@ -9,8 +9,8 @@
         <result property="wordId" column="wordId"/>
         <result property="word" column="word"/>
         <result property="mean" column="mean"/>
-        <result property="savedDate" column="savedDate"/>
-        <result property="wordcount" column="wordcount"/>
+        <result property="SavedDate" column="savedDate"/>
+        <result property="wordCount" column="wordCount"/>
         <result property="user_id" column="user_id"/>
         <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
         <result property="isNewCard" column="isNewCard"/>
@@ -30,21 +30,35 @@
         ]]>
 	</insert>
 
-    <select id="selectReviewCard" resultMap="wordResult" parameterType="java.util.Map">
-    <![CDATA[
-        select *
-        from savedword
-        where user_id = #{user_id} and savedDate <= current_timestamp and isNewCard == 0
-        LIMIT #{quantity, jdbcType=INTEGER} OFFSET 0
+    <select id="login" resultType="String" parameterType="java.util.Map">
+        <![CDATA[
+        select id
+        from member
+        where id = #{userId}
+          and pwd = #{userPwd}
         ]]>
     </select>
 
-    <select id="selectNewCard" resultMap="wordResult" parameterType="java.util.Map">
+    <select id="selectReviewCard" resultType="wordVO" parameterType="java.util.Map">
     <![CDATA[
         select *
         from savedword
-        where user_id = #{user_id} and isNewCard = 1
-            LIMIT #{quantity, jdbcType=INTEGER} OFFSET 0
+        where user_id = #{user_id}
+          and savedDate <= current_timestamp
+          and isNewcard = 0
+          LIMIT 1
         ]]>
     </select>
+
+    <select id="selectNewCard" resultType="wordVO" parameterType="java.util.Map">
+    <![CDATA[
+        select *
+        from savedword
+        where user_id = #{user_id}
+          and savedDate <= current_timestamp
+          and isNewcard = 1
+        LIMIT 1
+        ]]>
+    </select>
+
 </mapper>

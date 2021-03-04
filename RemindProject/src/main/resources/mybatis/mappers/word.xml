@@ -9,10 +9,11 @@
         <result property="wordId" column="wordId"/>
         <result property="word" column="word"/>
         <result property="mean" column="mean"/>
-        <result property="SaveDate" column="SaveDate"/>
-        <result property="wordcount" column="wordcount"/>
+        <result property="SavedDate" column="savedDate"/>
+        <result property="wordCount" column="wordCount"/>
         <result property="user_id" column="user_id"/>
         <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
+        <result property="isNewCard" column="isNewCard"/>
     </resultMap>
 
     <select id="maxWordId" resultType="int">
@@ -38,5 +39,26 @@
         ]]>
     </select>
 
+    <select id="selectReviewCard" resultType="wordVO" parameterType="java.util.Map">
+    <![CDATA[
+        select *
+        from savedword
+        where user_id = #{user_id}
+          and savedDate <= current_timestamp
+          and isNewcard = 0
+          LIMIT 1
+        ]]>
+    </select>
+
+    <select id="selectNewCard" resultType="wordVO" parameterType="java.util.Map">
+    <![CDATA[
+        select *
+        from savedword
+        where user_id = #{user_id}
+          and savedDate <= current_timestamp
+          and isNewcard = 1
+        LIMIT 1
+        ]]>
+    </select>
 
 </mapper>

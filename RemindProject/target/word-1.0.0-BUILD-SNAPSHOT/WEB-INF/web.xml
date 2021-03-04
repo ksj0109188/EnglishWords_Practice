@@ -2,7 +2,17 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-<!--encoding utf-8-->
+<!--    PUT 메소드 apllication/x-www-from 처럼 동작하게 하는 필터-->
+    <filter>
+        <filter-name>httpPutFormFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>httpPutFormFilter</filter-name>
+        <servlet-name>appServlet</servlet-name>
+    </filter-mapping>
+    <!--encoding utf-8-->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

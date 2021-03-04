@@ -18,4 +18,6 @@ public interface wordController {
     ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
     ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
     ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
+    ResponseEntity review(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
+    ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
 }

@@ -6,15 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="word" />
+        <module name="RemindProject" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="RemindProject" target="7" />
       <module name="word" target="7" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="RemindProject" options="-Xlint:all" />
       <module name="word" options="-Xlint:all" />
     </option>
   </component>

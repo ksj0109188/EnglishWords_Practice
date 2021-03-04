@@ -15,7 +15,7 @@
     <title>saveWord Page</title>
 </head>
 <body>
-<form action="${contextPath}/word/addWord.do">
+<form action="${contextPath}/word/addWord.do" method="post">
     <input type="text" name="word">저장할 단어
     <input type="text" name="mean">저장할 의미
     <input type="submit" value="저장하기">
