@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String loginMember(Map<String, String> memberMap) {
+    public String loginMember(Map<String, String> memberMap) throws Exception {
         return memberDAO.loginMember(memberMap);
     }
 }

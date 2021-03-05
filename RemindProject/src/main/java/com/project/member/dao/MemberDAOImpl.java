@@ -19,7 +19,7 @@ public class MemberDAOImpl implements MemberDAO {
     }
 
     @Override
-    public String loginMember(Map<String, String> memberMap) {
+    public String loginMember(Map<String, String> memberMap)throws DataAccessException {
         return sqlSession.selectOne("mapper.member.login", memberMap);
     }
 }

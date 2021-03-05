@@ -8,17 +8,7 @@
       <jdbc-url>jdbc:mysql://localhost:3306/project2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <driver-properties>
-        <property name="serverTimezone" value="Asia/Seoul" />
-      </driver-properties>
-    </data-source>
-    <data-source source="LOCAL" name="project2@localhost [2]" uuid="c269ccdf-eabc-4db4-9354-ca4449e9e370">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/project2</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-      <driver-properties>
-        <property name="serverTimezone" value="UTC" />
+        <property name="serverTimezone" value="KST" />
       </driver-properties>
     </data-source>
   </component>

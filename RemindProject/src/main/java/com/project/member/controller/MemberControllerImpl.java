@@ -27,7 +27,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 
     @RequestMapping(value = "/addMember.do", method = RequestMethod.POST)
     @Override
-    public ResponseEntity addMember(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) {
+    public ResponseEntity addMember(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) throws Exception{
         String Context = request.getContextPath();
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
@@ -51,7 +51,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     @Override
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> memberMap) {
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> memberMap) throws Exception{
         ModelAndView modelAndView = new ModelAndView();
         String userId=memberService.loginMember(memberMap);
         String message;

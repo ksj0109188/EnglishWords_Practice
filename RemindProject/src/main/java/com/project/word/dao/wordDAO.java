@@ -1,17 +1,14 @@
 package com.project.word.dao;
 
 import com.project.word.vo.wordVO;
-import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import org.springframework.dao.DataAccessException;
 
 public interface wordDAO {
-    void addWord(wordVO wordvo) throws SQLException;
-    int maxWordId(wordVO wordvo) throws  SQLException;
-    wordVO selectReviewCard(Map studyMap) throws SQLException;
-    wordVO selectNewCard(Map studyMap) throws SQLException;
-
-    void updateReviewCard(wordVO wordvo) throws SQLException;
+    void addWord(wordVO wordvo) throws DataAccessException;
+    int maxWordId(wordVO wordvo) throws  DataAccessException;
+    wordVO selectReviewCard(wordVO wordvo) throws DataAccessException;
+    wordVO selectNewCard(wordVO wordvo) throws DataAccessException;
+    void updateReviewCard(wordVO wordvo) throws DataAccessException;
+    void updateAppropriate(wordVO wordvo) throws DataAccessException;
+    wordVO selectReviewRemainCard(wordVO wordvo) throws DataAccessException;
 }

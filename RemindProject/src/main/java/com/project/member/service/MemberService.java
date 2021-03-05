@@ -7,5 +7,5 @@ import java.util.Map;
 public interface MemberService {
 
     void addMember(MemberVO memberVO) throws Exception;
-    String loginMember(Map<String,String> memberMap);
+    String loginMember(Map<String,String> memberMap) throws Exception;
 }

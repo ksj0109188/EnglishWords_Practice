@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="RemindProject" target="7" />
+      <module name="RemindProject" target="8" />
       <module name="word" target="7" />
     </bytecodeTargetLevel>
   </component>

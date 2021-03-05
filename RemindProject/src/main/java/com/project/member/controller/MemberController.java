@@ -11,6 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 public interface MemberController {
-    ResponseEntity addMember(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO );
-    ModelAndView login(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> memberMap);
+    ResponseEntity addMember(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO )  throws Exception;
+    ModelAndView login(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> memberMap) throws Exception;
 }

@@ -9,7 +9,7 @@
         <result property="wordId" column="wordId"/>
         <result property="word" column="word"/>
         <result property="mean" column="mean"/>
-        <result property="SavedDate" column="savedDate"/>
+        <result property="savedDate" column="savedDate"/>
         <result property="wordCount" column="wordCount"/>
         <result property="user_id" column="user_id"/>
         <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
@@ -39,14 +39,13 @@
         ]]>
     </select>
 
-    <select id="selectReviewCard" resultType="wordVO" parameterType="java.util.Map">
+    <select id="selectReviewCard" resultType="wordVO" parameterType="wordVO">
     <![CDATA[
         select *
         from savedword
         where user_id = #{user_id}
           and savedDate <= current_timestamp
-          and isNewcard = 0
-          LIMIT 1
+          and isNewcard = false LIMIT 1
         ]]>
     </select>
 
@@ -56,9 +55,39 @@
         from savedword
         where user_id = #{user_id}
           and savedDate <= current_timestamp
-          and isNewcard = 1
-        LIMIT 1
+          and isNewcard = true LIMIT 1
         ]]>
     </select>
+    <update id="updateReviewCard" parameterType="wordVO">
+        <![CDATA[
+        update savedword
+        set wordcount = #{wordCount},
+            savedDate = #{savedDate}
+        where user_id = #{user_id}
+          and wordId = #{wordId}
+        ]]>
 
+    </update>
+
+    <update id="updateAppropriate" parameterType="wordVO">
+        <![CDATA[
+        update savedword
+        set wordcount = #{wordCount},
+            savedDate = #{savedDate},
+            isNewcard = false
+        where user_id = #{user_id}
+          and wordId = #{wordId}
+        ]]>
+
+    </update>
+
+    <select id="selectReviewRemainCard" resultType="wordVO" parameterType="wordVO">
+        <![CDATA[
+        select *
+        from savedword
+        where user_id = #{user_id}
+          and savedDate <= current_timestamp
+          and isNewcard = true LIMIT 1
+        ]]>
+    </select>
 </mapper>

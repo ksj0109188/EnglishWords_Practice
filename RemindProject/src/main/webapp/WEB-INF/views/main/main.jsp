@@ -15,8 +15,6 @@
                 alert("아이디 혹은 비밀번호가 틀렸습니다 다시 로그인해주세요.");
             }
         </script>
-
-
     </c:if>
 </head>
 <body>
@@ -26,7 +24,7 @@
 </form>
 
 <form action="${contextPath}/member/login.do" method="post">
-    <input type="text" name="userId">
+    <input type="text" id="userId" name="userId">
     <input type="password" name="userPwd">
     <input type="submit" value="로그인">
 </form>
