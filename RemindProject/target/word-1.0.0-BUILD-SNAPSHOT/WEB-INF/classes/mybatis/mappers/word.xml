@@ -14,6 +14,7 @@
         <result property="user_id" column="user_id"/>
         <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
         <result property="isNewCard" column="isNewCard"/>
+        <result property="detection" column="detection"/>
     </resultMap>
 
     <select id="maxWordId" resultType="int">
@@ -30,24 +31,38 @@
         ]]>
 	</insert>
 
-    <select id="login" resultType="String" parameterType="java.util.Map">
-        <![CDATA[
-        select id
-        from member
-        where id = #{userId}
-          and pwd = #{userPwd}
-        ]]>
-    </select>
-
-    <select id="selectReviewCard" resultType="wordVO" parameterType="wordVO">
+    <select id="selectReviewCard" resultType="wordVO" parameterType="java.util.Map">
     <![CDATA[
         select *
         from savedword
         where user_id = #{user_id}
           and savedDate <= current_timestamp
           and isNewcard = false
-          LIMIT 1
+          and detection = false LIMIT 1
         ]]>
+    </select>
+
+    <select id="selectReviewRemainCard" resultType="wordVO" parameterType="java.util.Map">
+        select *
+        from savedword
+        <where>
+            user_id = #{user_id}
+            <if test="selectState == 'notEmpty' and studyMode =='review' " >
+                <![CDATA[
+                and savedDate <= current_timestamp
+                and detection = true
+                and isNewcard = false
+                ]]>
+            </if>
+
+            <if test="selectState == 'empty' and studyMode =='review'">
+                <![CDATA[
+                and detection = true
+                and isNewcard = false
+                ]]>
+            </if>
+        </where>
+        LIMIT 1
     </select>
 
     <select id="selectNewCard" resultType="wordVO" parameterType="java.util.Map">
@@ -57,25 +72,42 @@
         where user_id = #{user_id}
           and savedDate <= current_timestamp
           and isNewcard = true
-        LIMIT 1
+          and detection = false LIMIT 1
         ]]>
     </select>
-    <update id="updateReviewCard" parameterType="wordVO">
+
+    <update id="updateReviewCard" parameterType="java.util.Map">
         <![CDATA[
         update savedword
-        set wordcount = #{wordCount}, savedDate = #{savedDate}
-        where user_id = #{user_id} and wordId =#{wordId}
+        set wordcount = #{wordCount},
+            savedDate = #{savedDate},
+            detection = true
+        where user_id = #{user_id}
+          and wordId = #{wordId}
         ]]>
-
     </update>
 
     <update id="updateAppropriate" parameterType="wordVO">
         <![CDATA[
         update savedword
-        set wordcount = #{wordCount}, savedDate = #{savedDate}, isNewcard = false
-        where user_id = #{user_id} and wordId =#{wordId}
+        set wordcount = #{wordCount},
+            savedDate = #{savedDate},
+            isNewcard = false,
+            detection = false
+        where user_id = #{user_id}
+          and wordId = #{wordId}
         ]]>
-
     </update>
+
+
+    <select id="countRemain" resultType="int" parameterType="java.util.Map">
+        <![CDATA[
+        select count(*)
+        from savedword
+        where user_id = #{user_id}
+          and detection = true
+          and isNewcard = false
+        ]]>
+    </select>
 
 </mapper>

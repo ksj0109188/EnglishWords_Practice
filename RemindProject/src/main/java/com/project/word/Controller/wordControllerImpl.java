@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController("wordcontroller")
 @RequestMapping("/word")
@@ -53,26 +55,40 @@ public class wordControllerImpl extends BaseController implements wordController
 
     @RequestMapping(value="/study.do", method =RequestMethod.GET)
     @Override
-    public ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity) {
+    public ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int studyQuantity) {
         HttpSession session = request.getSession();
-        String user_id = (String) session.getAttribute("userId");
-        session.setAttribute("studyQuantity", quantity);
-        wordvo.setUser_id(user_id);
-        try {
-            wordVO _wordVO = wordservice.selectReviewCard(wordvo);
-            if (_wordVO != null) {
-                ModelAndView modelAndView = new ModelAndView();
-                modelAndView.addObject("wordvo", _wordVO);
+        session.setAttribute("studyQuantity", studyQuantity);
+        String userId = (String) session.getAttribute("userId");
+        ModelAndView modelAndView = new ModelAndView();
+        wordVO _wordvo = null;
+        Map wordMap = new HashMap();
+        wordMap.put("user_id", userId);
+        try {//틀린 카드부터 출력
+            int countRemain = wordservice.countRemain(wordMap);
+            session.setAttribute("countRemain", countRemain);
+            if (countRemain > 0) {
+                _wordvo = wordservice.selectReviewRemainCard(wordMap);
+            }
+            if (_wordvo != null) {
+                modelAndView.addObject("wordvo", _wordvo);
                 modelAndView.setViewName("word/reviewStudyPage");
                 return modelAndView;
-            } else {
-                ModelAndView modelAndView = new ModelAndView();
+            } else {//틀린 카드가 없을때
+                session.setAttribute("studyQuantity", studyQuantity - 1);
+                _wordvo = wordservice.selectReviewCard(wordMap);
+                if (_wordvo != null) {
+                    modelAndView.addObject("wordvo", _wordvo);
+                    modelAndView.setViewName("word/reviewStudyPage");
+                    return modelAndView;
+                }
+                modelAndView = new ModelAndView();
                 modelAndView.setViewName("/main/mainContent");
                 modelAndView.addObject("finish", "true");
                 return modelAndView;
             }
         } catch (Exception e) {
-            ModelAndView modelAndView = new ModelAndView();
+            e.printStackTrace();
+            modelAndView = new ModelAndView();
             modelAndView.setViewName("/main/mainContent");
             return modelAndView;
         }
@@ -100,34 +116,48 @@ public class wordControllerImpl extends BaseController implements wordController
 
     @RequestMapping(value = "/reviewCard_review.do", method = RequestMethod.PUT)
     @Override
-    public ResponseEntity review(HttpServletRequest request, HttpServletResponse response, @RequestBody wordVO wordvo) {
-        String message;
+    public ResponseEntity review(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap) {
+        String message = "";
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
-        int quantity = (int) session.getAttribute("studyQuantity");
-        wordvo.setUser_id(user_id);
-        wordvo.setWordCount(0);
-        wordvo.setSavedDate(setTime(wordvo.getWordCount()));
+        int countRemain = (int) session.getAttribute("countRemain");
+        int studyQuantity = (int) session.getAttribute("studyQuantity");
+        wordVO wordvo;
+        wordMap.put("user_id", user_id);
+        wordMap.put("wordCount", 0);
+        wordMap.put("savedDate", setTime(0));
+        wordMap.put("detection", true);
+        wordMap.put("selectState", "notEmpty");
+        wordMap.put("studyMode", "review");
         try {
-            wordservice.updateReview(wordvo);
-            wordVO _wordvo = wordservice.selectReviewCard(wordvo);
-            //영어단어를 설정한 학습량만큼 다시 검색
-            if (_wordvo == null && quantity > 0) {
-                session.setAttribute("studyQuantity", quantity - 1);
-                _wordvo = wordservice.selectReviewRemainCard(wordvo);
+            wordservice.updateReview(wordMap);
+            if (countRemain < wordservice.countRemain(wordMap)) {//현재 카드가 틀린 카드로 바뀌었을때
+                session.setAttribute("studyQuantity", studyQuantity - 1);
+                session.setAttribute("countRemain", countRemain + 1);
             }
-            //공부할 데이터가 없을때.
-            if (_wordvo == null) {
-                message = "<script>";
-                message += "alert('공부할 것이 없습니다.');";
-                message += "location.href='" + request.getContextPath() + "/main/mainContent';";
-                message += "</script>";
-                return new ResponseEntity(message, responseHeader, HttpStatus.OK);
+            wordvo = wordservice.selectReviewRemainCard(wordMap);
+            if (wordvo != null) {
+                return new ResponseEntity(wordvo, HttpStatus.OK);
             }
-            return new ResponseEntity(_wordvo, HttpStatus.OK);
+            wordvo = wordservice.selectReviewCard(wordMap);
+            if (wordvo != null) {
+                return new ResponseEntity(wordvo, HttpStatus.OK);
+            }
+            wordMap.put("selectState", "empty");
+            wordvo = wordservice.selectReviewRemainCard(wordMap);
+            if (wordvo != null) {
+                session.setAttribute("studyQuantity", 0);
+                return new ResponseEntity(wordvo, HttpStatus.OK);
+            }
+            message = "<script>";
+            message += "alert('공부할 것이 없습니다.');";
+            message += "location.href='" + request.getContextPath() + "/main/mainContent';";
+            message += "</script>";
+            return new ResponseEntity(message, responseHeader, HttpStatus.OK);
         } catch (Exception e) {
+            e.printStackTrace();
             message = "<script>";
             message += "alert('잠시후 다시 시도해주세요.');";
             message += "location.href='" + request.getContextPath() + "/main/mainContent';";
@@ -138,35 +168,48 @@ public class wordControllerImpl extends BaseController implements wordController
 
     @RequestMapping(value = "/reviewCard_appropriate.do")
     @Override
-    public ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo) {
+    public ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap) {
         String message;
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
-        int quantity = (int) session.getAttribute("studyQuantity");
-        if (quantity > 0) {
-            session.setAttribute("studyQuantity", quantity - 1);
-        }
+        int studyQuantity = (int) session.getAttribute("studyQuantity");
         wordvo.setWordCount(wordvo.getWordCount() + 1);
         wordvo.setUser_id(user_id);
         wordvo.setSavedDate(setTime(wordvo.getWordCount()));
+        wordMap.put("user_id", user_id);
+        wordMap.put("wordCount", 0);
+        wordMap.put("savedDate", setTime((Integer) wordMap.get("wordcount") + 1));
+        wordMap.put("detection", true);
+        wordMap.put("selectState", "notEmpty");
+        wordMap.put("studyMode", "review");
+        studyQuantity--;
+        if (studyQuantity < 0) studyQuantity = 0;
         try {
+            int countRemain = wordservice.countRemain(wordMap);
             wordservice.updateAppropriate(wordvo);
-            wordVO _wordvo = wordservice.selectReviewCard(wordvo);
-            //영어단어를 설정한 학습량만큼 다시 검색
-            if (_wordvo == null && quantity > 0) {
-                _wordvo = wordservice.selectReviewRemainCard(wordvo);
+            wordvo = wordservice.selectReviewRemainCard(wordMap);
+            if (wordvo != null) {
+//                session.setAttribute("countRemain",);
+                return new ResponseEntity(wordvo, HttpStatus.OK);
             }
-            //공부할 데이터가 없을때.
-            if (_wordvo == null) {
-                message = "<script>";
-                message += "alert('공부할 것이 없습니다.');";
-                message += "location.href='" + request.getContextPath() + "/main/mainContent';";
-                message += "</script>";
-                return new ResponseEntity(message, responseHeader, HttpStatus.OK);
+            wordvo = wordservice.selectReviewCard(wordMap);
+            if (wordvo != null) {
+                session.setAttribute("studyQuantity", studyQuantity - 1);
+                return new ResponseEntity(wordvo, HttpStatus.OK);
             }
-            return new ResponseEntity(_wordvo, HttpStatus.OK);
+            wordMap.put("selectState", "empty");
+            wordvo = wordservice.selectReviewRemainCard(wordMap);
+            if (wordvo != null) {
+                session.setAttribute("studyQuantity", 0);
+                return new ResponseEntity(wordvo, HttpStatus.OK);
+            }
+            message = "<script>";
+            message += "alert('공부할 것이 없습니다.');";
+            message += "location.href='" + request.getContextPath() + "/main/mainContent';";
+            message += "</script>";
+            return new ResponseEntity(message, responseHeader, HttpStatus.OK);
         } catch (Exception e) {
             message = "<script>";
             message += "alert('잠시후 다시 시도해주세요.');";

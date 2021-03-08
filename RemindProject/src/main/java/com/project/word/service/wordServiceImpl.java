@@ -4,9 +4,8 @@ import com.project.word.vo.wordVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.word.dao.wordDAO;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
+import java.util.Map;
 
 @Service("wordservice")
 public class wordServiceImpl implements wordService {
@@ -25,8 +24,8 @@ public class wordServiceImpl implements wordService {
     }
 
     @Override
-    public wordVO selectReviewCard(wordVO wordvo) throws Exception {
-        return worddao.selectReviewCard(wordvo);
+    public wordVO selectReviewCard(Map wordMap) throws Exception {
+        return worddao.selectReviewCard(wordMap);
     }
 
     @Override
@@ -35,8 +34,8 @@ public class wordServiceImpl implements wordService {
     }
 
     @Override
-    public void updateReview(wordVO wordvo) throws Exception {
-        worddao.updateReviewCard(wordvo);
+    public void updateReview(Map wordMap) throws Exception {
+        worddao.updateReviewCard(wordMap);
     }
 
     @Override
@@ -45,8 +44,13 @@ public class wordServiceImpl implements wordService {
     }
 
     @Override
-    public wordVO selectReviewRemainCard(wordVO wordvo) throws Exception {
-        return worddao.selectReviewRemainCard(wordvo);
+    public wordVO selectReviewRemainCard(Map wordMap) throws Exception {
+        return worddao.selectReviewRemainCard(wordMap);
+    }
+
+    @Override
+    public int countRemain(Map wordMap) throws Exception {
+        return worddao.countRemain(wordMap);
     }
 
 }

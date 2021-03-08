@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository("wordDao")
 public class wordDAOImpl implements wordDAO {
     @Autowired
     SqlSession session;
-
 
     @Override
     public void addWord(wordVO wordvo) throws DataAccessException {
@@ -23,8 +24,8 @@ public class wordDAOImpl implements wordDAO {
     }
 
     @Override
-    public wordVO selectReviewCard(wordVO wordvo) throws DataAccessException {
-        return session.selectOne("mapper.word.selectReviewCard", wordvo);
+    public wordVO selectReviewCard(Map wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.selectReviewCard", wordMap);
     }
 
     @Override
@@ -33,8 +34,8 @@ public class wordDAOImpl implements wordDAO {
     }
 
     @Override
-    public void updateReviewCard(wordVO wordvo) throws DataAccessException {
-        session.update("mapper.word.updateReviewCard",wordvo);
+    public void updateReviewCard(Map wordMap) throws DataAccessException {
+        session.update("mapper.word.updateReviewCard",wordMap);
     }
 
     @Override
@@ -43,7 +44,12 @@ public class wordDAOImpl implements wordDAO {
     }
 
     @Override
-    public wordVO selectReviewRemainCard(wordVO wordvo) throws DataAccessException {
-        return session.selectOne("mapper.word.selectReviewRemainCard",wordvo);
+    public wordVO selectReviewRemainCard(Map wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.selectReviewRemainCard", wordMap);
+    }
+
+    @Override
+    public int countRemain(Map wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.countRemain", wordMap);
     }
 }

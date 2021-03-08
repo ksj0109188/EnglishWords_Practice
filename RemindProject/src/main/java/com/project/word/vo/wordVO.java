@@ -13,9 +13,9 @@ public class wordVO {
     private int wordCount;
     private String user_id;
     private boolean isNewCard;
-    private int studyQuantity;
     private String dailyWord_dailyId;
-
+    private boolean detection;
+    private int studyQuantity;
     public int getWordId() {
         return wordId;
     }
@@ -48,6 +48,14 @@ public class wordVO {
         this.savedDate = savedDate;
     }
 
+    public int getWordCount() {
+        return wordCount;
+    }
+
+    public void setWordCount(int wordCount) {
+        this.wordCount = wordCount;
+    }
+
     public String getUser_id() {
         return user_id;
     }
@@ -56,21 +64,12 @@ public class wordVO {
         this.user_id = user_id;
     }
 
-
-    public boolean getIsNewCard() {
+    public boolean isNewCard() {
         return isNewCard;
     }
 
-    public void setIsNewCard(boolean isNewCard) {
-        this.isNewCard = isNewCard;
-    }
-
-    public int getStudyQuantity() {
-        return studyQuantity;
-    }
-
-    public void setStudyQuantity(int studyQuantity) {
-        this.studyQuantity = studyQuantity;
+    public void setNewCard(boolean newCard) {
+        isNewCard = newCard;
     }
 
     public String getDailyWord_dailyId() {
@@ -81,19 +80,20 @@ public class wordVO {
         this.dailyWord_dailyId = dailyWord_dailyId;
     }
 
-    public int getWordCount() {
-        return wordCount;
+    public boolean isDetection() {
+        return detection;
     }
 
-    public void setWordCount(int wordCount) {
-        this.wordCount = wordCount;
+    public void setDetection(boolean detection) {
+        this.detection = detection;
     }
 
-    public boolean isNewCard() {
-        return isNewCard;
+
+    public int getStudyQuantity() {
+        return studyQuantity;
     }
 
-    public void setNewCard(boolean newCard) {
-        isNewCard = newCard;
+    public void setStudyQuantity(int studyQuantity) {
+        this.studyQuantity = studyQuantity;
     }
 }
