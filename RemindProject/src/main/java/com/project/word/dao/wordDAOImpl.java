@@ -14,6 +14,26 @@ public class wordDAOImpl implements wordDAO {
     SqlSession session;
 
     @Override
+    public int countWrongReviewCard(Map wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.countWrongReviewCard", wordMap);
+    }
+
+    @Override
+    public int countReviewCard(Map wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.countReviewCard",wordMap);
+    }
+
+    @Override
+    public int countWrongNewCard(Map wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.countWrongNewCard",wordMap);
+    }
+
+    @Override
+    public int countNewCard(Map wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.countNewCard",wordMap);
+    }
+
+    @Override
     public void addWord(wordVO wordvo) throws DataAccessException {
         session.insert("mapper.word.addword", wordvo);
     }
@@ -39,17 +59,12 @@ public class wordDAOImpl implements wordDAO {
     }
 
     @Override
-    public void updateAppropriate(wordVO wordvo) throws DataAccessException {
-        session.update("mapper.word.updateAppropriate",wordvo);
+    public void updateAppropriate(Map wordMap) throws DataAccessException {
+        session.update("mapper.word.updateAppropriate", wordMap);
     }
 
     @Override
     public wordVO selectReviewRemainCard(Map wordMap) throws DataAccessException {
         return session.selectOne("mapper.word.selectReviewRemainCard", wordMap);
-    }
-
-    @Override
-    public int countRemain(Map wordMap) throws DataAccessException {
-        return session.selectOne("mapper.word.countRemain", wordMap);
     }
 }

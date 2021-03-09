@@ -27,6 +27,35 @@ public class wordControllerImpl extends BaseController implements wordController
     @Autowired
     wordService wordservice;
 
+    @RequestMapping(value = "/settingStudyForm.do")
+    @Override
+    public ModelAndView StudySetting(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        Map wordMap = new HashMap();
+        wordMap.put("user_id", userId);
+        try {
+            int countWrongReviewCard = wordservice.countWrongReviewCard(wordMap);
+            int countReviewCard = wordservice.countReviewCard(wordMap);
+            int countWrongNewCard = wordservice.countWrongNewCard(wordMap);
+            int countNewCard = wordservice.countNewCard(wordMap);
+            Map<String, Integer> countMap = new HashMap<String, Integer>();
+            countMap.put("countWrongReviewCard", countWrongReviewCard);
+            countMap.put("countReviewCard", countReviewCard);
+            countMap.put("countWrongNewCard", countWrongNewCard);
+            countMap.put("countNewCard", countNewCard);
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("countMap", countMap);
+            modelAndView.setViewName("/word/settingStudyForm");
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("/main/mainContent");
+            return modelAndView;
+        }
+    }
+
     @RequestMapping(value = "/addWord.do", method = RequestMethod.POST)
     @Override
     public ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo) {
@@ -63,20 +92,27 @@ public class wordControllerImpl extends BaseController implements wordController
         wordVO _wordvo = null;
         Map wordMap = new HashMap();
         wordMap.put("user_id", userId);
+        wordMap.put("studyMode", "review");
         try {//틀린 카드부터 출력
-            int countRemain = wordservice.countRemain(wordMap);
-            session.setAttribute("countRemain", countRemain);
-            if (countRemain > 0) {
-                _wordvo = wordservice.selectReviewRemainCard(wordMap);
-            }
+            wordMap.put("selectState", "notEmpty");
+            _wordvo = wordservice.selectReviewRemainCard(wordMap);
             if (_wordvo != null) {
+                _wordvo.setStudyQuantity(studyQuantity);
                 modelAndView.addObject("wordvo", _wordvo);
                 modelAndView.setViewName("word/reviewStudyPage");
                 return modelAndView;
+            }
+            // 시간에 맞는 틀린카드가 없을때
+            wordMap.put("selectState", "empty");
+            _wordvo = wordservice.selectReviewRemainCard(wordMap);
+            if (_wordvo != null) {
+                _wordvo.setStudyQuantity(studyQuantity);
+                modelAndView.addObject("wordvo", _wordvo);
+                modelAndView.setViewName("word/reviewStudyPage");
             } else {//틀린 카드가 없을때
-                session.setAttribute("studyQuantity", studyQuantity - 1);
                 _wordvo = wordservice.selectReviewCard(wordMap);
                 if (_wordvo != null) {
+                    _wordvo.setStudyQuantity(studyQuantity);
                     modelAndView.addObject("wordvo", _wordvo);
                     modelAndView.setViewName("word/reviewStudyPage");
                     return modelAndView;
@@ -84,8 +120,8 @@ public class wordControllerImpl extends BaseController implements wordController
                 modelAndView = new ModelAndView();
                 modelAndView.setViewName("/main/mainContent");
                 modelAndView.addObject("finish", "true");
-                return modelAndView;
             }
+            return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
             modelAndView = new ModelAndView();
@@ -122,35 +158,43 @@ public class wordControllerImpl extends BaseController implements wordController
         responseHeader.add("content-type", "text/html; charset=utf-8");
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
-        int countRemain = (int) session.getAttribute("countRemain");
-        int studyQuantity = (int) session.getAttribute("studyQuantity");
-        wordVO wordvo;
+        wordVO _wordvo;
         wordMap.put("user_id", user_id);
         wordMap.put("wordCount", 0);
         wordMap.put("savedDate", setTime(0));
         wordMap.put("detection", true);
         wordMap.put("selectState", "notEmpty");
         wordMap.put("studyMode", "review");
+
         try {
-            wordservice.updateReview(wordMap);
-            if (countRemain < wordservice.countRemain(wordMap)) {//현재 카드가 틀린 카드로 바뀌었을때
-                session.setAttribute("studyQuantity", studyQuantity - 1);
-                session.setAttribute("countRemain", countRemain + 1);
+            wordservice.updateReviewCard(wordMap);
+            _wordvo = wordservice.selectReviewRemainCard(wordMap); //틀린카드부터 출력.
+            if (_wordvo == null) {
+                _wordvo = wordservice.selectReviewCard(wordMap); //복습해야할 카드 출력
+                if (_wordvo == null) {
+                    wordMap.put("selectState", "empty");
+                    _wordvo = wordservice.selectReviewRemainCard(wordMap); //남은 틀린카드 출력
+                }
             }
-            wordvo = wordservice.selectReviewRemainCard(wordMap);
-            if (wordvo != null) {
-                return new ResponseEntity(wordvo, HttpStatus.OK);
+            if (_wordvo != null) {
+                return new ResponseEntity(_wordvo, HttpStatus.OK);
             }
-            wordvo = wordservice.selectReviewCard(wordMap);
-            if (wordvo != null) {
-                return new ResponseEntity(wordvo, HttpStatus.OK);
-            }
-            wordMap.put("selectState", "empty");
-            wordvo = wordservice.selectReviewRemainCard(wordMap);
-            if (wordvo != null) {
-                session.setAttribute("studyQuantity", 0);
-                return new ResponseEntity(wordvo, HttpStatus.OK);
-            }
+//                return new ResponseEntity(_wordvo, HttpStatus.OK);
+//            if (wordvo != null) {
+//                _wordvo.setStudyQuantity(studyQuantity - 1);
+//                return new ResponseEntity(_wordvo, HttpStatus.OK);
+//            }
+//            _wordvo = wordservice.selectReviewCard(wordMap); //복습해야할 카드 출력
+//            if (wordvo != null) {
+//                _wordvo.setStudyQuantity(studyQuantity - 1);
+//                return new ResponseEntity(_wordvo, HttpStatus.OK);
+//            }
+//            wordMap.put("selectState", "empty");
+//            _wordvo = wordservice.selectReviewRemainCard(wordMap); //남은 틀린카드 출력
+//            if (wordvo != null) {
+//                _wordvo.setStudyQuantity(studyQuantity-1);
+//                return new ResponseEntity(_wordvo, HttpStatus.OK);
+//
             message = "<script>";
             message += "alert('공부할 것이 없습니다.');";
             message += "location.href='" + request.getContextPath() + "/main/mainContent';";
@@ -170,46 +214,45 @@ public class wordControllerImpl extends BaseController implements wordController
     @Override
     public ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap) {
         String message;
+        wordVO _wordvo = null;
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
-        int studyQuantity = (int) session.getAttribute("studyQuantity");
-        wordvo.setWordCount(wordvo.getWordCount() + 1);
-        wordvo.setUser_id(user_id);
-        wordvo.setSavedDate(setTime(wordvo.getWordCount()));
+        int studyQuantity = Integer.parseInt((String.valueOf(wordMap.get("studyQuantity"))));
+        int increasedWordCount = Integer.parseInt((String.valueOf(wordMap.get("wordcount"))) + 1);
         wordMap.put("user_id", user_id);
-        wordMap.put("wordCount", 0);
-        wordMap.put("savedDate", setTime((Integer) wordMap.get("wordcount") + 1));
-        wordMap.put("detection", true);
+        wordMap.put("savedDate", setTime(increasedWordCount));
+        wordMap.put("wordCount", increasedWordCount);
         wordMap.put("selectState", "notEmpty");
         wordMap.put("studyMode", "review");
-        studyQuantity--;
-        if (studyQuantity < 0) studyQuantity = 0;
         try {
-            int countRemain = wordservice.countRemain(wordMap);
-            wordservice.updateAppropriate(wordvo);
-            wordvo = wordservice.selectReviewRemainCard(wordMap);
-            if (wordvo != null) {
-//                session.setAttribute("countRemain",);
-                return new ResponseEntity(wordvo, HttpStatus.OK);
+            wordservice.updateAppropriate(wordMap);
+            if (studyQuantity <= 1) {
+                message = "<script>";
+                message += "alert('공부할 것이 없습니다.');";
+                message += "location.href='" + request.getContextPath() + "/word/settingStudyForm.do';";
+                message += "</script>";
+                return new ResponseEntity(message, responseHeader, HttpStatus.OK);
             }
-            wordvo = wordservice.selectReviewCard(wordMap);
-            if (wordvo != null) {
-                session.setAttribute("studyQuantity", studyQuantity - 1);
-                return new ResponseEntity(wordvo, HttpStatus.OK);
+            studyQuantity = studyQuantity - 1;
+            _wordvo = wordservice.selectReviewRemainCard(wordMap);
+            if (_wordvo != null) {
+                _wordvo.setStudyQuantity(studyQuantity);
+                return new ResponseEntity(_wordvo, HttpStatus.OK);
+            }
+            _wordvo = wordservice.selectReviewCard(wordMap);
+            if (_wordvo != null) {
+                _wordvo.setStudyQuantity(studyQuantity);
+                return new ResponseEntity(_wordvo, HttpStatus.OK);
             }
             wordMap.put("selectState", "empty");
-            wordvo = wordservice.selectReviewRemainCard(wordMap);
-            if (wordvo != null) {
-                session.setAttribute("studyQuantity", 0);
-                return new ResponseEntity(wordvo, HttpStatus.OK);
+            _wordvo = wordservice.selectReviewRemainCard(wordMap);
+            if (_wordvo != null) {
+                _wordvo.setStudyQuantity(studyQuantity);
+                return new ResponseEntity(_wordvo, HttpStatus.OK);
             }
-            message = "<script>";
-            message += "alert('공부할 것이 없습니다.');";
-            message += "location.href='" + request.getContextPath() + "/main/mainContent';";
-            message += "</script>";
-            return new ResponseEntity(message, responseHeader, HttpStatus.OK);
+
         } catch (Exception e) {
             message = "<script>";
             message += "alert('잠시후 다시 시도해주세요.');";
@@ -217,6 +260,11 @@ public class wordControllerImpl extends BaseController implements wordController
             message += "</script>";
             return new ResponseEntity(message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        message = "<script>";
+        message += "alert('공부할 것이 없습니다.');";
+        message += "location.href='" + request.getContextPath() + "/word/settingStudyForm.do';";
+        message += "</script>";
+        return new ResponseEntity(message, responseHeader, HttpStatus.OK);
     }
 
     public Timestamp setTime(int wordCount) {

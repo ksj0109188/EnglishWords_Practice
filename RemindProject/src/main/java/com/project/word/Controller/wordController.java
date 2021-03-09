@@ -17,4 +17,5 @@ public interface wordController {
     ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
     ResponseEntity review(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
     ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response,  @RequestBody Map wordMap);
+    ModelAndView StudySetting(HttpServletRequest request, HttpServletResponse response);
 }

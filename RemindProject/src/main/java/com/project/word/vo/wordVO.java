@@ -13,9 +13,37 @@ public class wordVO {
     private int wordCount;
     private String user_id;
     private boolean isNewCard;
+    private boolean isWrongCard;
+    private boolean isReviewCard;
     private String dailyWord_dailyId;
-    private boolean detection;
     private int studyQuantity;
+
+    public boolean isWrongCard() {
+        return isWrongCard;
+    }
+
+    public void setWrongCard(boolean wrongCard) {
+        isWrongCard = wrongCard;
+    }
+
+    public boolean isReviewCard() {
+        return isReviewCard;
+    }
+
+    public void setReviewCard(boolean reviewCard) {
+        isReviewCard = reviewCard;
+    }
+
+    public int getCountRemain() {
+        return countRemain;
+    }
+
+    public void setCountRemain(int countRemain) {
+        this.countRemain = countRemain;
+    }
+
+    private int countRemain;
+
     public int getWordId() {
         return wordId;
     }
@@ -79,15 +107,6 @@ public class wordVO {
     public void setDailyWord_dailyId(String dailyWord_dailyId) {
         this.dailyWord_dailyId = dailyWord_dailyId;
     }
-
-    public boolean isDetection() {
-        return detection;
-    }
-
-    public void setDetection(boolean detection) {
-        this.detection = detection;
-    }
-
 
     public int getStudyQuantity() {
         return studyQuantity;
