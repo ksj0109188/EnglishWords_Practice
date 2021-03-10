@@ -62,6 +62,7 @@
                 ]]>
             </if>
         </where>
+        ORDER BY savedDate
         LIMIT 1
     </select>
 

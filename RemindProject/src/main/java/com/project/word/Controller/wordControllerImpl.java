@@ -179,22 +179,6 @@ public class wordControllerImpl extends BaseController implements wordController
             if (_wordvo != null) {
                 return new ResponseEntity(_wordvo, HttpStatus.OK);
             }
-//                return new ResponseEntity(_wordvo, HttpStatus.OK);
-//            if (wordvo != null) {
-//                _wordvo.setStudyQuantity(studyQuantity - 1);
-//                return new ResponseEntity(_wordvo, HttpStatus.OK);
-//            }
-//            _wordvo = wordservice.selectReviewCard(wordMap); //복습해야할 카드 출력
-//            if (wordvo != null) {
-//                _wordvo.setStudyQuantity(studyQuantity - 1);
-//                return new ResponseEntity(_wordvo, HttpStatus.OK);
-//            }
-//            wordMap.put("selectState", "empty");
-//            _wordvo = wordservice.selectReviewRemainCard(wordMap); //남은 틀린카드 출력
-//            if (wordvo != null) {
-//                _wordvo.setStudyQuantity(studyQuantity-1);
-//                return new ResponseEntity(_wordvo, HttpStatus.OK);
-//
             message = "<script>";
             message += "alert('공부할 것이 없습니다.');";
             message += "location.href='" + request.getContextPath() + "/main/mainContent';";
@@ -220,7 +204,7 @@ public class wordControllerImpl extends BaseController implements wordController
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
         int studyQuantity = Integer.parseInt((String.valueOf(wordMap.get("studyQuantity"))));
-        int increasedWordCount = Integer.parseInt((String.valueOf(wordMap.get("wordcount"))) + 1);
+        int increasedWordCount = Integer.parseInt((String) wordMap.get("wordcount"))+1;
         wordMap.put("user_id", user_id);
         wordMap.put("savedDate", setTime(increasedWordCount));
         wordMap.put("wordCount", increasedWordCount);
@@ -229,11 +213,9 @@ public class wordControllerImpl extends BaseController implements wordController
         try {
             wordservice.updateAppropriate(wordMap);
             if (studyQuantity <= 1) {
-                message = "<script>";
-                message += "alert('공부할 것이 없습니다.');";
-                message += "location.href='" + request.getContextPath() + "/word/settingStudyForm.do';";
-                message += "</script>";
-                return new ResponseEntity(message, responseHeader, HttpStatus.OK);
+                Map map = new HashMap();
+                map.put("Message","Empty");
+                 return new ResponseEntity(map,HttpStatus.OK);
             }
             studyQuantity = studyQuantity - 1;
             _wordvo = wordservice.selectReviewRemainCard(wordMap);
@@ -269,7 +251,7 @@ public class wordControllerImpl extends BaseController implements wordController
 
     public Timestamp setTime(int wordCount) {
         LocalDateTime time = LocalDateTime.now();
-        if (wordCount == 0) {
+        if (wordCount <= 0) {
             return Timestamp.valueOf(time.plusMinutes(10));
         } else if (wordCount == 1) {
             return Timestamp.valueOf(time.plusDays(1));
