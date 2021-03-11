@@ -13,10 +13,23 @@ import java.util.Map;
 public interface wordController {
 
     ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
+
     ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response);
+
     ResponseEntity reviewCardUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
-    ResponseEntity reviewCardSelect(HttpServletRequest request, HttpServletResponse response, @RequestParam("wordId") String wordId);
-    ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response,  @RequestBody Map wordMap);
-    ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
+
+    ResponseEntity reviewCardSelect(HttpServletRequest request, HttpServletResponse response);
+
+    ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+
+    ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response);
+
     ModelAndView StudySetting(HttpServletRequest request, HttpServletResponse response);
+
+    ResponseEntity newCardUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+
+    ResponseEntity newCardUpdate_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+
+    ResponseEntity newCardSelect(HttpServletRequest request, HttpServletResponse response);
+
 }

@@ -100,32 +100,44 @@ public class wordControllerImpl extends BaseController implements wordController
         Map<String, String> wordMap = new HashMap<String, String>();
         wordMap.put("user_id", userId);
         wordMap.put("studyMode", "review");
+        wordMap.put("selectState", "notEmpty");
         try {//틀린 카드부터 출력
-            wordMap.put("selectState", "notEmpty");
             _wordvo = wordservice.selectReviewRemainCard(wordMap);
-            if (_wordvo != null) {
-                modelAndView.addObject("wordvo", _wordvo);
-                modelAndView.setViewName("/word/reviewCardForm");
-                return modelAndView;
-            }
-            // 시간에 맞는 틀린카드가 없을때
-            wordMap.put("selectState", "empty");
-            _wordvo = wordservice.selectReviewRemainCard(wordMap);
-            if (_wordvo != null) {
-                modelAndView.addObject("wordvo", _wordvo);
-                modelAndView.setViewName("/word/reviewCardForm");
-            } else {//틀린 카드가 없을때
-                _wordvo = wordservice.selectReviewCard(wordMap);
-                if (_wordvo != null) {
-                    modelAndView.addObject("wordvo", _wordvo);
-                    modelAndView.setViewName("/word/reviewCardForm");
-                    return modelAndView;
+            if (_wordvo == null) {
+                _wordvo = wordservice.selectReviewCard(wordMap); //복습해야할 카드 출력
+                if (_wordvo == null) {
+                    wordMap.put("selectState", "empty");
+                    _wordvo = wordservice.selectReviewRemainCard(wordMap); //남은 틀린카드 출력
                 }
-                modelAndView = new ModelAndView();
-                modelAndView.setViewName("/main/mainContent");
-                modelAndView.addObject("finish", "true");
             }
+            modelAndView.addObject("wordvo", _wordvo);
+            modelAndView.setViewName("/word/reviewCardForm");
             return modelAndView;
+//
+//            _wordvo = wordservice.selectReviewRemainCard(wordMap);
+//            if (_wordvo != null) {
+//                modelAndView.addObject("wordvo", _wordvo);
+//                modelAndView.setViewName("/word/reviewCardForm");
+//                return modelAndView;
+//            }
+//            // 시간에 맞는 틀린카드가 없을때
+//            wordMap.put("selectState", "empty");
+//            _wordvo = wordservice.selectReviewRemainCard(wordMap);
+//            if (_wordvo != null) {
+//                modelAndView.addObject("wordvo", _wordvo);
+//                modelAndView.setViewName("/word/reviewCardForm");
+//            } else {//틀린 카드가 없을때
+//                _wordvo = wordservice.selectReviewCard(wordMap);
+//                if (_wordvo != null) {
+//                    modelAndView.addObject("wordvo", _wordvo);
+//                    modelAndView.setViewName("/word/reviewCardForm");
+//                    return modelAndView;
+//                }
+//                modelAndView = new ModelAndView();
+//                modelAndView.setViewName("/main/mainContent");
+//                modelAndView.addObject("finish", "true");
+//            }
+//            return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
             modelAndView = new ModelAndView();
@@ -146,7 +158,7 @@ public class wordControllerImpl extends BaseController implements wordController
         wordMap.put("savedDate", setTime(0));
 
         try {
-            wordservice.updateReviewCard(wordMap);
+            wordservice.updateWrongCard(wordMap);
             Map ResponseMap = new HashMap();
             ResponseMap.put("Message", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
@@ -160,7 +172,7 @@ public class wordControllerImpl extends BaseController implements wordController
 
     @Override
     @RequestMapping(value = "/reviewStudy_reviewCard", method = RequestMethod.GET)
-    public ResponseEntity reviewCardSelect(HttpServletRequest request, HttpServletResponse response, @RequestParam("wordId") String wordId) {
+    public ResponseEntity reviewCardSelect(HttpServletRequest request, HttpServletResponse response) {
         String message;
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
@@ -168,10 +180,10 @@ public class wordControllerImpl extends BaseController implements wordController
         String user_id = (String) session.getAttribute("userId");
         wordVO _wordvo;
         Map wordMap = new HashMap();
-        wordMap.put("wordId", wordId);
         wordMap.put("user_id", user_id);
         wordMap.put("selectState", "notEmpty");
         wordMap.put("studyMode", "review");
+
         try {
             _wordvo = wordservice.selectReviewRemainCard(wordMap);
             if (_wordvo == null) {
@@ -184,27 +196,19 @@ public class wordControllerImpl extends BaseController implements wordController
             if (_wordvo != null) {
                 return new ResponseEntity(_wordvo, HttpStatus.OK);
             }
-            message = "<script>";
-            message += "alert('공부할 것이 없습니다.');";
-            message += "location.href='" + request.getContextPath() + "/word/settingStudyForm.do';";
-            message += "</script>";
-            return new ResponseEntity(message, responseHeader, HttpStatus.OK);
+            return new ResponseEntity<String>("Empty", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            message = "<script>";
-            message += "alert('에러가 발생했습니다.');";
-            message += "location.href='" + request.getContextPath() + "/word/settingStudyForm.do';";
-            message += "</script>";
-            return new ResponseEntity(message, responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
 
     @RequestMapping(value = "/reviewStudy_appropriateCard", method = RequestMethod.PUT)
     @Override
     public ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap) {
-        String message;
-        wordVO _wordvo = null;
+        Map ResponseMap = new HashMap();
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
         int increasedWordCount = Integer.parseInt((String) wordMap.get("wordCount")) + 1;
@@ -213,49 +217,125 @@ public class wordControllerImpl extends BaseController implements wordController
         wordMap.put("wordCount", increasedWordCount);
         try {
             wordservice.updateAppropriate(wordMap);
-//            _wordvo = wordservice.selectReviewRemainCard(wordMap);
-//            if (_wordvo != null) {
-//                return new ResponseEntity(_wordvo, HttpStatus.OK);
-//            }
-//            _wordvo = wordservice.selectReviewCard(wordMap);
-//            if (_wordvo != null) {
-//                return new ResponseEntity(_wordvo, HttpStatus.OK);
-//            }
-//            wordMap.put("selectState", "empty");
-//            _wordvo = wordservice.selectReviewRemainCard(wordMap);
-//            if (_wordvo != null) {
-//                return new ResponseEntity(_wordvo, HttpStatus.OK);
-//            }
+            ResponseMap.put("MESSAGE", "SUCESS");
+            return new ResponseEntity(ResponseMap, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ResponseMap.put("MESSAGE", "ERROR");
+            return new ResponseEntity(ResponseMap, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/newCardForm.do", method = RequestMethod.GET)
+    @Override
+    public ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        ModelAndView modelAndView = new ModelAndView();
+        wordVO _wordvo = null;
+        Map<String, String> wordMap = new HashMap<String, String>();
+        wordMap.put("user_id", userId);
+        wordMap.put("studyMode", "newStudy");
+        wordMap.put("selectState", "notEmpty");
+        try {
+            _wordvo = wordservice.selectRemainedNewCard(wordMap);
+            if (_wordvo == null) {
+                _wordvo = wordservice.selectNewCard(wordMap); //복습해야할 카드 출력
+                if (_wordvo == null) {
+                    wordMap.put("selectState", "empty");
+                    _wordvo = wordservice.selectRemainedNewCard(wordMap); //남은 틀린카드 출력
+                }
+            }
+            modelAndView.addObject("wordvo", _wordvo);
+            modelAndView.setViewName("/word/newCardForm");
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView = new ModelAndView();
+            modelAndView.setViewName("/common/error");
+            return modelAndView;
+        }
+    }
+
+    @RequestMapping(value = "/newCardStudy_review", method = RequestMethod.PUT)
+    @Override
+    public ResponseEntity newCardUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap) {
+
+        HttpSession session = request.getSession();
+        session.setAttribute("studyQuantity", 0);
+        String user_id = (String) session.getAttribute("userId");
+
+        wordMap.put("user_id", user_id);
+        wordMap.put("wordCount", 0);
+        wordMap.put("savedDate", setTime(0));
+
+        try {
+            wordservice.updateWrongCard(wordMap);
             Map ResponseMap = new HashMap();
             ResponseMap.put("Message", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             Map ResponseMap = new HashMap();
-            ResponseMap.put("Message", "SUCESS");
-            return new ResponseEntity(ResponseMap, HttpStatus.OK);
+            ResponseMap.put("Message", "FAIL");
+            return new ResponseEntity(ResponseMap, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @RequestMapping(value = "/newCard.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/newCardStudy_appropriate", method = RequestMethod.PUT)
     @Override
-    public ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity) {
+    public ResponseEntity newCardUpdate_appropriate(HttpServletRequest request, HttpServletResponse response,@RequestBody Map wordMap) {
+        Map ResponseMap = new HashMap();
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("userId");
-        session.setAttribute("studyQuantity", quantity);
-        wordvo.setUser_id(user_id);
+        int increasedWordCount = Integer.parseInt((String) wordMap.get("wordCount")) + 1;
+        wordMap.put("user_id", user_id);
+        wordMap.put("savedDate", setTime(increasedWordCount));
+        wordMap.put("wordCount", increasedWordCount);
         try {
-            wordVO _wordVO = wordservice.selectNewCard(wordvo);
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("wordvo", _wordVO);
-            modelAndView.setViewName("word/newCardStudyPage");
-            return modelAndView;
+            wordservice.updateNewCard_Appropriate(wordMap);
+            ResponseMap.put("MESSAGE", "SUCESS");
+            return new ResponseEntity(ResponseMap, HttpStatus.OK);
         } catch (Exception e) {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("/main/mainContent");
-            return modelAndView;
+            e.printStackTrace();
+            ResponseMap.put("MESSAGE", "ERROR");
+            return new ResponseEntity(ResponseMap, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @RequestMapping(value = "/newCardStudy", method = RequestMethod.GET)
+    @Override
+    public ResponseEntity newCardSelect(HttpServletRequest request, HttpServletResponse response) {
+        String message;
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("content-type", "text/html; charset=utf-8");
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("userId");
+        wordVO _wordvo;
+        Map wordMap = new HashMap();
+        wordMap.put("user_id", user_id);
+        wordMap.put("selectState", "notEmpty");
+        wordMap.put("studyMode", "newCardStudy");
+        try {
+            _wordvo = wordservice.selectRemainedNewCard(wordMap);
+            if (_wordvo == null) { // 시간에 맞는 틀린카드가 없다면
+                _wordvo = wordservice.selectNewCard(wordMap); //새카드 출력
+                if (_wordvo == null) {
+                    wordMap.put("selectState", "empty");
+                    _wordvo = wordservice.selectRemainedNewCard(wordMap); //새카드가 없다면 시간 관계없이 틀린카드 출력
+                }
+            }
+            if (_wordvo != null) {
+                return new ResponseEntity(_wordvo, HttpStatus.OK);
+            }
+            return new ResponseEntity<String>("Study_Done", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
     public Timestamp setTime(int wordCount) {
         LocalDateTime time = LocalDateTime.now();

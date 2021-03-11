@@ -13,8 +13,11 @@ public interface wordDAO {
     void addWord(wordVO wordvo) throws DataAccessException;
     int maxWordId(wordVO wordvo) throws  DataAccessException;
     wordVO selectReviewCard(Map wordMap) throws DataAccessException;
-    wordVO selectNewCard(wordVO wordvo) throws DataAccessException;
-    void updateReviewCard(Map wordMap) throws DataAccessException;
+    wordVO selectNewCard(Map wordMap) throws DataAccessException;
+    void updateWrongCard(Map wordMap) throws DataAccessException;
     void updateAppropriate(Map wordMap) throws DataAccessException;
     wordVO selectReviewRemainCard(Map wordMap) throws DataAccessException;
+    wordVO selectRemainedNewCard(Map wordMap) throws DataAccessException;
+
+    void updateNewCard_Appropriate(Map wordMap) throws DataAccessException;
 }

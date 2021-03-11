@@ -70,22 +70,11 @@
         LIMIT 1
     </select>
 
-    <select id="selectNewCard" resultType="wordVO" parameterType="java.util.Map">
-    <![CDATA[
-        select *
-        from savedword
-        where user_id = #{user_id}
-          and savedDate <= current_timestamp
-          and isNewcard = true
-          and detection = false LIMIT 1
-        ]]>
-    </select>
-
-    <update id="updateReviewCard" parameterType="java.util.Map">
+    <update id="updateWrongCard" parameterType="java.util.Map">
         <![CDATA[
         update savedword
-        set wordcount = #{wordCount},
-            savedDate = #{savedDate},
+        set wordcount   = #{wordCount},
+            savedDate   = #{savedDate},
             isWrongcard = true
         where user_id = #{user_id}
           and wordId = #{wordId}
@@ -95,8 +84,8 @@
     <update id="updateAppropriate" parameterType="java.util.Map">
         <![CDATA[
         update savedword
-        set wordcount = #{wordCount},
-            savedDate = #{savedDate},
+        set wordcount   = #{wordCount},
+            savedDate   = #{savedDate},
             isWrongcard = false
         where user_id = #{user_id}
           and wordId = #{wordId}
@@ -148,5 +137,55 @@
         ]]>
     </select>
 
+    <select id="selectNewCard" resultType="wordVO" parameterType="java.util.Map">
+        <![CDATA[
+        select wordId, word, mean, savedDate, wordCount, user_id
+        from savedword
+        where user_id = #{user_id}
+          and isNewCard = true
+          and isWrongcard = false
+          and isReviewCard = false
+          limit 1
+        ]]>
+    </select>
+
+    <select id="selectRemainedNewCard" resultType="wordVO" parameterType="java.util.Map">
+        select wordId, word, mean, savedDate, wordCount, user_id
+        from savedword
+        <where>
+            user_id = #{user_id}
+            <if test="selectState == 'notEmpty' and studyMode =='newCardStudy' ">
+                <![CDATA[
+                and savedDate <= current_timestamp
+                and isNewcard = true
+                and isWrongcard = true
+                and isReviewCard = false
+                ]]>
+            </if>
+
+            <if test="selectState == 'empty' and studyMode =='newCardStudy'">
+                <![CDATA[
+                and isNewcard = true
+                and isWrongcard = true
+                and isReviewCard = false
+                ]]>
+            </if>
+        </where>
+        ORDER BY savedDate
+        LIMIT 1
+    </select>
+
+    <update id="updateNewCard_Appropriate" parameterType="java.util.Map">
+        <![CDATA[
+        update savedword
+        set wordcount   = #{wordCount},
+            savedDate   = #{savedDate},
+            isWrongcard = false,
+            isReviewCard = true,
+            isNewCard = false
+        where user_id = #{user_id}
+          and wordId = #{wordId}
+        ]]>
+    </update>
 
 </mapper>
