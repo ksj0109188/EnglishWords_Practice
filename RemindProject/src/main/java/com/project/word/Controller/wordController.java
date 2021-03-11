@@ -13,9 +13,10 @@ import java.util.Map;
 public interface wordController {
 
     ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
-    ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
-    ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
-    ResponseEntity review(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response);
+    ResponseEntity reviewCardUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ResponseEntity reviewCardSelect(HttpServletRequest request, HttpServletResponse response, @RequestParam("wordId") String wordId);
     ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response,  @RequestBody Map wordMap);
+    ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response, @RequestParam("studyQuantity") int quantity);
     ModelAndView StudySetting(HttpServletRequest request, HttpServletResponse response);
 }

@@ -16,7 +16,6 @@ public class wordVO {
     private boolean isWrongCard;
     private boolean isReviewCard;
     private String dailyWord_dailyId;
-    private int studyQuantity;
 
     public boolean isWrongCard() {
         return isWrongCard;
@@ -106,13 +105,5 @@ public class wordVO {
 
     public void setDailyWord_dailyId(String dailyWord_dailyId) {
         this.dailyWord_dailyId = dailyWord_dailyId;
-    }
-
-    public int getStudyQuantity() {
-        return studyQuantity;
-    }
-
-    public void setStudyQuantity(int studyQuantity) {
-        this.studyQuantity = studyQuantity;
     }
 }

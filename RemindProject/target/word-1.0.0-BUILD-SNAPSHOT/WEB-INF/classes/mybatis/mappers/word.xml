@@ -38,9 +38,9 @@
         from savedword
         where user_id = #{user_id}
           and savedDate <= current_timestamp
-          and isWrongCard = false
-          and isReviewCard = true
-           LIMIT 1
+          and isNewcard = false
+          and isWrongcard = false
+          and isReviewCard = true LIMIT 1
         ]]>
     </select>
 
@@ -52,14 +52,16 @@
             <if test="selectState == 'notEmpty' and studyMode =='review' ">
                 <![CDATA[
                 and savedDate <= current_timestamp
-                and isWrongCard = true
+                and isNewcard = false
+                and isWrongcard = true
                 and isReviewCard = true
                 ]]>
             </if>
 
             <if test="selectState == 'empty' and studyMode =='review'">
                 <![CDATA[
-                and isWrongCard = true
+                and isNewcard = false
+                and isWrongcard = true
                 and isReviewCard = true
                 ]]>
             </if>
@@ -82,11 +84,9 @@
     <update id="updateReviewCard" parameterType="java.util.Map">
         <![CDATA[
         update savedword
-        set wordcount    = #{wordCount},
-            savedDate    = #{savedDate},
-            isWrongCard  = true,
-            isNewcard    = false,
-            isReviewCard = true
+        set wordcount = #{wordCount},
+            savedDate = #{savedDate},
+            isWrongcard = true
         where user_id = #{user_id}
           and wordId = #{wordId}
         ]]>
@@ -97,21 +97,19 @@
         update savedword
         set wordcount = #{wordCount},
             savedDate = #{savedDate},
-            isNewcard = false,
-            isWrongCard  = false,
-            isReviewCard = true
+            isWrongcard = false
         where user_id = #{user_id}
           and wordId = #{wordId}
         ]]>
     </update>
-
 
     <select id="countWrongReviewCard" resultType="int" parameterType="java.util.Map">
         <![CDATA[
         select count(*)
         from savedword
         where user_id = #{user_id}
-          and isWrongCard = true
+          and isNewCard = false
+          and isWrongcard = true
           and isReviewCard = true
         ]]>
     </select>
@@ -121,9 +119,10 @@
         select count(*)
         from savedword
         where user_id = #{user_id}
-          and savedDate <= current_timestamp
-          and isWrongCard = false
+          and isNewCard = false
+          and isWrongcard = false
           and isReviewCard = true
+          and savedDate <= current_timestamp
         ]]>
     </select>
 
@@ -132,8 +131,9 @@
         select count(*)
         from savedword
         where user_id = #{user_id}
-          and isWrongCard = true
-          and isNewcard = true
+          and isNewCard = true
+          and isWrongcard = true
+          and isReviewCard = false
         ]]>
     </select>
 
@@ -142,9 +142,11 @@
         select count(*)
         from savedword
         where user_id = #{user_id}
-          and isWrongCard = false
-          and isNewcard = true
+          and isNewCard = true
+          and isWrongcard = false
+          and isReviewCard = false
         ]]>
     </select>
+
 
 </mapper>

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class BaseController {
 
     @RequestMapping(value = "/*Form.do", method = {RequestMethod.POST,RequestMethod.GET})
-    public ModelAndView viewform(HttpServletResponse response, HttpServletRequest request) throws Exception{
+    public ModelAndView viewForm(HttpServletResponse response, HttpServletRequest request) throws Exception{
         ModelAndView modelAndView = new ModelAndView();
         String viewName= (String) request.getAttribute("viewName");
         modelAndView.setViewName(viewName);
