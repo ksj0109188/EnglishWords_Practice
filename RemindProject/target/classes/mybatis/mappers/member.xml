@@ -3,11 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="mapper.member">
     <resultMap id="memberResult" type="MemberVO">
-        <result property="userId" column="id"/>
-        <result property="userPwd" column="pwd"/>
+        <result property="userId" column="userId"/>
+        <result property="userPwd" column="userPwd"/>
         <result property="email" column="email"/>
         <result property="address" column="address"/>
         <result property="joindate" column="joindate"/>
@@ -15,16 +14,16 @@
 
     <insert id="addMember" parameterType="MemberVO">
 		<![CDATA[
-        insert into member(id, pwd, email, address)
+        insert into member(userId, userPwd, email, address)
         values (#{userId}, #{userPwd}, #{email}, #{address})
         ]]>
 	</insert>
 
     <select id="login" resultType="String" parameterType="java.util.Map">
         <![CDATA[
-        select id
+        select userId
         from member
-        where id = #{userId} and pwd = #{userPwd}
+        where userId = #{userId} and userPwd = #{userPwd}
         ]]>
     </select>
 </mapper>

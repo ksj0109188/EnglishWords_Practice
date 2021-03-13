@@ -20,7 +20,7 @@
     <ul>
         <li>오늘의 학습</li>
         <li><a href="${contextPath}/word/saveWordForm.do"/>단어저장</li>
-        <li><a href="${contextPath}/word/settingStudyForm.do"/>오늘의 학습</li>
+        <li><a href="${contextPath}/word/StudyForm.do"/>오늘의 학습</li>
         <li>통계</li>
     </ul>
 </body>
