@@ -15,8 +15,8 @@ public interface wordDAO {
     wordVO selectReviewCard(Map wordMap) throws DataAccessException;
     wordVO selectNewCard(Map wordMap) throws DataAccessException;
     void updateWrongCard(Map wordMap) throws DataAccessException;
-    void updateAppropriate(Map wordMap) throws DataAccessException;
-    wordVO selectReviewRemainCard(Map wordMap) throws DataAccessException;
+    void updateReviewCard_Appropriate(Map wordMap) throws DataAccessException;
+    wordVO selectRemainedReviewCard(Map wordMap) throws DataAccessException;
     wordVO selectRemainedNewCard(Map wordMap) throws DataAccessException;
 
     void updateNewCard_Appropriate(Map wordMap) throws DataAccessException;

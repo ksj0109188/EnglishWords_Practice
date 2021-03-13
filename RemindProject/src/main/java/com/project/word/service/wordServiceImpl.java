@@ -61,13 +61,13 @@ public class wordServiceImpl implements wordService {
     }
 
     @Override
-    public void updateAppropriate(Map wordMap) throws Exception {
-        worddao.updateAppropriate(wordMap);
+    public void updateReviewCard_Appropriate(Map wordMap) throws Exception {
+        worddao.updateReviewCard_Appropriate(wordMap);
     }
 
     @Override
-    public wordVO selectReviewRemainCard(Map wordMap) throws Exception {
-        return worddao.selectReviewRemainCard(wordMap);
+    public wordVO selectRemainedReviewCard(Map wordMap) throws Exception {
+        return worddao.selectRemainedReviewCard(wordMap);
     }
 
     @Override
@@ -79,6 +79,4 @@ public class wordServiceImpl implements wordService {
     public void updateNewCard_Appropriate(Map wordMap) throws Exception {
         worddao.updateNewCard_Appropriate(wordMap);
     }
-
-
 }

@@ -11,11 +11,12 @@
         <result property="mean" column="mean"/>
         <result property="savedDate" column="savedDate"/>
         <result property="wordCount" column="wordCount"/>
-        <result property="user_id" column="user_id"/>
+        <result property="userId" column="userId"/>
         <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
         <result property="isNewCard" column="isNewCard"/>
         <result property="isWrongCard" column="isWrongCard"/>
         <result property="isReviewCard" column="isReviewCard"/>
+        <result property="appearanceDate" column="appearanceDate"/>
     </resultMap>
 
     <select id="maxWordId" resultType="int">
@@ -27,8 +28,8 @@
 
     <insert id="addword" parameterType="wordVO">
 		<![CDATA[
-        insert into savedword(wordId, word, mean, wordcount, user_id)
-        values (#{wordId}, #{word}, #{mean}, 0, #{user_id})
+        insert into savedword(wordId, word, mean, wordcount, userId)
+        values (#{wordId}, #{word}, #{mean}, 0, #{userId})
         ]]>
 	</insert>
 
@@ -36,19 +37,19 @@
     <![CDATA[
         select *
         from savedword
-        where user_id = #{user_id}
-          and savedDate <= current_timestamp
+        where userId = #{userId}
+          and appearanceDate <= current_timestamp
           and isNewcard = false
           and isWrongcard = false
           and isReviewCard = true LIMIT 1
         ]]>
     </select>
 
-    <select id="selectReviewRemainCard" resultType="wordVO" parameterType="java.util.Map">
+    <select id="selectRemainedReviewCard" resultType="wordVO" parameterType="java.util.Map">
         select *
         from savedword
         <where>
-            user_id = #{user_id}
+            userId = #{userId}
             <if test="selectState == 'notEmpty' and studyMode =='review' ">
                 <![CDATA[
                 and savedDate <= current_timestamp
@@ -74,20 +75,20 @@
         <![CDATA[
         update savedword
         set wordcount   = #{wordCount},
-            savedDate   = #{savedDate},
+            appearanceDate   = #{appearanceDate},
             isWrongcard = true
-        where user_id = #{user_id}
+        where userId = #{userId}
           and wordId = #{wordId}
         ]]>
     </update>
 
-    <update id="updateAppropriate" parameterType="java.util.Map">
+    <update id="updateReviewCard_Appropriate" parameterType="java.util.Map">
         <![CDATA[
         update savedword
         set wordcount   = #{wordCount},
-            savedDate   = #{savedDate},
+            appearanceDate   = #{appearanceDate},
             isWrongcard = false
-        where user_id = #{user_id}
+        where userId = #{userId}
           and wordId = #{wordId}
         ]]>
     </update>
@@ -96,7 +97,7 @@
         <![CDATA[
         select count(*)
         from savedword
-        where user_id = #{user_id}
+        where userId = #{userId}
           and isNewCard = false
           and isWrongcard = true
           and isReviewCard = true
@@ -107,11 +108,11 @@
         <![CDATA[
         select count(*)
         from savedword
-        where user_id = #{user_id}
+        where userId = #{userId}
           and isNewCard = false
           and isWrongcard = false
           and isReviewCard = true
-          and savedDate <= current_timestamp
+          and appearanceDate <= current_timestamp
         ]]>
     </select>
 
@@ -119,7 +120,7 @@
         <![CDATA[
         select count(*)
         from savedword
-        where user_id = #{user_id}
+        where userId = #{userId}
           and isNewCard = true
           and isWrongcard = true
           and isReviewCard = false
@@ -130,7 +131,7 @@
         <![CDATA[
         select count(*)
         from savedword
-        where user_id = #{user_id}
+        where userId = #{userId}
           and isNewCard = true
           and isWrongcard = false
           and isReviewCard = false
@@ -139,9 +140,9 @@
 
     <select id="selectNewCard" resultType="wordVO" parameterType="java.util.Map">
         <![CDATA[
-        select wordId, word, mean, savedDate, wordCount, user_id
+        select wordId, word, mean, appearanceDate, wordCount, userId
         from savedword
-        where user_id = #{user_id}
+        where userId = #{userId}
           and isNewCard = true
           and isWrongcard = false
           and isReviewCard = false
@@ -150,13 +151,13 @@
     </select>
 
     <select id="selectRemainedNewCard" resultType="wordVO" parameterType="java.util.Map">
-        select wordId, word, mean, savedDate, wordCount, user_id
+        select wordId, word, mean, appearanceDate, wordCount, userId
         from savedword
         <where>
-            user_id = #{user_id}
+            userId = #{userId}
             <if test="selectState == 'notEmpty' and studyMode =='newCardStudy' ">
                 <![CDATA[
-                and savedDate <= current_timestamp
+                and appearanceDate <= current_timestamp
                 and isNewcard = true
                 and isWrongcard = true
                 and isReviewCard = false
@@ -179,11 +180,11 @@
         <![CDATA[
         update savedword
         set wordcount   = #{wordCount},
-            savedDate   = #{savedDate},
+            appearanceDate   = #{appearanceDate},
             isWrongcard = false,
             isReviewCard = true,
             isNewCard = false
-        where user_id = #{user_id}
+        where userId = #{userId}
           and wordId = #{wordId}
         ]]>
     </update>

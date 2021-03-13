@@ -59,13 +59,13 @@ public class wordDAOImpl implements wordDAO {
     }
 
     @Override
-    public void updateAppropriate(Map wordMap) throws DataAccessException {
-        session.update("mapper.word.updateAppropriate", wordMap);
+    public void updateReviewCard_Appropriate(Map wordMap) throws DataAccessException {
+        session.update("mapper.word.updateReviewCard_Appropriate", wordMap);
     }
 
     @Override
-    public wordVO selectReviewRemainCard(Map wordMap) throws DataAccessException {
-        return session.selectOne("mapper.word.selectReviewRemainCard", wordMap);
+    public wordVO selectRemainedReviewCard(Map wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.selectRemainedReviewCard", wordMap);
     }
 
     @Override

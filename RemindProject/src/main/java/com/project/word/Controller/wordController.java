@@ -14,19 +14,19 @@ public interface wordController {
 
     ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
 
-    ModelAndView reviewStudy(HttpServletRequest request, HttpServletResponse response);
+    ModelAndView setStudyForm(HttpServletRequest request, HttpServletResponse response);
 
-    ResponseEntity reviewCardUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ModelAndView reviewCardForm(HttpServletRequest request, HttpServletResponse response);
+    
+    ResponseEntity reviewStudy_Wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
 
     ResponseEntity reviewCardSelect(HttpServletRequest request, HttpServletResponse response);
 
-    ResponseEntity appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ResponseEntity reviewStudy_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
 
-    ModelAndView newCardStudy(HttpServletRequest request, HttpServletResponse response);
+    ModelAndView newCardForm(HttpServletRequest request, HttpServletResponse response);
 
-    ModelAndView StudySetting(HttpServletRequest request, HttpServletResponse response);
-
-    ResponseEntity newCardUpdate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ResponseEntity newCardStudy_wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
 
     ResponseEntity newCardUpdate_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
 

@@ -11,11 +11,12 @@ public class wordVO {
     private String mean;
     private Timestamp savedDate;
     private int wordCount;
-    private String user_id;
+    private String userId;
     private boolean isNewCard;
     private boolean isWrongCard;
     private boolean isReviewCard;
     private String dailyWord_dailyId;
+    private Timestamp appearanceDate;
 
     public boolean isWrongCard() {
         return isWrongCard;
@@ -83,12 +84,12 @@ public class wordVO {
         this.wordCount = wordCount;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public boolean isNewCard() {
@@ -105,5 +106,13 @@ public class wordVO {
 
     public void setDailyWord_dailyId(String dailyWord_dailyId) {
         this.dailyWord_dailyId = dailyWord_dailyId;
+    }
+
+    public Timestamp getAppearanceDate() {
+        return appearanceDate;
+    }
+
+    public void setAppearanceDate(Timestamp appearanceDate) {
+        this.appearanceDate = appearanceDate;
     }
 }

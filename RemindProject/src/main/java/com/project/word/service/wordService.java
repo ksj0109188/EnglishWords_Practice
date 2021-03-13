@@ -19,13 +19,13 @@ public interface wordService {
 
     wordVO selectReviewCard(Map wordMap) throws Exception;
 
-    wordVO selectNewCard(Map<String, String> wordMap) throws Exception;
+    wordVO selectRemainedReviewCard(Map wordMap) throws Exception;
 
     void updateWrongCard(Map wordMap) throws Exception;
 
-    void updateAppropriate(Map wordMap) throws Exception;
+    void updateReviewCard_Appropriate(Map wordMap) throws Exception;
 
-    wordVO selectReviewRemainCard(Map wordMap) throws Exception;
+    wordVO selectNewCard(Map<String, String> wordMap) throws Exception;
 
     wordVO selectRemainedNewCard(Map wordMap) throws Exception;
 
