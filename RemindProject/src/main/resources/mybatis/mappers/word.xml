@@ -33,9 +33,16 @@
         ]]>
 	</insert>
 
+    <insert id="addDailyWord" parameterType="wordVO">
+		<![CDATA[
+        insert into savedword(wordId, word, mean, wordcount, userId,dailyWord_dailyId)
+        values (#{wordId}, #{word}, #{mean}, 0, #{userId},#{dailyWord_dailyId})
+        ]]>
+	</insert>
+
     <select id="selectReviewCard" resultType="wordVO" parameterType="java.util.Map">
     <![CDATA[
-        select *
+        select wordId, word, mean, appearanceDate, wordCount, userId
         from savedword
         where userId = #{userId}
           and appearanceDate <= current_timestamp
@@ -46,7 +53,7 @@
     </select>
 
     <select id="selectRemainedReviewCard" resultType="wordVO" parameterType="java.util.Map">
-        select *
+        select wordId, word, mean, appearanceDate, wordCount, userId
         from savedword
         <where>
             userId = #{userId}

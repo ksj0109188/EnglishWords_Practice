@@ -14,6 +14,16 @@ public class wordDAOImpl implements wordDAO {
     SqlSession session;
 
     @Override
+    public void addWord(wordVO wordvo) throws DataAccessException {
+        session.insert("mapper.word.addword", wordvo);
+    }
+
+    @Override
+    public void addDailyWord(wordVO wordvo) throws DataAccessException {
+        session.insert("mapper.word.addDailyWord",wordvo);
+    }
+
+    @Override
     public int countWrongReviewCard(Map wordMap) throws DataAccessException {
         return session.selectOne("mapper.word.countWrongReviewCard", wordMap);
     }
@@ -31,11 +41,6 @@ public class wordDAOImpl implements wordDAO {
     @Override
     public int countNewCard(Map wordMap) throws DataAccessException {
         return session.selectOne("mapper.word.countNewCard",wordMap);
-    }
-
-    @Override
-    public void addWord(wordVO wordvo) throws DataAccessException {
-        session.insert("mapper.word.addword", wordvo);
     }
 
     @Override

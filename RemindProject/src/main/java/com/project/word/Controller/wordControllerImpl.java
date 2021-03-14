@@ -53,6 +53,32 @@ public class wordControllerImpl extends BaseController implements wordController
         return new ResponseEntity(message, responseHeader, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/DailyWord", method = RequestMethod.POST)
+    @Override
+    public ResponseEntity addDailyWord(HttpServletRequest request, HttpServletResponse response, wordVO wordvo) {
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("content-type", "text/html; charset=utf-8");
+        String message ;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        wordvo.setUserId(userId);
+        try{
+            int wordId = wordservice.maxWordId(wordvo);
+            wordvo.setWordId(wordId);
+            wordservice.addDailyWord(wordvo);
+            message = "<script>";
+            message += "alert('오늘의 단어를 나의 새카드 학습하기로 이동했습니다.');";
+            message += "</script>";
+            return  new ResponseEntity(message,responseHeader,HttpStatus.CREATED) ;
+        }catch (Exception e){
+            e.printStackTrace();
+            message = "<script>";
+            message += "alert('잠시후 다시 시도해주세요.');";
+            message += "</script>";
+            return  new ResponseEntity(message,responseHeader,HttpStatus.INTERNAL_SERVER_ERROR) ;
+        }
+    }
+
     @RequestMapping(value = "/StudyForm.do")
     @Override
     public ModelAndView setStudyForm(HttpServletRequest request, HttpServletResponse response) {
@@ -309,6 +335,8 @@ public class wordControllerImpl extends BaseController implements wordController
             return new ResponseEntity<String>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     public Timestamp setTime(int wordCount) {
         LocalDateTime time = LocalDateTime.now();

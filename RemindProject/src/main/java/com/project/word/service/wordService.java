@@ -5,6 +5,10 @@ import com.project.word.vo.wordVO;
 import java.util.Map;
 
 public interface wordService {
+    void addWord(wordVO wordvo) throws Exception;
+
+    void addDailyWord(wordVO wordvo) throws Exception;
+
     int countReviewCard(Map wordMap) throws Exception;
 
     int countNewCard(Map wordMap) throws Exception;
@@ -12,8 +16,6 @@ public interface wordService {
     int countWrongReviewCard(Map wordMap) throws Exception;
 
     int countWrongNewCard(Map wordMap) throws Exception;
-
-    void addWord(wordVO wordvo) throws Exception;
 
     int maxWordId(wordVO wordvo) throws Exception;
 
@@ -30,4 +32,6 @@ public interface wordService {
     wordVO selectRemainedNewCard(Map wordMap) throws Exception;
 
     void updateNewCard_Appropriate(Map wordMap) throws Exception;
+
+
 }

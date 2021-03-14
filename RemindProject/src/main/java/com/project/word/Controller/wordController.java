@@ -14,10 +14,12 @@ public interface wordController {
 
     ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
 
+    ResponseEntity addDailyWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo);
+
     ModelAndView setStudyForm(HttpServletRequest request, HttpServletResponse response);
 
     ModelAndView reviewCardForm(HttpServletRequest request, HttpServletResponse response);
-    
+
     ResponseEntity reviewStudy_Wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
 
     ResponseEntity reviewCardSelect(HttpServletRequest request, HttpServletResponse response);
@@ -31,5 +33,6 @@ public interface wordController {
     ResponseEntity newCardUpdate_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
 
     ResponseEntity newCardSelect(HttpServletRequest request, HttpServletResponse response);
+
 
 }

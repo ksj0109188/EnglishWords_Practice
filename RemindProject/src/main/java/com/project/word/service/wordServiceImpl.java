@@ -16,6 +16,16 @@ public class wordServiceImpl implements wordService {
     wordDAO worddao;
 
     @Override
+    public void addWord(wordVO wordvo) throws Exception {
+        worddao.addWord(wordvo);
+    }
+
+    @Override
+    public void addDailyWord(wordVO wordvo) throws Exception{
+        worddao.addDailyWord(wordvo);
+    }
+
+    @Override
     public int countWrongReviewCard(Map wordMap) throws Exception {
         return worddao.countWrongReviewCard(wordMap);
     }
@@ -33,11 +43,6 @@ public class wordServiceImpl implements wordService {
     @Override
     public int countNewCard(Map wordMap) throws Exception {
         return worddao.countNewCard(wordMap);
-    }
-
-    @Override
-    public void addWord(wordVO wordvo) throws Exception {
-        worddao.addWord(wordvo);
     }
 
     @Override
