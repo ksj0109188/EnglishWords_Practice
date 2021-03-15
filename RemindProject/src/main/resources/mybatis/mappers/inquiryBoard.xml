@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.inquiryBoard">
+    <resultMap id="inquiryBoardVO" type="inquiryBoardVO">
+        <result property="boardId" column="boardId"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="writeDate" column="writeDate"/>
+        <result property="userId" column="userId"/>
+    </resultMap>
+
+    <resultMap id="imageVO" type="imageVO">
+        <result property="imageFileNo" column="imageFileNo"/>
+        <result property="imageFileName" column="imageFileName"/>
+        <result property="savedDate" column="savedDate"/>
+        <result property="boardId" column="boardId"/>
+    </resultMap>
+
+    <resultMap id="AnswerVO" type="AnswerVO">
+        <result property="AnswerId" column="AnswerId"/>
+        <result property="boardId" column="boardId"/>
+        <result property="content" column="content"/>
+        <result property="userId" column="userId"/>
+        <result property="savedDate" column="savedDate"/>
+    </resultMap>
+
+    <select id="selectInquiryBoard"  resultType="inquiryBoardVO" parameterType="java.util.List">
+        <![CDATA[
+            select boardId, title, writeDate, userId
+            from inquiryBoard
+        ]]>
+    </select>
+
+    <select id="selectBoardDetail" resultType="inquiryBoardVO" parameterType="java.util.Map">
+        <![CDATA[
+        select boardId,title, content, writeDate, userId
+        from inquiryBoard
+        where boardId = #{boardId}
+        ]]>
+    </select>
+
+    <select id="selectBoardAnswer" resultType="AnswerVO" parameterType="java.util.Map">
+        <![CDATA[
+        select *
+        from (inquiry_Answer as Answer join inquiryBoard as Board on Answer.boardId = Board.BoardId)
+        where Board.BoardId = #{boardId};
+        ]]>
+    </select>
+
+</mapper>
