@@ -28,6 +28,7 @@
         <result property="savedDate" column="savedDate"/>
     </resultMap>
 
+
     <select id="selectInquiryBoard"  resultType="inquiryBoardVO" parameterType="java.util.List">
         <![CDATA[
             select boardId, title, writeDate, userId
