@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping(value = "/board")
+@RequestMapping(value = "/inquiryBoard")
 @Controller("inquiryBoardController")
 public class inquiryBoardControllerImpl extends BaseController implements inquiryBoardController {
 
@@ -57,22 +57,29 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
         Map boardMap = new HashMap();
-        boardMap.put("boardId",boardId);
-        boardMap.put("userId",userId);
+        boardMap.put("boardId", boardId);
+        boardMap.put("userId", userId);
         inquiryBoardVO inquiryBoardVO;
         imageVO imageVO;
         List<AnswerVO> AnswerVO;
         try {
             inquiryBoardVO = inquiryBoardService.selectBoardDetail(boardMap);
-            AnswerVO=inquiryBoardService.selectBoardAnswer(boardMap);
+            AnswerVO = inquiryBoardService.selectBoardAnswer(boardMap);
 //            imageVO=inquiryBoardService.selectBoardImage(boardMap);
             ModelAndView modelAndView = new ModelAndView("inquiryBoard/detailBoardForm");
             modelAndView.addObject("inquiryBoardVO", inquiryBoardVO);
-            modelAndView.addObject("AnswerVO",AnswerVO);
+            modelAndView.addObject("AnswerVO", AnswerVO);
             return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
             return new ModelAndView("common/error");
         }
     }
+
+    @RequestMapping(value = "/writeBoard", method = RequestMethod.POST)
+    @Override
+    public ModelAndView writeBoard(HttpServletRequest request, HttpServletResponse response) {
+        return null;
+    }
+
 }

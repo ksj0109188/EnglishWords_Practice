@@ -31,4 +31,9 @@ public class inquiryBoardServiceImpl implements inquiryBoardService{
         return inquiryBoardDAO.selectBoardAnswer(boardMap);
     }
 
+    @Override
+    public void writeBoard(Map boardMap) {
+
+    }
+
 }

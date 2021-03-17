@@ -12,4 +12,6 @@ public interface inquiryBoardService {
     inquiryBoardVO selectBoardDetail(Map boardMap) throws Exception;
 
     List<AnswerVO> selectBoardAnswer(Map boardMap) throws Exception;
+
+    void writeBoard(Map boardMap);
 }

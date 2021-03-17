@@ -1,13 +1,10 @@
-<%@ page language="java" contentType="text/html; ISO-8859-1"
-         pageEncoding="utf-8"
-         isELIgnored="false"
-%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <title>문의 게시판</title>
+    <title>문의 게시판 상세보기</title>
     <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
 
     <c:if test="${not empty inquiryItems}">

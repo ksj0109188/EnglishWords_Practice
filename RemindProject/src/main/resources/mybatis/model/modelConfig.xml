@@ -7,5 +7,8 @@
         <typeAlias type="com.project.member.vo.MemberVO" alias="MemberVO" />
         <typeAlias type="com.project.word.vo.wordVO" alias="wordVO"/>
         <typeAlias type="com.project.dailyWord.vo.dailyWordVO" alias="dailyWordVO"/>
+        <typeAlias type="com.project.inquiryBoard.vo.AnswerVO" alias="AnswerVO"/>
+        <typeAlias type="com.project.inquiryBoard.vo.imageVO" alias="imageVO"/>
+        <typeAlias type="com.project.inquiryBoard.vo.inquiryBoardVO" alias="inquiryBoardVO"/>
     </typeAliases>
 </configuration>

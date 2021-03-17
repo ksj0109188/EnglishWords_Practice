@@ -1,6 +1,7 @@
 package com.project.dailyWord.Controller;
 
 
+import com.project.common.base.BaseController;
 import com.project.dailyWord.service.dailyWordService;
 import com.project.dailyWord.vo.dailyWordVO;
 import org.jsoup.Jsoup;
@@ -22,7 +23,7 @@ import java.util.*;
 @EnableScheduling
 @Controller("dailyWord")
 @RequestMapping(value = "/dailyWord")
-public class dailyWordControllerImpl implements dailyWordController {
+public class dailyWordControllerImpl extends BaseController implements dailyWordController {
 
     @Autowired
     dailyWordVO dailyWordvo;

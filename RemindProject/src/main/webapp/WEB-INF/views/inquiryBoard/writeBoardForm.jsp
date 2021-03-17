@@ -4,7 +4,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <title>문의 게시판</title>
+    <title>문의 게시판 작성</title>
     <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
 
     <c:if test="${not empty inquiryItems}">
@@ -16,17 +16,13 @@
     </c:if>
 
 </head>
+
 <body>
-<table>
-    <c:forEach var="item" items="${inquiryBoardVO}" varStatus="itemStatus">
-        <tr>
-            <td><a href="${contextPath}/inquiryBoard/board/${item.boardId}" methods="get">${item.title}</a></td>
-            <td>${item.userId}</td>
-            <td>${item.writeDate}</td>
-            <td>${item.boardId}</td>
-        </tr>
-    </c:forEach>
-</table>writeBoardForm.jsp
-<a href="${contextPath}/inquiryBoard/writeBoardForm.do">글쓰기</a>
+        <form action="${contextPath}/inquiryBoard/writeBoard" method="post">
+            제목 <input type="text" name="title" placeholder="글의 제목">
+            내용 <input type="text" name="content" placeholder="글의 내용">
+            이미지 <input type="file" name="imageFileName">
+        </form>
+
 </body>
 </html>

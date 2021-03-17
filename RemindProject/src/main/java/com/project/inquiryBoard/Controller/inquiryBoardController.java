@@ -10,4 +10,5 @@ public interface inquiryBoardController {
 
     ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response);
     ModelAndView selectBoardDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable("boardId") int boardId);
+    ModelAndView writeBoard(HttpServletRequest request, HttpServletResponse response);
 }
