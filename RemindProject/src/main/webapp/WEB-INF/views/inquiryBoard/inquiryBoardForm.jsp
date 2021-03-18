@@ -26,7 +26,7 @@
             <td>${item.boardId}</td>
         </tr>
     </c:forEach>
-</table>writeBoardForm.jsp
+</table>
 <a href="${contextPath}/inquiryBoard/writeBoardForm.do">글쓰기</a>
 </body>
 </html>

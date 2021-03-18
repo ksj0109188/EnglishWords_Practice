@@ -6,23 +6,32 @@
 <head>
     <title>문의 게시판 작성</title>
     <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
+    <script>
+        function setImage(event) {
+            var reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]);
 
-    <c:if test="${not empty inquiryItems}">
-        <script>
-            window.onload = function () {
-                alert("게시글이 없습니다.");
-            }
-        </script>
-    </c:if>
+            reader.onload = function (event) {
+                var img = document.createElement("img");
+                img.setAttribute("src", event.target.result);
+                document.getElementById("image_container").appendChild(img);
+            };
+        }
 
+    </script>
 </head>
 
 <body>
-        <form action="${contextPath}/inquiryBoard/writeBoard" method="post">
-            제목 <input type="text" name="title" placeholder="글의 제목">
-            내용 <input type="text" name="content" placeholder="글의 내용">
-            이미지 <input type="file" name="imageFileName">
-        </form>
+
+<form action="${contextPath}/inquiryBoard/writeBoard" method="post" enctype="multipart/form-data">
+    <div>
+        제목 <input type="text" name="title" placeholder="글의 제목">
+        내용 <input type="text" name="content" placeholder="글의 내용">
+        이미지 <input type="file" name="imageFileName" onchange="setImage(event)">
+        <input type="submit" value="글쓰기">
+    </div>
+</form>
+<div id="image_container"></div>
 
 </body>
 </html>

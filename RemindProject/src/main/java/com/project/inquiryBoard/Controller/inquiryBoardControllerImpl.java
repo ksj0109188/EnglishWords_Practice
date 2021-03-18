@@ -10,19 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping(value = "/inquiryBoard")
 @Controller("inquiryBoardController")
 public class inquiryBoardControllerImpl extends BaseController implements inquiryBoardController {
-
     @Autowired
     inquiryBoardService inquiryBoardService;
 
@@ -38,10 +36,10 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
     @RequestMapping(value = "/boardForm.do")
     @Override
     public ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response) {
-        Map inquiryBoardMap = new HashMap();
+        Map boardMap = new HashMap();
         List<inquiryBoardVO> inquiryBoardVO;
         try {
-            inquiryBoardVO = inquiryBoardService.selectInquiryBoard(inquiryBoardMap);
+            inquiryBoardVO = inquiryBoardService.selectInquiryBoard(boardMap);
             ModelAndView modelAndView = new ModelAndView("inquiryBoard/inquiryBoardForm");
             modelAndView.addObject("inquiryBoardVO", inquiryBoardVO);
             return modelAndView;
@@ -78,8 +76,37 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
 
     @RequestMapping(value = "/writeBoard", method = RequestMethod.POST)
     @Override
-    public ModelAndView writeBoard(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+    public ModelAndView writeBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+        HttpSession session = multipartRequest.getSession();
+        String userId = (String) session.getAttribute("userId");
+        Map boardMap = new HashMap();
+        boardMap.put("userId", userId);
+        List<inquiryBoardVO> inquiryBoardVO = new ArrayList<inquiryBoardVO>();
+        Enumeration enu = multipartRequest.getParameterNames();
+        while (enu.hasMoreElements()) {
+            String name = (String) enu.nextElement();
+            String value = multipartRequest.getParameter(name);
+            boardMap.put(name, value);
+        }
+        try {
+            List<String> fileList = upload(multipartRequest);
+            List<imageVO> imageFileList = new ArrayList<imageVO>();
+            if (fileList != null && fileList.size() != 0) {
+                for (String fileName : fileList) {
+                    imageVO ImageVO = new imageVO();
+                    ImageVO.setImageFileName(fileName);
+                    imageFileList.add(imageVO);
+                }
+                boardMap.put("imageFileList", imageFileList);
+            }
+            inquiryBoardVO = inquiryBoardService.selectInquiryBoard(boardMap);
+            ModelAndView modelAndView = new ModelAndView("inquiryBoard/inquiryBoardForm");
+            modelAndView.addObject("inquiryBoardVO", inquiryBoardVO);
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("common/error");
+        }
     }
 
 }
