@@ -14,7 +14,7 @@
     </resultMap>
 
     <resultMap id="imageVO" type="imageVO">
-        <result property="imageFileNo" column="imageFileNo"/>
+        <result property="imageFileId" column="imageFileId"/>
         <result property="imageFileName" column="imageFileName"/>
         <result property="savedDate" column="savedDate"/>
         <result property="boardId" column="boardId"/>
@@ -28,6 +28,15 @@
         <result property="savedDate" column="savedDate"/>
     </resultMap>
 
+    <select id="maxBoardId" resultType="int">
+        select IFNULL(MAX(boardId), 0) + 1
+        from inquiryBoard
+    </select>
+
+    <select id="maxBoardImageFileId" resultType="int">
+        select IFNULL(MAX(imageFileId), 0) + 1
+        from inquiry_imageFile
+    </select>
 
     <select id="selectInquiryBoard"  resultType="inquiryBoardVO" parameterType="java.util.List">
         <![CDATA[
@@ -51,5 +60,25 @@
         where Board.BoardId = #{boardId};
         ]]>
     </select>
+
+    <insert id="writeBoard" parameterType="java.util.Map">
+        insert into inquiryBoard(boardId, title, content,userId)
+        values(#{boardId},#{title},#{content},#{userId})
+    </insert>
+
+    <insert id="writeImageBoard" parameterType="java.util.Map">
+        insert into inquiry_imageFile(imageFileId, imageFileName, boardId)
+        <foreach collection="list" item="item" separator=",">
+        values(#{item.imageFileId},#{item.imageFileName},#{item.boardId})
+        </foreach>
+    </insert>
+
+    <select id="selectBoardImage" parameterType="java.util.Map" resultType="imageVO">
+        select imageFileId,imageFileName, boardId, savedDate
+        from inquiry_imageFile
+        where boardId = #{boardId}
+    </select>
+
+
 
 </mapper>

@@ -1,13 +1,10 @@
 package com.project.inquiryBoard.dao;
 
 import com.project.inquiryBoard.vo.AnswerVO;
+import com.project.inquiryBoard.vo.imageVO;
 import com.project.inquiryBoard.vo.inquiryBoardVO;
 import org.springframework.dao.DataAccessException;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +14,14 @@ public interface inquiryBoardDAO {
     inquiryBoardVO selectBoardDetail(Map boardMap) throws DataAccessException;
 
     List<AnswerVO> selectBoardAnswer(Map boardMap) throws DataAccessException;
+
+    int maxBoardId() throws DataAccessException;
+
+    void writeBoard(Map boardMap) throws DataAccessException;
+
+    void writeImageBoard(List<imageVO> imageVOList) throws DataAccessException;
+
+    int maxBoardImageFileId() throws DataAccessException;
+
+    List<imageVO> selectBoardImage(Map boardMap) throws DataAccessException;
 }

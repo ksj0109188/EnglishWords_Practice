@@ -1,6 +1,7 @@
 package com.project.inquiryBoard.service;
 
 import com.project.inquiryBoard.vo.AnswerVO;
+import com.project.inquiryBoard.vo.imageVO;
 import com.project.inquiryBoard.vo.inquiryBoardVO;
 
 import java.util.List;
@@ -13,5 +14,9 @@ public interface inquiryBoardService {
 
     List<AnswerVO> selectBoardAnswer(Map boardMap) throws Exception;
 
-    void writeBoard(Map boardMap);
+    int writeBoard(Map boardMap)throws Exception;
+
+    void writeImageBoard(Map boardMap) throws Exception;
+
+    List<imageVO> selectBoardImage(Map boardMap) throws Exception;
 }

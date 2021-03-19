@@ -15,7 +15,7 @@ import java.util.List;
 
 
 public abstract class BaseController {
-    private static final String BOARD_IMAGE = "/Users/kim/IdeaProjects/EnglishWords_Practice/images";
+    protected static final String BOARD_IMAGE = "/Users/kim/IdeaProjects/EnglishWords_Practice/images";
 
     @RequestMapping(value = "/*Form.do", method = {RequestMethod.POST,RequestMethod.GET})
     public ModelAndView viewForm(HttpServletResponse response, HttpServletRequest request) throws Exception{
@@ -25,7 +25,12 @@ public abstract class BaseController {
         return modelAndView;
     }
 
-
+    @RequestMapping(value = "/error")
+    public ModelAndView viewError(HttpServletResponse response, HttpServletRequest request) throws Exception{
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/common/error");
+        return modelAndView;
+    }
     protected List<String> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
         List<String> fileList= new ArrayList<String>();
         Iterator<String> fileNames = multipartRequest.getFileNames();

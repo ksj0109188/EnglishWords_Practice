@@ -23,12 +23,12 @@
 
 <body>
 
-<form action="${contextPath}/inquiryBoard/writeBoard" method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data"  action="${contextPath}/inquiryBoard/writeBoard">
     <div>
-        제목 <input type="text" name="title" placeholder="글의 제목">
-        내용 <input type="text" name="content" placeholder="글의 내용">
+        제목 <input type="text" id="title" name="title" placeholder="글의 제목">
+        내용 <input type="text" id="content" name="content" placeholder="글의 내용">
         이미지 <input type="file" name="imageFileName" onchange="setImage(event)">
-        <input type="submit" value="글쓰기">
+        <input type="submit" value="글쓰기" >
     </div>
 </form>
 <div id="image_container"></div>

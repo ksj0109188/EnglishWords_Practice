@@ -28,6 +28,12 @@
     <tr><td>내용</td><td>${inquiryBoardVO.content}</td></tr>
     <tr><td>작성자</td><td>${inquiryBoardVO.userId}</td></tr>
     <tr><td>글쓴날짜</td><td>${inquiryBoardVO.writeDate}</td></tr>
+    <c:forEach var="item" items="${imageVO}" varStatus="itemStatus">
+        <tr>
+            <td><img src="${contextPath}/download.do?boardId=${item.boardId}&imageFileName=${item.imageFileName}">${item.imageFileName}</td>
+        </tr>
+    </c:forEach>
+
     댓글
     <c:forEach var="item" items="${AnswerVO}" varStatus="itemStatus">
         <tr>
@@ -37,6 +43,7 @@
             <td>${item.boardId}</td>
         </tr>
     </c:forEach>
+
 </table>
 </body>
 </html>

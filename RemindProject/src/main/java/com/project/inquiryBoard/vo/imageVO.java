@@ -6,18 +6,18 @@ import java.sql.Timestamp;
 
 @Component("imageVO")
 public class imageVO {
-    private int imageFileNo;
+    private int imageFileId;
     private String imageFileName;
     private Timestamp savedDate;
     private int boardId;
 
 
-    public int getImageFileNo() {
-        return imageFileNo;
+    public int getImageFileId() {
+        return imageFileId;
     }
 
-    public void setImageFileNo(int imageFileNo) {
-        this.imageFileNo = imageFileNo;
+    public void setImageFileId(int imageFileId) {
+        this.imageFileId = imageFileId;
     }
 
     public String getImageFileName() {
