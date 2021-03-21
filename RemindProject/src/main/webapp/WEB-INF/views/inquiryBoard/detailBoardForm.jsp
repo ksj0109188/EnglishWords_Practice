@@ -6,7 +6,26 @@
 <head>
     <title>문의 게시판 상세보기</title>
     <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
-
+    <script>
+        function writeAnswer(boardId) {
+            var contentValue = document.getElementById("content").value;
+            var data = { boardId : boardId, content : contentValue };
+            $.ajax({
+                type: "post",
+                url: "${contextPath}/inquiryBoard/writeAnswer",
+                contentType : "application/json",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                },
+                error: function () {
+                    alert("잠시후 다시 시도해주세요.");
+                    location.href = "${contextPath}/inquiryBoard/error";
+                }
+            });
+        }
+    </script>
     <c:if test="${not empty inquiryItems}">
         <script>
             window.onload = function () {
@@ -15,22 +34,31 @@
         </script>
     </c:if>
 
-    <script>
-        function detailBoard(index) {
-            document.getElementsByName()
-        }
 
-    </script>
 </head>
 <body>
 <table>
-    <tr><td>제목</td><td>${inquiryBoardVO.title}</td></tr>
-    <tr><td>내용</td><td>${inquiryBoardVO.content}</td></tr>
-    <tr><td>작성자</td><td>${inquiryBoardVO.userId}</td></tr>
-    <tr><td>글쓴날짜</td><td>${inquiryBoardVO.writeDate}</td></tr>
+    <tr>
+        <td>제목</td>
+        <td>${inquiryBoardVO.title}</td>
+    </tr>
+    <tr>
+        <td>내용</td>
+        <td>${inquiryBoardVO.content}</td>
+    </tr>
+    <tr>
+        <td>작성자</td>
+        <td>${inquiryBoardVO.userId}</td>
+    </tr>
+    <tr>
+        <td>글쓴날짜</td>
+        <td>${inquiryBoardVO.writeDate}</td>
+    </tr>
     <c:forEach var="item" items="${imageVO}" varStatus="itemStatus">
         <tr>
-            <td><img src="${contextPath}/download.do?boardId=${item.boardId}&imageFileName=${item.imageFileName}">${item.imageFileName}</td>
+            <td><img
+                    src="${contextPath}/download.do?boardId=${item.boardId}&imageFileName=${item.imageFileName}">${item.imageFileName}
+            </td>
         </tr>
     </c:forEach>
 
@@ -44,6 +72,13 @@
         </tr>
     </c:forEach>
 
+
 </table>
+
+<form>
+    <textarea id="content"></textarea>
+    <input type="button" value="등록" onclick="writeAnswer(${inquiryBoardVO.boardId})">
+</form>
+
 </body>
 </html>

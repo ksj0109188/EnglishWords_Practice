@@ -58,4 +58,11 @@ public class inquiryBoardServiceImpl implements inquiryBoardService {
     public List<imageVO> selectBoardImage(Map boardMap) throws Exception {
         return inquiryBoardDAO.selectBoardImage(boardMap);
     }
+
+    @Override
+    public void writeAnswer(Map boardMap) throws Exception {
+        int AnswerId = inquiryBoardDAO.maxAnswerId();
+        boardMap.put("AnswerId",AnswerId);
+        inquiryBoardDAO.writeAnswer(boardMap);
+    }
 }

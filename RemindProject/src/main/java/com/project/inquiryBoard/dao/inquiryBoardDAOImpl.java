@@ -54,4 +54,14 @@ public class inquiryBoardDAOImpl implements inquiryBoardDAO {
     public List<imageVO> selectBoardImage(Map boardMap) throws DataAccessException {
         return session.selectList("mapper.inquiryBoard.selectBoardImage",boardMap);
     }
+
+    @Override
+    public void writeAnswer(Map boardMap) throws DataAccessException {
+        session.insert("mapper.inquiryBoard.writeAnswer",boardMap);
+    }
+
+    @Override
+    public int maxAnswerId() throws DataAccessException {
+        return session.selectOne("mapper.inquiryBoard.maxAnswerId");
+    }
 }

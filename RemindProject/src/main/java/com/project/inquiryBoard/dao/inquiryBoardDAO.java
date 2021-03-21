@@ -24,4 +24,8 @@ public interface inquiryBoardDAO {
     int maxBoardImageFileId() throws DataAccessException;
 
     List<imageVO> selectBoardImage(Map boardMap) throws DataAccessException;
+
+    void writeAnswer(Map boardMap) throws DataAccessException;
+
+    int maxAnswerId() throws DataAccessException;
 }

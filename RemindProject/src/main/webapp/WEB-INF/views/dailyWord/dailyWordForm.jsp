@@ -24,7 +24,7 @@
                     word: word,
                     mean: mean
                 },
-                success: function (data) {
+                success: function () {
 
                 },
                 error: function (request, error) {

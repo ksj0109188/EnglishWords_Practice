@@ -38,16 +38,21 @@
         from inquiry_imageFile
     </select>
 
-    <select id="selectInquiryBoard"  resultType="inquiryBoardVO" parameterType="java.util.List">
+    <select id="maxAnswerId" resultType="int">
+        select IFNULL(MAX(AnswerId), 0) + 1
+        from inquiry_Answer
+    </select>
+
+    <select id="selectInquiryBoard" resultType="inquiryBoardVO" parameterType="java.util.List">
         <![CDATA[
-            select boardId, title, writeDate, userId
-            from inquiryBoard
+        select boardId, title, writeDate, userId
+        from inquiryBoard
         ]]>
     </select>
 
     <select id="selectBoardDetail" resultType="inquiryBoardVO" parameterType="java.util.Map">
         <![CDATA[
-        select boardId,title, content, writeDate, userId
+        select boardId, title, content, writeDate, userId
         from inquiryBoard
         where boardId = #{boardId}
         ]]>
@@ -62,23 +67,31 @@
     </select>
 
     <insert id="writeBoard" parameterType="java.util.Map">
-        insert into inquiryBoard(boardId, title, content,userId)
-        values(#{boardId},#{title},#{content},#{userId})
+        insert into inquiryBoard(boardId, title, content, userId)
+        values (#{boardId}, #{title}, #{content}, #{userId})
     </insert>
 
     <insert id="writeImageBoard" parameterType="java.util.Map">
         insert into inquiry_imageFile(imageFileId, imageFileName, boardId)
         <foreach collection="list" item="item" separator=",">
-        values(#{item.imageFileId},#{item.imageFileName},#{item.boardId})
+            values(#{item.imageFileId},#{item.imageFileName},#{item.boardId})
         </foreach>
     </insert>
 
     <select id="selectBoardImage" parameterType="java.util.Map" resultType="imageVO">
-        select imageFileId,imageFileName, boardId, savedDate
+        <![CDATA[
+        select imageFileId, imageFileName, boardId, savedDate
         from inquiry_imageFile
         where boardId = #{boardId}
+        ]]>
     </select>
 
+    <insert id="writeAnswer" parameterType="java.util.Map">
+        <![CDATA[
+        insert into inquiry_Answer(boardId, content, savedDate, userId, AnswerId)
+        values (#{boardId}, #{content}, current_timestamp, #{userId}, #{AnswerId})
+        ]]>
+    </insert>
 
 
 </mapper>
