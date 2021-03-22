@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,32 @@ public class inquiryBoardServiceImpl implements inquiryBoardService {
     @Override
     public void writeAnswer(Map boardMap) throws Exception {
         int AnswerId = inquiryBoardDAO.maxAnswerId();
-        boardMap.put("AnswerId",AnswerId);
+        boardMap.put("AnswerId", AnswerId);
         inquiryBoardDAO.writeAnswer(boardMap);
+    }
+
+    @Override
+    public void updateBoard(Map boardMap) throws Exception {
+        inquiryBoardDAO.updateBoard(boardMap);
+    }
+
+    @Override
+    public void updateImageBoard(Map boardMap) throws Exception {
+        List<imageVO> fileList = (List<imageVO>) boardMap.get("imageFileList");
+        List<imageVO> exist = inquiryBoardDAO.selectBoardImage(boardMap);
+        if (exist != null && exist.size() != 0) {
+            for (imageVO existImage : exist) {
+                for (imageVO changeImage : fileList) {
+                    existImage.setImageFileName(changeImage.getImageFileName());
+                }
+            }
+            inquiryBoardDAO.updateImageBoard(exist);
+        } else {
+            int maxBoardImageFileId = inquiryBoardDAO.maxBoardImageFileId();
+            for (imageVO Image : fileList) {
+                Image.setImageFileId(maxBoardImageFileId);
+            }
+            inquiryBoardDAO.writeImageBoard(fileList);
+        }
     }
 }

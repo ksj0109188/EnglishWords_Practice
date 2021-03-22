@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -101,19 +102,18 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
         String imageFileName;
         List<String> fileList = upload(multipartRequest);
         List<imageVO> imageFileList = new ArrayList<imageVO>();
-
-
-        if (fileList != null  && fileList.size() != 0) {
-            for (String fileName : fileList) {
-                imageVO ImageVO = new imageVO();
-                ImageVO.setImageFileName(fileName);
-                imageFileList.add(ImageVO);
-            }
-            boardMap.put("imageFileList", imageFileList);
-        }
         try {
             int boardId = inquiryBoardService.writeBoard(boardMap);
-            inquiryBoardService.writeImageBoard(boardMap);
+            inquiryBoardService.updateBoard(boardMap);
+            if (fileList != null && fileList.size() != 0) {
+                for (String fileName : fileList) {
+                    imageVO ImageVO = new imageVO();
+                    ImageVO.setImageFileName(fileName);
+                    imageFileList.add(ImageVO);
+                }
+                boardMap.put("imageFileList", imageFileList);
+                inquiryBoardService.writeImageBoard(boardMap);
+            }
             if (imageFileList != null && imageFileList.size() != 0) {
                 for (imageVO imageVO : imageFileList) {
                     imageFileName = imageVO.getImageFileName();
@@ -165,5 +165,92 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             responseEntity = new ResponseEntity(message, responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
+    }
+
+    @RequestMapping(value = "/modifyBoardForm.do", method = RequestMethod.GET)
+    public ModelAndView modifyForm(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId", required = true) int boardId) {
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        Map boardMap = new HashMap();
+        boardMap.put("boardId", boardId);
+        boardMap.put("userId", userId);
+        List<imageVO> imageVO;
+        try {
+            inquiryBoardVO inquiryBoardVO = inquiryBoardService.selectBoardDetail(boardMap);
+            imageVO = inquiryBoardService.selectBoardImage(boardMap);
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("inquiryBoardVO", inquiryBoardVO);
+            modelAndView.addObject("imageVO", imageVO);
+            modelAndView.setViewName("/inquiryBoard/modifyBoardForm");
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("inquiryBoardVO", inquiryBoardVO);
+            modelAndView.setViewName("/common/error");
+            return modelAndView;
+        }
+    }
+
+    @RequestMapping(value = "/modifyBoard", method = RequestMethod.POST)
+    public ModelAndView modifyBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+
+        HttpSession session = multipartRequest.getSession();
+        String userId = (String) session.getAttribute("userId");
+        Map boardMap = new HashMap();
+        boardMap.put("userId", userId);
+
+        List<inquiryBoardVO> inquiryBoardVO = new ArrayList<inquiryBoardVO>();
+        Enumeration enu = multipartRequest.getParameterNames();
+        while (enu.hasMoreElements()) {
+            String name = (String) enu.nextElement();
+            String value = multipartRequest.getParameter(name);
+            boardMap.put(name, value);
+        }
+        String imageFileName;
+        List<String> fileList = upload(multipartRequest);
+        List<imageVO> imageFileList = new ArrayList<imageVO>();
+
+        try {
+            inquiryBoardService.updateBoard(boardMap);
+            int boardId = Integer.parseInt((String) boardMap.get("boardId"));
+            if (fileList != null && fileList.size() != 0) {
+                for (String fileName : fileList) {
+                    imageVO ImageVO = new imageVO();
+                    ImageVO.setBoardId(boardId);
+                    ImageVO.setImageFileName(fileName);
+                    imageFileList.add(ImageVO);
+                }
+                boardMap.put("imageFileList", imageFileList);
+                inquiryBoardService.updateImageBoard(boardMap);
+            }
+            if (imageFileList != null && imageFileList.size() != 0) {
+                for (imageVO imageVO : imageFileList) {
+                    imageFileName = imageVO.getImageFileName();
+                    File srcFile = new File(BOARD_IMAGE + "/" + "temp" + "/" + imageFileName);
+                    File destDir = new File(BOARD_IMAGE + "/" + boardId);
+                    FileUtils.moveFileToDirectory(srcFile, destDir, true);
+
+                    String originalFileName = (String) boardMap.get("originalFileName");
+                    File oldFile = new File(BOARD_IMAGE + "/" + boardId + "/" + originalFileName);
+                    oldFile.delete();
+                }
+            }else{
+
+            }
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/inquiryBoard/board/" + boardId);
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (imageFileList != null && imageFileList.size() != 0) {
+                for (imageVO imageVO : imageFileList) {
+                    imageFileName = imageVO.getImageFileName();
+                    File srcFile = new File(BOARD_IMAGE + "/" + "temp" + "/" + imageFileName);
+                    srcFile.delete();
+                }
+            }
+            return new ModelAndView("/common/error");
+        }
     }
 }

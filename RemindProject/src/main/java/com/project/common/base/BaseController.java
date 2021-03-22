@@ -49,9 +49,6 @@ public abstract class BaseController {
                 mFile.transferTo(new File(BOARD_IMAGE +"/"+"temp"+ "/"+originalFileName));
             }
         }
-        if(fileList.get(0).equals("")){
-            return null;
-        }
         return fileList;
     }
 }

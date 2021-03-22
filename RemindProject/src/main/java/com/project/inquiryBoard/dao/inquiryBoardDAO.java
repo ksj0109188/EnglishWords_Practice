@@ -28,4 +28,8 @@ public interface inquiryBoardDAO {
     void writeAnswer(Map boardMap) throws DataAccessException;
 
     int maxAnswerId() throws DataAccessException;
+
+    void updateBoard(Map boardMap) throws DataAccessException;
+
+    void updateImageBoard(List<imageVO> imageVOList) throws DataAccessException;
 }

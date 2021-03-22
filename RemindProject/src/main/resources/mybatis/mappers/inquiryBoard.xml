@@ -93,5 +93,19 @@
         ]]>
     </insert>
 
-
+    <update id="updateBoard" parameterType="java.util.Map">
+        <![CDATA[
+            Update inquiryBoard
+            set title = #{title}, content=#{content}
+            where boardId = #{boardId}
+        ]]>
+    </update>
+    
+    <update id="updateImageBoard" parameterType="java.util.Map">
+        <foreach collection="list" item="item" separator="," close="">
+            Update inquiry_imageFile
+            set imageFileName = #{item.imageFileName}, savedDate=current_timestamp
+            where imageFileId = #{item.imageFileId}
+        </foreach>
+    </update>
 </mapper>

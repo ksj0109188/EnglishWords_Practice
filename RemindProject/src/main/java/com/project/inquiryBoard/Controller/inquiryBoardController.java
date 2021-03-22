@@ -15,6 +15,7 @@ public interface inquiryBoardController {
 
     ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response);
     ModelAndView selectBoardDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable("boardId") int boardId);
-    public ResponseEntity writeBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
+    ResponseEntity writeBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
     ResponseEntity writeAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String,String> boardMap);
+    ModelAndView modifyForm(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId", required = true) int boardId);
 }

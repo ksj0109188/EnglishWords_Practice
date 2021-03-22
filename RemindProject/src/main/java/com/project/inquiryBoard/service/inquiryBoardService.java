@@ -21,4 +21,8 @@ public interface inquiryBoardService {
     List<imageVO> selectBoardImage(Map boardMap) throws Exception;
 
     void writeAnswer(Map boardMap) throws Exception;
+
+    void updateBoard(Map boardMap) throws Exception;
+
+    void updateImageBoard(Map boardMap) throws Exception;
 }
