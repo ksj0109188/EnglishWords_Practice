@@ -14,8 +14,19 @@ import java.util.Map;
 public interface inquiryBoardController {
 
     ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response);
+
     ModelAndView selectBoardDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable("boardId") int boardId);
+
     ResponseEntity writeBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
-    ResponseEntity writeAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String,String> boardMap);
+
+    ResponseEntity writeAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> boardMap);
+
     ModelAndView modifyForm(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId", required = true) int boardId);
+
+    ModelAndView modifyBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
+
+    ModelAndView deleteBoard(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId") int boardId,
+                                                                                        @RequestParam(value = "imageFileName") String imageFileName);
+
+
 }

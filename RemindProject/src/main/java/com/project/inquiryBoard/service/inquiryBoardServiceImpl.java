@@ -91,4 +91,19 @@ public class inquiryBoardServiceImpl implements inquiryBoardService {
             inquiryBoardDAO.writeImageBoard(fileList);
         }
     }
+
+    @Override
+    public void deleteBoard(Map boardMap) throws Exception {
+        inquiryBoardDAO.deleteBoard(boardMap);
+    }
+
+    @Override
+    public void modifyAnswer(Map answerMap) throws Exception {
+        inquiryBoardDAO.modifyAnswer(answerMap);
+    }
+
+    @Override
+    public void deleteAnswer(Map answerMap) throws Exception {
+        inquiryBoardDAO.deleteAnswer(answerMap);
+    }
 }

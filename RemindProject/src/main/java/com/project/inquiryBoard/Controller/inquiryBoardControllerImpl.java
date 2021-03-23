@@ -8,6 +8,7 @@ import com.project.inquiryBoard.vo.inquiryBoardVO;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -194,7 +195,6 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
 
     @RequestMapping(value = "/modifyBoard", method = RequestMethod.POST)
     public ModelAndView modifyBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-
         HttpSession session = multipartRequest.getSession();
         String userId = (String) session.getAttribute("userId");
         Map boardMap = new HashMap();
@@ -235,8 +235,6 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
                     File oldFile = new File(BOARD_IMAGE + "/" + boardId + "/" + originalFileName);
                     oldFile.delete();
                 }
-            }else{
-
             }
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("redirect:/inquiryBoard/board/" + boardId);
@@ -253,4 +251,56 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             return new ModelAndView("/common/error");
         }
     }
+
+    @RequestMapping(value = "/deleteBoard", method = RequestMethod.POST)
+    public ModelAndView deleteBoard(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId") int boardId,
+                                    @RequestParam(value = "imageFileName") String imageFileName) {
+        Map boardMap = new HashMap();
+        boardMap.put("boardId", boardId);
+        boardMap.put("imageFileName", imageFileName);
+        try {
+            if (!imageFileName.equals("empty")) {
+                File directory = new File(BOARD_IMAGE + "/" + boardId);
+                File srcFile = new File(BOARD_IMAGE + "/" + boardId + "/" + imageFileName);
+                srcFile.delete();
+                directory.delete();
+            }
+            inquiryBoardService.deleteBoard(boardMap);
+            return new ModelAndView("redirect:/inquiryBoard/boardForm.do");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("common/error");
+        }
+    }
+
+    @RequestMapping(value = "/modifyAnswer", method = RequestMethod.PUT)
+    public ResponseEntity modifyAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map AnswerMap) {
+        ResponseEntity responseEntity = null;
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("content-type", "text/html; charset=utf-8");
+        try {
+            inquiryBoardService.modifyAnswer(AnswerMap);
+            responseEntity = new ResponseEntity<String>("댓글이 수정되었습니다.",responseHeader,HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<String>("에러발생",responseHeader,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    @RequestMapping(value ="/deleteAnswer/{AnswerId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAnswer(HttpServletRequest request, HttpServletResponse response, @PathVariable int AnswerId){
+        ResponseEntity responseEntity = null;
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("content-type", "text/html; charset=utf-8");
+        Map AnswerMap = new HashMap();
+        AnswerMap.put("AnswerId",AnswerId);
+        try {
+            inquiryBoardService.deleteAnswer(AnswerMap);
+            responseEntity = new ResponseEntity<String>("댓글이 삭제되었습니다..",responseHeader,HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<String>("에러발생",responseHeader,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
 }

@@ -95,12 +95,13 @@
 
     <update id="updateBoard" parameterType="java.util.Map">
         <![CDATA[
-            Update inquiryBoard
-            set title = #{title}, content=#{content}
-            where boardId = #{boardId}
+        Update inquiryBoard
+        set title  = #{title},
+            content=#{content}
+        where boardId = #{boardId}
         ]]>
     </update>
-    
+
     <update id="updateImageBoard" parameterType="java.util.Map">
         <foreach collection="list" item="item" separator="," close="">
             Update inquiry_imageFile
@@ -108,4 +109,27 @@
             where imageFileId = #{item.imageFileId}
         </foreach>
     </update>
+
+    <delete id="deleteBoard" parameterType="java.util.Map">
+        <![CDATA[
+        DELETE
+        FROM inquiryBoard
+        WHERE boardId = #{boardId}
+        ]]>
+    </delete>
+
+    <update id="modifyAnswer" parameterType="java.util.Map">
+        <![CDATA[
+        UPDATE inquiry_Answer
+        set content   = #{content},
+            savedDate = current_timestamp
+        where AnswerId = #{AnswerId}
+        ]]>
+    </update>
+
+    <delete id="deleteAnswer" parameterType="java.util.Map">
+        DELETE
+        FROM inquiry_Answer
+        WHERE  AnswerId= #{AnswerId}
+    </delete>
 </mapper>

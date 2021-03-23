@@ -32,4 +32,10 @@ public interface inquiryBoardDAO {
     void updateBoard(Map boardMap) throws DataAccessException;
 
     void updateImageBoard(List<imageVO> imageVOList) throws DataAccessException;
+
+    void deleteBoard(Map boardMap) throws DataAccessException;
+
+    void modifyAnswer(Map answerMap) throws DataAccessException;
+
+    void deleteAnswer(Map answerMap) throws DataAccessException;
 }

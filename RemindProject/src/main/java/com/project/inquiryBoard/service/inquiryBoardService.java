@@ -25,4 +25,10 @@ public interface inquiryBoardService {
     void updateBoard(Map boardMap) throws Exception;
 
     void updateImageBoard(Map boardMap) throws Exception;
+
+    void deleteBoard(Map boardMap) throws Exception;
+
+    void modifyAnswer(Map answerMap) throws Exception;
+
+    void deleteAnswer(Map answerMap) throws Exception;
 }

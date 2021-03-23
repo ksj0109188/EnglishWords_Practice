@@ -74,4 +74,19 @@ public class inquiryBoardDAOImpl implements inquiryBoardDAO {
     public void updateImageBoard(List<imageVO> imageVOList) throws DataAccessException {
         session.update("mapper.inquiryBoard.updateImageBoard", imageVOList);
     }
+
+    @Override
+    public void deleteBoard(Map boardMap) throws DataAccessException {
+        session.delete("mapper.inquiryBoard.deleteBoard",boardMap);
+    }
+
+    @Override
+    public void modifyAnswer(Map answerMap) throws DataAccessException {
+        session.update("mapper.inquiryBoard.modifyAnswer",answerMap);
+    }
+
+    @Override
+    public void deleteAnswer(Map answerMap) throws DataAccessException {
+        session.delete("mapper.inquiryBoard.deleteAnswer",answerMap);
+    }
 }
