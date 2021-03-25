@@ -20,12 +20,12 @@
                 async: true,
                 url: "${contextPath}/word/DailyWord",
                 data: {
-                    dailyWord_dailyId: dailyId,
+                    dailyId: dailyId,
                     word: word,
                     mean: mean
                 },
                 success: function () {
-
+                    alert("추가되었습니다.");
                 },
                 error: function (request, error) {
                     alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

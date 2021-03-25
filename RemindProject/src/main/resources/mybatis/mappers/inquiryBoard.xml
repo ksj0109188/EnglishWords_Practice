@@ -43,11 +43,30 @@
         from inquiry_Answer
     </select>
 
-    <select id="selectInquiryBoard" resultType="inquiryBoardVO" parameterType="java.util.List">
+    <select id="selectInquiryBoard" resultType="inquiryBoardVO" parameterType="java.util.Map">
         <![CDATA[
         select boardId, title, writeDate, userId
         from inquiryBoard
         ]]>
+        <if test="selectMode=='like'">
+        <![CDATA[
+        where title like CONCAT('%',#{title},'%')
+        ]]>
+        </if>
+        <![CDATA[
+        order by boardId
+        limit 10 offset #{startPage}
+        ]]>
+    </select>
+
+    <select id="selectTotalCountBoard" resultType="int">
+        <![CDATA[
+        select count(*)
+        from inquiryBoard
+        ]]>
+        <if test="selectMode=='like'">
+            where title like CONCAT('%',#{title},'%')
+        </if>
     </select>
 
     <select id="selectBoardDetail" resultType="inquiryBoardVO" parameterType="java.util.Map">

@@ -19,4 +19,11 @@ public class MainController {
         modelAndView.setViewName(viewName);
         return modelAndView;
     }
+
+    @RequestMapping(value="/mainContent")
+    public ModelAndView mainContent(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/main/mainContent");
+        return modelAndView;
+    }
 }

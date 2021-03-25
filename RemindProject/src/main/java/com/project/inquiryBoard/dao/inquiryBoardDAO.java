@@ -38,4 +38,6 @@ public interface inquiryBoardDAO {
     void modifyAnswer(Map answerMap) throws DataAccessException;
 
     void deleteAnswer(Map answerMap) throws DataAccessException;
+
+    int selectTotalCountBoard(Map boardMap) throws DataAccessException;
 }

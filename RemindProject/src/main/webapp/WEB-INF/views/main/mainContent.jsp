@@ -18,8 +18,8 @@
         <li><a href="${contextPath}/dailyWord/dailyWordForm.do"/>오늘의 단어</li>
         <li><a href="${contextPath}/word/saveWordForm.do"/>단어저장</li>
         <li><a href="${contextPath}/word/StudyForm.do"/>학습하기</li>
-        <li><a href="${contextPath}/inquiryBoard/boardForm.do"/>문의게시판</li>
-        <li>통계</li>
+        <li><a href="${contextPath}/inquiryBoard/boardForm"/>문의게시판</li>
+        <li><a href="${contextPath}/statistic/statisticForm.do"/>통계</li>
     </ul>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.project.word.Controller;
 
 import com.project.common.base.BaseController;
+import com.project.statistic.service.statisticService;
 import com.project.word.service.wordService;
 import com.project.word.vo.wordVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class wordControllerImpl extends BaseController implements wordController
     @Autowired
     wordService wordservice;
 
+    @Autowired
+    statisticService statisticservice;
+
     @RequestMapping(value = "/word", method = RequestMethod.POST)
     @Override
     public ResponseEntity addWord(HttpServletRequest request, HttpServletResponse response, @ModelAttribute wordVO wordvo) {
@@ -40,6 +44,8 @@ public class wordControllerImpl extends BaseController implements wordController
             int wordId = wordservice.maxWordId(wordvo);
             wordvo.setWordId(wordId);
             wordservice.addWord(wordvo);
+            statisticservice.addWord(wordvo);
+
             message = "<script>";
             message += "alert('저장완료.');";
             message += "location.href='" + request.getContextPath() + "/word/saveWordForm.do';";
@@ -66,6 +72,7 @@ public class wordControllerImpl extends BaseController implements wordController
             int wordId = wordservice.maxWordId(wordvo);
             wordvo.setWordId(wordId);
             wordservice.addDailyWord(wordvo);
+            statisticservice.addDailyWord(wordvo);
             message = "<script>";
             message += "alert('오늘의 단어를 나의 새카드 학습하기로 이동했습니다.');";
             message += "</script>";
@@ -160,6 +167,7 @@ public class wordControllerImpl extends BaseController implements wordController
 
         try {
             wordservice.updateWrongCard(wordMap);
+            statisticservice.updateWrongCard(wordMap);
             Map ResponseMap = new HashMap();
             ResponseMap.put("Message", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
@@ -218,6 +226,7 @@ public class wordControllerImpl extends BaseController implements wordController
         wordMap.put("wordCount", increasedWordCount);
         try {
             wordservice.updateReviewCard_Appropriate(wordMap);
+            statisticservice.updateAppropriateCard(wordMap);
             ResponseMap.put("MESSAGE", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
         } catch (Exception e) {
@@ -272,6 +281,7 @@ public class wordControllerImpl extends BaseController implements wordController
 
         try {
             wordservice.updateWrongCard(wordMap);
+            statisticservice.updateWrongCard(wordMap);
             Map ResponseMap = new HashMap();
             ResponseMap.put("Message", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
@@ -295,6 +305,7 @@ public class wordControllerImpl extends BaseController implements wordController
         wordMap.put("wordCount", increasedWordCount);
         try {
             wordservice.updateNewCard_Appropriate(wordMap);
+            statisticservice.updateAppropriateCard(wordMap);
             ResponseMap.put("MESSAGE", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
         } catch (Exception e) {
@@ -335,8 +346,6 @@ public class wordControllerImpl extends BaseController implements wordController
             return new ResponseEntity<String>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 
     public Timestamp setTime(int wordCount) {
         LocalDateTime time = LocalDateTime.now();

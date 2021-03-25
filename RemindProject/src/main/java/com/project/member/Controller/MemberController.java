@@ -1,4 +1,4 @@
-package com.project.member.controller;
+package com.project.member.Controller;
 
 import com.project.member.vo.MemberVO;
 import org.springframework.http.ResponseEntity;

@@ -8,14 +8,11 @@ import com.project.inquiryBoard.vo.inquiryBoardVO;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,15 +35,56 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
     @Autowired
     AnswerVO AnswerVO;
 
-    @RequestMapping(value = "/boardForm.do")
+    @RequestMapping(value = "/boardForm", method = RequestMethod.GET)
     @Override
-    public ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response,
+                                           @RequestParam(value = "section", defaultValue = "1") int section,
+                                           @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
         Map boardMap = new HashMap();
+        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10 + 1);
+        boardMap.put("pageNum", pageNum);
+        boardMap.put("section", section);
+        boardMap.put("startPage", startPage);
         List<inquiryBoardVO> inquiryBoardVO;
         try {
             inquiryBoardVO = inquiryBoardService.selectInquiryBoard(boardMap);
+            int totalCount = inquiryBoardService.selectTotalCountBoard(boardMap);
+
+            boardMap.put("inquiryBoardVO", inquiryBoardVO);
+            boardMap.put("totalCount", totalCount);
             ModelAndView modelAndView = new ModelAndView("inquiryBoard/inquiryBoardForm");
-            modelAndView.addObject("inquiryBoardVO", inquiryBoardVO);
+            modelAndView.addObject("boardMap", boardMap);
+
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("common/error");
+        }
+    }
+
+    @RequestMapping(value = "/title", method = RequestMethod.GET)
+    public ModelAndView selectTitle(HttpServletRequest request, HttpServletResponse response,
+                                    @RequestParam(value = "title") String title,
+                                    @RequestParam(value = "section", defaultValue = "1") int section,
+                                    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+
+        Map boardMap = new HashMap();
+        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10 + 1);
+
+        boardMap.put("title",title);
+        boardMap.put("pageNum", pageNum);
+        boardMap.put("section", section);
+        boardMap.put("startPage", startPage);
+        boardMap.put("selectMode", "like");
+        List<inquiryBoardVO> inquiryBoardVO;
+        try {
+            inquiryBoardVO = inquiryBoardService.selectInquiryBoard(boardMap);
+            int totalCount = inquiryBoardService.selectTotalCountBoard(boardMap);
+
+            boardMap.put("inquiryBoardVO", inquiryBoardVO);
+            boardMap.put("totalCount", totalCount);
+            ModelAndView modelAndView = new ModelAndView("inquiryBoard/inquiryBoardForm");
+            modelAndView.addObject("boardMap", boardMap);
             return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
@@ -280,25 +318,25 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
         responseHeader.add("content-type", "text/html; charset=utf-8");
         try {
             inquiryBoardService.modifyAnswer(AnswerMap);
-            responseEntity = new ResponseEntity<String>("댓글이 수정되었습니다.",responseHeader,HttpStatus.OK);
+            responseEntity = new ResponseEntity<String>("댓글이 수정되었습니다.", responseHeader, HttpStatus.OK);
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<String>("에러발생",responseHeader,HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<String>("에러발생", responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
 
-    @RequestMapping(value ="/deleteAnswer/{AnswerId}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteAnswer(HttpServletRequest request, HttpServletResponse response, @PathVariable int AnswerId){
+    @RequestMapping(value = "/deleteAnswer/{AnswerId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAnswer(HttpServletRequest request, HttpServletResponse response, @PathVariable int AnswerId) {
         ResponseEntity responseEntity = null;
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
         Map AnswerMap = new HashMap();
-        AnswerMap.put("AnswerId",AnswerId);
+        AnswerMap.put("AnswerId", AnswerId);
         try {
             inquiryBoardService.deleteAnswer(AnswerMap);
-            responseEntity = new ResponseEntity<String>("댓글이 삭제되었습니다..",responseHeader,HttpStatus.OK);
+            responseEntity = new ResponseEntity<String>("댓글이 삭제되었습니다..", responseHeader, HttpStatus.OK);
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<String>("에러발생",responseHeader,HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<String>("에러발생", responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

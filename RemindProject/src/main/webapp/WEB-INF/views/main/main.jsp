@@ -13,6 +13,13 @@
             }
         </script>
     </c:if>
+
+    <c:if test="${not empty userId}">
+        <script>
+            location.href="${contextPath}/main/mainContent";
+        </script>
+    </c:if>
+
 </head>
 <body>
 

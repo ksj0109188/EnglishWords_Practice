@@ -13,7 +13,14 @@ import java.util.Map;
 
 public interface inquiryBoardController {
 
-    ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response);
+    ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response,
+                                    @RequestParam(value = "section", defaultValue = "1") int section,
+                                    @RequestParam(value = "page", defaultValue = "1") int page);
+
+    public ModelAndView selectTitle(HttpServletRequest request, HttpServletResponse response,
+                                    @RequestParam(value = "title") String title,
+                                    @RequestParam(value = "section", defaultValue = "1") int section,
+                                    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum);
 
     ModelAndView selectBoardDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable("boardId") int boardId);
 
@@ -26,7 +33,9 @@ public interface inquiryBoardController {
     ModelAndView modifyBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 
     ModelAndView deleteBoard(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId") int boardId,
-                                                                                        @RequestParam(value = "imageFileName") String imageFileName);
+                             @RequestParam(value = "imageFileName") String imageFileName);
 
+    ResponseEntity modifyAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map AnswerMap);
 
+    ResponseEntity deleteAnswer(HttpServletRequest request, HttpServletResponse response, @PathVariable int AnswerId);
 }

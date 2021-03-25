@@ -35,7 +35,7 @@
 
     <insert id="addDailyWord" parameterType="wordVO">
 		<![CDATA[
-        insert into savedword(wordId, word, mean, wordcount, userId,dailyWord_dailyId)
+        insert into savedword(wordId, word, mean, wordcount, userId, dailyId)
         values (#{wordId}, #{word}, #{mean}, 0, #{userId},#{dailyWord_dailyId})
         ]]>
 	</insert>

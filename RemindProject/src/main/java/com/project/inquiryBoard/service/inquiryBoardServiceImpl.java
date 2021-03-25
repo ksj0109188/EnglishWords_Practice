@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -105,5 +104,10 @@ public class inquiryBoardServiceImpl implements inquiryBoardService {
     @Override
     public void deleteAnswer(Map answerMap) throws Exception {
         inquiryBoardDAO.deleteAnswer(answerMap);
+    }
+
+    @Override
+    public int selectTotalCountBoard(Map boardMap) throws Exception {
+        return inquiryBoardDAO.selectTotalCountBoard(boardMap);
     }
 }

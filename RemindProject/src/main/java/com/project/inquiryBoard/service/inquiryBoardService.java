@@ -31,4 +31,6 @@ public interface inquiryBoardService {
     void modifyAnswer(Map answerMap) throws Exception;
 
     void deleteAnswer(Map answerMap) throws Exception;
+
+    int selectTotalCountBoard(Map boardMap) throws Exception;
 }

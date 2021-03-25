@@ -31,7 +31,7 @@ public class dailyWordControllerImpl extends BaseController implements dailyWord
     @Autowired
     dailyWordService dailyWordService;
 
-    @Scheduled(cron = "0 0 08 * * *")
+    @Scheduled(cron = "0 10 08 * * *")
     public void cloneDailyWord() {
         String connectURL = "https://learn.dict.naver.com/m/endic/today/words.nhn";
         try {

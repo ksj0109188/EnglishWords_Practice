@@ -89,4 +89,9 @@ public class inquiryBoardDAOImpl implements inquiryBoardDAO {
     public void deleteAnswer(Map answerMap) throws DataAccessException {
         session.delete("mapper.inquiryBoard.deleteAnswer",answerMap);
     }
+
+    @Override
+    public int selectTotalCountBoard(Map boardMap) throws DataAccessException {
+        return session.selectOne("mapper.inquiryBoard.selectTotalCountBoard",boardMap);
+    }
 }

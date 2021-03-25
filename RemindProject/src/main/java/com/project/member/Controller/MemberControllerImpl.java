@@ -1,4 +1,4 @@
-package com.project.member.controller;
+package com.project.member.Controller;
 
 import com.project.common.base.BaseController;
 import com.project.member.service.MemberService;
