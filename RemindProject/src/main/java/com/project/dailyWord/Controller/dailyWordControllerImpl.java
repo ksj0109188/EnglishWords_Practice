@@ -31,7 +31,7 @@ public class dailyWordControllerImpl extends BaseController implements dailyWord
     @Autowired
     dailyWordService dailyWordService;
 
-    @Scheduled(cron = "0 10 08 * * *")
+    @Scheduled(cron = "0 47 00 * * *")
     public void cloneDailyWord() {
         String connectURL = "https://learn.dict.naver.com/m/endic/today/words.nhn";
         try {
@@ -60,13 +60,9 @@ public class dailyWordControllerImpl extends BaseController implements dailyWord
     @RequestMapping("/dailyWordForm.do")
     @Override
     public ModelAndView dailyWordForm(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
-        Map dailyWordMap = new HashMap<>();
-        dailyWordMap.put("userId", userId);
         List<dailyWordVO> wordVOElements;
         try {
-            wordVOElements = dailyWordService.selectDailyWord(dailyWordMap);
+            wordVOElements = dailyWordService.selectDailyWord();
             ModelAndView modelAndView = new ModelAndView("dailyWord/dailyWordForm");
             modelAndView.addObject("dailyWordVO",wordVOElements);
             return modelAndView;

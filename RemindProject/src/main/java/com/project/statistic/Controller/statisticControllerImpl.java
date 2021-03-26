@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,7 +31,7 @@ public class statisticControllerImpl extends BaseController implements statistic
     public ModelAndView statisticForm(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
-        Map staMap = new HashMap<>();
+        Map<String, Object> staMap = new HashMap<>();
         staMap.put("userId", userId);
         ModelAndView modelAndView;
         try {

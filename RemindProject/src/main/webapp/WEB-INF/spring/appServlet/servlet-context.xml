@@ -34,6 +34,13 @@
 			<mvc:mapping path="/*/*.do"/>
 			<beans:bean class="com.project.common.Interceptor.viewInterceptor"/>
 		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/word/*"/>
+			<mvc:mapping path="/statistic/*"/>
+			<mvc:mapping path="/inquiryBoard/*"/>
+			<beans:bean class="com.project.common.Interceptor.loginInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 	<!--multipartResolver-->

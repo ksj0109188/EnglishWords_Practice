@@ -7,6 +7,7 @@ import com.project.word.dao.wordDAO;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 @Service("wordservice")
@@ -83,5 +84,30 @@ public class wordServiceImpl implements wordService {
     @Override
     public void updateNewCard_Appropriate(Map wordMap) throws Exception {
         worddao.updateNewCard_Appropriate(wordMap);
+    }
+
+    @Override
+    public List<wordVO> selectModifyWord(Map<String, Object> wordMap) throws Exception {
+        return worddao.selectModifyWord(wordMap);
+    }
+
+    @Override
+    public int totalCount(Map<String, Object> wordMap) throws Exception {
+        return worddao.totalCount(wordMap);
+    }
+
+    @Override
+    public wordVO selectSpecificWord(Map<String, Object> wordMap) {
+        return worddao.selectSpecificWord(wordMap);
+    }
+
+    @Override
+    public void updateWord(Map<String, Object> wordMap) throws Exception {
+        worddao.updateWord(wordMap);
+    }
+
+    @Override
+    public void deleteWord(Map<String, Object> wordMap) throws Exception {
+        worddao.deleteWord(wordMap);
     }
 }

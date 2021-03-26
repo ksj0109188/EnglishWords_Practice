@@ -4,6 +4,7 @@ import com.project.word.vo.wordVO;
 import org.springframework.dao.DataAccessException;
 
 import javax.xml.crypto.Data;
+import java.util.List;
 import java.util.Map;
 
 public interface wordDAO {
@@ -34,4 +35,14 @@ public interface wordDAO {
     wordVO selectRemainedNewCard(Map wordMap) throws DataAccessException;
 
     void updateNewCard_Appropriate(Map wordMap) throws DataAccessException;
+
+    List<wordVO> selectModifyWord(Map<String, Object> wordMap) throws DataAccessException;
+
+    int totalCount(Map<String, Object> wordMap) throws DataAccessException;
+
+    wordVO selectSpecificWord(Map<String, Object> wordMap)throws DataAccessException;
+
+    void updateWord(Map<String, Object> wordMap) throws DataAccessException;
+
+    void deleteWord(Map<String, Object> wordMap) throws DataAccessException;
 }

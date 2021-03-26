@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository("wordDao")
@@ -82,4 +83,31 @@ public class wordDAOImpl implements wordDAO {
     public void updateNewCard_Appropriate(Map wordMap) throws DataAccessException {
         session.update("mapper.word.updateNewCard_Appropriate",wordMap);
     }
+
+    @Override
+    public List<wordVO> selectModifyWord(Map<String, Object> wordMap) {
+        return session.selectList("mapper.word.selectModifyWord",wordMap);
+    }
+
+    @Override
+    public int totalCount(Map<String, Object> wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.totalCount",wordMap);
+    }
+
+    @Override
+    public wordVO selectSpecificWord(Map<String, Object> wordMap) {
+        return session.selectOne("mapper.word.selectSpecificWord",wordMap);
+    }
+
+    @Override
+    public void updateWord(Map<String, Object> wordMap) throws DataAccessException {
+        session.selectOne("mapper.word.updateWord",wordMap);
+    }
+
+    @Override
+    public void deleteWord(Map<String, Object> wordMap) throws DataAccessException {
+        session.delete("mapper.word.deleteWord",wordMap);
+    }
+
+
 }

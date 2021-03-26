@@ -27,7 +27,7 @@
     <button type="submit">회원가입</button>
 </form>
 
-<form action="${contextPath}/member/login.do" method="post">
+<form action="${contextPath}/member/login" method="post">
     <input type="text" id="userId" name="userId">
     <input type="password" name="userPwd">
     <input type="submit" value="로그인">

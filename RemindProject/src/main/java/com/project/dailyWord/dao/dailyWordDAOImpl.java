@@ -7,7 +7,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository("dailyWordDAO")
 public class dailyWordDAOImpl implements dailyWordDAO {
@@ -26,7 +25,7 @@ public class dailyWordDAOImpl implements dailyWordDAO {
     }
 
     @Override
-    public List<dailyWordVO> selectDailyWord(Map dailyWordMap) throws DataAccessException {
-        return session.selectList("mapper.dailyWord.selectDailyWord", dailyWordMap);
+    public List<dailyWordVO> selectDailyWord() throws DataAccessException {
+        return session.selectList("mapper.dailyWord.selectDailyWord");
     }
 }

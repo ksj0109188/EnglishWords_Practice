@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service("dailyWordService")
 public class dailyWordServiceImpl implements dailyWordService {
@@ -26,7 +25,7 @@ public class dailyWordServiceImpl implements dailyWordService {
     }
 
     @Override
-    public List<dailyWordVO> selectDailyWord(Map dailyWordMap) throws Exception{
-        return dailyWordDAO.selectDailyWord(dailyWordMap);
+    public List<dailyWordVO> selectDailyWord() throws Exception{
+        return dailyWordDAO.selectDailyWord();
     }
 }

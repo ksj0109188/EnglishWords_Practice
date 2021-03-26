@@ -27,7 +27,7 @@
         </foreach>
     </insert>
 
-    <select id="selectDailyWord" resultType="dailyWordVO" parameterType="java.util.Map">
+    <select id="selectDailyWord" resultType="dailyWordVO">
         select dailyId, word, mean from dailyWord where DATE_FORMAT(savedDate,"%y:%c:%d")=DATE_FORMAT(now(),"%y:%c:%d");
     </select>
 </mapper>

@@ -10,7 +10,7 @@
     <title>dailyWord Page</title>
     <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
     <script>
-        function moveTomyWord(index) {
+        function moveToMyWord(index) {
             var word = document.getElementsByName("word")[index].value
             var mean = document.getElementsByName("mean")[index].value
             var dailyId = document.getElementsByName("dailyId")[index].value
@@ -41,7 +41,7 @@
             <input type="text" name="word" value="${item.word}">
             <input type="text" name="mean" value="${item.mean}">
             <input type="hidden" name="dailyId" value="${item.dailyId}">
-            <input type="button" value="새 카드로 이동" onclick="moveTomyWord(${itemStatus.index})">
+            <input type="button" value="새 카드로 이동" onclick="moveToMyWord(${itemStatus.index})">
         </div>
     </c:forEach>
 </form>

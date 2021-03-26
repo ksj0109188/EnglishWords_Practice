@@ -25,9 +25,9 @@ public class MemberControllerImpl extends BaseController implements MemberContro
     @Autowired
     MemberService memberService;
 
-    @RequestMapping(value = "/addMember.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/addMember", method = RequestMethod.POST)
     @Override
-    public ResponseEntity addMember(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) throws Exception{
+    public ResponseEntity addMember(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) throws Exception {
         String Context = request.getContextPath();
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
@@ -49,21 +49,32 @@ public class MemberControllerImpl extends BaseController implements MemberContro
         }
     }
 
-    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @Override
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> memberMap) throws Exception{
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> memberMap) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        String userId=memberService.loginMember(memberMap);
+        String userId = memberService.loginMember(memberMap);
         String message;
-        if(userId!=null){
+        if (userId != null) {
             HttpSession httpSession = request.getSession();
-            httpSession.setAttribute("userId",userId);
-            httpSession.setAttribute("isLogin",true);
+            httpSession.setAttribute("userId", userId);
+            httpSession.setAttribute("isLogin", true);
             modelAndView.setViewName("/main/mainContent");
-        }else{
+        } else {
             message = "login fail";
-            modelAndView.addObject("message",message);
+            modelAndView.addObject("message", message);
             modelAndView.setViewName("/main/main");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/logout")
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView modelAndView = new ModelAndView("/main/main");
+        HttpSession session = request.getSession();
+        Object userId = session.getAttribute("userId");
+        if(userId!=null){
+            session.removeAttribute("userId");
         }
         return modelAndView;
     }

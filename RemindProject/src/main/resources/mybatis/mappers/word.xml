@@ -36,7 +36,7 @@
     <insert id="addDailyWord" parameterType="wordVO">
 		<![CDATA[
         insert into savedword(wordId, word, mean, wordcount, userId, dailyId)
-        values (#{wordId}, #{word}, #{mean}, 0, #{userId},#{dailyWord_dailyId})
+        values (#{wordId}, #{word}, #{mean}, 0, #{userId}, #{dailyWord_dailyId})
         ]]>
 	</insert>
 
@@ -81,9 +81,9 @@
     <update id="updateWrongCard" parameterType="java.util.Map">
         <![CDATA[
         update savedword
-        set wordcount   = #{wordCount},
-            appearanceDate   = #{appearanceDate},
-            isWrongcard = true
+        set wordcount      = #{wordCount},
+            appearanceDate = #{appearanceDate},
+            isWrongcard    = true
         where userId = #{userId}
           and wordId = #{wordId}
         ]]>
@@ -92,9 +92,9 @@
     <update id="updateReviewCard_Appropriate" parameterType="java.util.Map">
         <![CDATA[
         update savedword
-        set wordcount   = #{wordCount},
-            appearanceDate   = #{appearanceDate},
-            isWrongcard = false
+        set wordcount      = #{wordCount},
+            appearanceDate = #{appearanceDate},
+            isWrongcard    = false
         where userId = #{userId}
           and wordId = #{wordId}
         ]]>
@@ -152,8 +152,7 @@
         where userId = #{userId}
           and isNewCard = true
           and isWrongcard = false
-          and isReviewCard = false
-          limit 1
+          and isReviewCard = false limit 1
         ]]>
     </select>
 
@@ -186,14 +185,51 @@
     <update id="updateNewCard_Appropriate" parameterType="java.util.Map">
         <![CDATA[
         update savedword
-        set wordcount   = #{wordCount},
-            appearanceDate   = #{appearanceDate},
-            isWrongcard = false,
-            isReviewCard = true,
-            isNewCard = false
+        set wordcount      = #{wordCount},
+            appearanceDate = #{appearanceDate},
+            isWrongcard    = false,
+            isReviewCard   = true,
+            isNewCard      = false
         where userId = #{userId}
           and wordId = #{wordId}
         ]]>
     </update>
 
+    <select id="selectModifyWord" resultType="wordVO" parameterType="java.util.Map">
+        <![CDATA[
+        select wordId, word, mean, savedDate, appearanceDate
+        from savedWord
+        where userId = #{userId}
+        ]]>
+        <if test="selectMode=='like'">
+        <![CDATA[
+        and word like CONCAT('%',#{search},'%')
+        ]]>
+        </if>
+        order by wordId
+        limit 10 offset #{startPage}
+    </select>
+
+    <select id="totalCount" resultType="int" parameterType="java.util.Map">
+        select count(*)
+        from savedWord
+        where userId = #{userId}
+    </select>
+
+    <select id="selectSpecificWord" resultType="wordVO" parameterType="java.util.Map">
+        select wordId, word, mean, savedDate, appearanceDate
+        from savedWord
+        where userId = #{userId} and wordId = #{wordId}
+    </select>
+
+    <update id="updateWord" parameterType="java.util.Map">
+        update savedWord
+        set word = #{word}, mean = #{mean}
+        where userId = #{userId} and wordId = #{wordId}
+    </update>
+
+    <delete id="deleteWord" parameterType="java.util.Map">
+        delete from savedWord
+        where userId= #{userId} and wordId = #{wordId}
+    </delete>
 </mapper>

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController("wordcontroller")
@@ -64,11 +65,11 @@ public class wordControllerImpl extends BaseController implements wordController
     public ResponseEntity addDailyWord(HttpServletRequest request, HttpServletResponse response, wordVO wordvo) {
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
-        String message ;
+        String message;
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
         wordvo.setUserId(userId);
-        try{
+        try {
             int wordId = wordservice.maxWordId(wordvo);
             wordvo.setWordId(wordId);
             wordservice.addDailyWord(wordvo);
@@ -76,13 +77,13 @@ public class wordControllerImpl extends BaseController implements wordController
             message = "<script>";
             message += "alert('오늘의 단어를 나의 새카드 학습하기로 이동했습니다.');";
             message += "</script>";
-            return  new ResponseEntity(message,responseHeader,HttpStatus.CREATED) ;
-        }catch (Exception e){
+            return new ResponseEntity(message, responseHeader, HttpStatus.CREATED);
+        } catch (Exception e) {
             e.printStackTrace();
             message = "<script>";
             message += "alert('잠시후 다시 시도해주세요.');";
             message += "</script>";
-            return  new ResponseEntity(message,responseHeader,HttpStatus.INTERNAL_SERVER_ERROR) ;
+            return new ResponseEntity(message, responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -122,6 +123,127 @@ public class wordControllerImpl extends BaseController implements wordController
         }
     }
 
+    @RequestMapping(value = "/wordBoardForm.do", method = RequestMethod.GET)
+    @Override
+    public ModelAndView wordBoardForm(HttpServletRequest request, HttpServletResponse response,
+                                      @RequestParam(value = "section", defaultValue = "1") int section,
+                                      @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10);
+
+        Map<String, Object> wordMap = new HashMap<>();
+        wordMap.put("pageNum", pageNum);
+        wordMap.put("section", section);
+        wordMap.put("startPage", startPage);
+        wordMap.put("userId", userId);
+
+        ModelAndView modelAndView;
+        List<wordVO> wordVoItems;
+        try {
+            wordVoItems = wordservice.selectModifyWord(wordMap);
+            int totalCount = wordservice.totalCount(wordMap);
+            wordMap.remove("userId");
+            wordMap.put("wordVoItems", wordVoItems);
+            wordMap.put("totalCount", totalCount);
+            modelAndView = new ModelAndView("/word/wordBoardForm");
+            modelAndView.addObject("wordMap", wordMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView = new ModelAndView("common/error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/title")
+    @Override
+    public ModelAndView searchTitle(HttpServletRequest request, HttpServletResponse response,
+                                    @RequestParam(value = "search") String search,
+                                    @RequestParam(value = "section", defaultValue = "1") int section,
+                                    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+
+        ModelAndView modelAndView;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10);
+
+        Map<String, Object> wordMap = new HashMap<String, Object>();
+        wordMap.put("search", search);
+        wordMap.put("pageNum", pageNum);
+        wordMap.put("section", section);
+        wordMap.put("startPage", startPage);
+        wordMap.put("selectMode", "like");
+        wordMap.put("userId", userId);
+
+        List<wordVO> wordVoItems;
+        try {
+            wordVoItems = wordservice.selectModifyWord(wordMap);
+            int totalCount = wordservice.totalCount(wordMap);
+            wordMap.remove("userId");
+            wordMap.put("wordVoItems", wordVoItems);
+            wordMap.put("totalCount", totalCount);
+            modelAndView = new ModelAndView("/word/wordBoardForm");
+            modelAndView.addObject("wordMap", wordMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView = new ModelAndView("common/error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/modifyWordForm.do/{wordId}")
+    public ModelAndView modifyWordForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("wordId") int wordId) {
+        ModelAndView modelAndView;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+
+        Map<String, Object> wordMap = new HashMap<String, Object>();
+        wordMap.put("userId", userId);
+        wordMap.put("wordId", wordId);
+
+        try {
+            wordVO _wordvo = wordservice.selectSpecificWord(wordMap);
+            modelAndView = new ModelAndView("/word/modifyWordForm");
+            modelAndView.addObject("wordvo", _wordvo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView = new ModelAndView("common/error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/modifyWord", method = RequestMethod.PUT)
+    public ResponseEntity modifyWord(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> wordMap) {
+        ResponseEntity responseEntity;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        wordMap.put("userId", userId);
+        try {
+            wordservice.updateWord(wordMap);
+            responseEntity = new ResponseEntity<String>("sucess", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    @RequestMapping(value = "/deleteWord", method = RequestMethod.DELETE)
+    public ResponseEntity deleteWord(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> wordMap) {
+        ResponseEntity responseEntity;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        wordMap.put("userId", userId);
+        try {
+            wordservice.deleteWord(wordMap);
+            responseEntity = new ResponseEntity<String>("success", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
     @RequestMapping(value = "/reviewCardForm.do", method = RequestMethod.GET)
     @Override
     public ModelAndView reviewCardForm(HttpServletRequest request, HttpServletResponse response) {
@@ -153,6 +275,8 @@ public class wordControllerImpl extends BaseController implements wordController
             return modelAndView;
         }
     }
+
+
 
     @RequestMapping(value = "/reviewStudy_wrong", method = RequestMethod.PUT)
     @Override
@@ -295,7 +419,7 @@ public class wordControllerImpl extends BaseController implements wordController
 
     @RequestMapping(value = "/newCardStudy_appropriate", method = RequestMethod.PUT)
     @Override
-    public ResponseEntity newCardUpdate_appropriate(HttpServletRequest request, HttpServletResponse response,@RequestBody Map wordMap) {
+    public ResponseEntity newCardUpdate_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap) {
         Map ResponseMap = new HashMap();
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");

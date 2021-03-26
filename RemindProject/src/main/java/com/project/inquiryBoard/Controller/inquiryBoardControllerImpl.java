@@ -41,7 +41,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
                                            @RequestParam(value = "section", defaultValue = "1") int section,
                                            @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
         Map boardMap = new HashMap();
-        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10 + 1);
+        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10 );
         boardMap.put("pageNum", pageNum);
         boardMap.put("section", section);
         boardMap.put("startPage", startPage);
@@ -69,7 +69,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
                                     @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
 
         Map boardMap = new HashMap();
-        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10 + 1);
+        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10 );
 
         boardMap.put("title",title);
         boardMap.put("pageNum", pageNum);

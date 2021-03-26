@@ -18,6 +18,18 @@ public interface wordController {
 
     ModelAndView setStudyForm(HttpServletRequest request, HttpServletResponse response);
 
+    ModelAndView wordBoardForm(HttpServletRequest request, HttpServletResponse response,
+                               @RequestParam(value = "section", defaultValue = "1") int section,
+                               @RequestParam(value = "pageNum", defaultValue = "1") int pageNum);
+
+    ModelAndView searchTitle(HttpServletRequest request, HttpServletResponse response,
+                                    @RequestParam(value = "search") String search,
+                                    @RequestParam(value = "section", defaultValue = "1") int section,
+                                    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum);
+    ModelAndView modifyWordForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("wordId") int wordId);
+
+    ResponseEntity modifyWord(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> wordMap);
+
     ModelAndView reviewCardForm(HttpServletRequest request, HttpServletResponse response);
 
     ResponseEntity reviewStudy_Wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);

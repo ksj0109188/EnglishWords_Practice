@@ -67,7 +67,7 @@
 </div>
 
 <div>
-    <span>저장한 단어의 총개수:${countWord}</span>
+    <span>저장한 카드수:${countWord}</span>
 </div>
 <div>
     <div id="pieChart"></div>
