@@ -13,12 +13,33 @@
 <html>
 <head>
     <title>saveWord Page</title>
+    <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
+    <script>
+        function sendToPaPaGO() {
+            var word = document.getElementById("word").value;
+            $.ajax({
+                method: "get",
+                url: "${contextPath}/word/papagoAPI/" + word,
+                success: function (data) {
+                    alert("번역이 완료되었습니다.");
+                    var mean = document.getElementById("mean");
+                    mean.value =data.translatedText;
+                }, error: function () {
+                    alert("잠시후 다시 시도해주세요,");
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
-<form action="${contextPath}/word/word" method="post">
-    <input type="text" name="word">저장할 단어
-    <input type="text" name="mean">저장할 의미
-    <input type="submit" value="저장하기">
+<div>
+    <form action="${contextPath}/word/word" method="post">
+        <input type="text" id="word" name="word">저장할 단어
+        <input type="text" id="mean" name="mean">저장할 의미
+        <input type="submit" value="저장하기">
+        <input type="button" onclick="sendToPaPaGO()" value="번역하기">
+</div>
 </form>
 </body>
 </html>

@@ -4,6 +4,9 @@ import com.project.common.base.BaseController;
 import com.project.statistic.service.statisticService;
 import com.project.word.service.wordService;
 import com.project.word.vo.wordVO;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -276,8 +285,6 @@ public class wordControllerImpl extends BaseController implements wordController
         }
     }
 
-
-
     @RequestMapping(value = "/reviewStudy_wrong", method = RequestMethod.PUT)
     @Override
     public ResponseEntity reviewStudy_Wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap) {
@@ -487,6 +494,49 @@ public class wordControllerImpl extends BaseController implements wordController
             return Timestamp.valueOf(time.plusYears(1));
         } else {
             return Timestamp.valueOf(time.plusYears(3));
+        }
+    }
+
+    @RequestMapping(value = "papagoAPI/{word}", method = RequestMethod.GET)
+    public ResponseEntity sendToPapagoAPI(HttpServletRequest request, HttpServletResponse response, @PathVariable("word") String word) {
+        String clientId = "IqQYujxUWHOH54f7zT80";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "vP7xoeCWTA";//애플리케이션 클라이언트 시크릿값";
+        try {
+            String text = URLEncoder.encode(word, "UTF-8");
+            String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("X-Naver-Client-Id", clientId);
+            con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+            // post request
+            String postParams = "source=en&target=ko&text=" + text;
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(postParams);
+            wr.flush();
+            wr.close();
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+            StringBuffer responseBuffer = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                responseBuffer.append(inputLine);
+            }
+            br.close();
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBuffer.toString());
+            jsonObject = (JSONObject) jsonParser.parse(jsonObject.get("message").toString());
+            jsonObject = (JSONObject) jsonParser.parse(jsonObject.get("result").toString());
+            return new ResponseEntity<Object>(jsonObject,HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("error",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
