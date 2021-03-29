@@ -3,4 +3,4 @@
 <hr><h2>ERD</h2></hr>
 
 
-<img width="685" alt="스크린샷 2021-03-29 오후 9 51 29" src="https://user-images.githubusercontent.com/48472569/112839254-eee12400-90d8-11eb-8981-7f10dd1931bf.png">
+![스크린샷 2021-03-30 오전 12 35 15](https://user-images.githubusercontent.com/48472569/112865024-57d59580-90f3-11eb-9ad6-fd8767231dd3.png)
