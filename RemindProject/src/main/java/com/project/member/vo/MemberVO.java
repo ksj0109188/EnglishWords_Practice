@@ -10,8 +10,11 @@ public class MemberVO {
     private String userId;
     private String userPwd;
     private String email;
-    private String address;
-    private Timestamp joindate;
+    private Timestamp joinDate;
+    private String authKey;
+    private String phone1;
+    private String phone2;
+    private String phone3;
 
     public String getUserId() {
         return userId;
@@ -37,21 +40,43 @@ public class MemberVO {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public Timestamp getJoinDate() {
+        return joinDate;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setJoinDate(Timestamp joinDate) {
+        this.joinDate = joinDate;
     }
 
-    public Timestamp getJoindate() {
-        return joindate;
+    public String getAuthKey() {
+        return authKey;
     }
 
-    public void setJoindate(Timestamp joindate) {
-        this.joindate = joindate;
+    public void setAuthKey(String authKey) {
+        this.authKey = authKey;
     }
 
+    public String getPhone1() {
+        return phone1;
+    }
 
+    public void setPhone1(String phone1) {
+        this.phone1 = phone1;
+    }
+
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
+    }
+
+    public String getPhone3() {
+        return phone3;
+    }
+
+    public void setPhone3(String phone3) {
+        this.phone3 = phone3;
+    }
 }

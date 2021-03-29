@@ -19,7 +19,27 @@ public class MemberDAOImpl implements MemberDAO {
     }
 
     @Override
-    public String loginMember(Map<String, String> memberMap)throws DataAccessException {
+    public MemberVO loginMember(Map<String, String> memberMap)throws DataAccessException {
         return sqlSession.selectOne("mapper.member.login", memberMap);
+    }
+
+    @Override
+    public String selectAuthKey(Map<String, Object> memberMap) throws DataAccessException {
+        return sqlSession.selectOne("mapper.member.selectAuthKey",memberMap);
+    }
+
+    @Override
+    public void updateAuthKey(Map<String, Object> memberMap) {
+        sqlSession.update("mapper.member.updateAuthKey",memberMap);
+    }
+
+    @Override
+    public String checkAuthEmail(Map<String, String> memberMap) throws DataAccessException {
+        return sqlSession.selectOne("mapper.member.checkAuthEmail",memberMap);
+    }
+
+    @Override
+    public int searchOverlapId(String userId) throws DataAccessException {
+        return sqlSession.selectOne("mapper.member.searchOverlapId",userId);
     }
 }

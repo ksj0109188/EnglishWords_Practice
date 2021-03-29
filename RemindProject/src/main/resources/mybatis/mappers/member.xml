@@ -8,22 +8,44 @@
         <result property="userId" column="userId"/>
         <result property="userPwd" column="userPwd"/>
         <result property="email" column="email"/>
-        <result property="address" column="address"/>
-        <result property="joindate" column="joindate"/>
+        <result property="joinDate" column="joinDate"/>
+        <result property="authKey" column="authKey"/>
+        <result property="phone1" column="phone1"/>
+        <result property="phone2" column="phone2"/>
+        <result property="phone3" column="phone3"/>
     </resultMap>
 
     <insert id="addMember" parameterType="MemberVO">
 		<![CDATA[
-        insert into member(userId, userPwd, email, address)
-        values (#{userId}, #{userPwd}, #{email}, #{address})
+        insert into member(userId, userPwd, email, joinDate, authKey, phone1, phone2, phone3)
+        values (#{userId}, #{userPwd}, #{email},current_timestamp , #{authKey}, #{phone1}, #{phone2}, #{phone3})
         ]]>
 	</insert>
 
-    <select id="login" resultType="String" parameterType="java.util.Map">
+    <select id="login" resultType="MemberVO" parameterType="java.util.Map">
         <![CDATA[
-        select userId
+        select userId,authKey
         from member
-        where userId = #{userId} and userPwd = #{userPwd}
+        where userId = #{userId}
+          and userPwd = #{userPwd}
         ]]>
+    </select>
+
+    <select id="selectAuthKey" resultType="String" parameterType="java.util.Map">
+        select authKey
+        from member
+        where userId = #{userId}
+    </select>
+
+    <update id="updateAuthKey" parameterType="java.util.Map">
+        UPDATE member
+        set authKey = "Y"
+        where userId= #{userId}
+    </update>
+
+    <select id="searchOverlapId" resultType="int" parameterType="String">
+        select count(*)
+        from member
+        where userId = #{userId}
     </select>
 </mapper>
