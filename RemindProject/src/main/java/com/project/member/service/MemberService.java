@@ -2,6 +2,7 @@ package com.project.member.service;
 
 import com.project.member.vo.MemberVO;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MemberService {
@@ -12,4 +13,10 @@ public interface MemberService {
     String checkAuthEmail(Map<String, String> memberMap) throws Exception;
 
     int searchOverlapId(String userId)throws Exception;
+
+    List<MemberVO> findUserId(MemberVO memberVO)throws Exception;
+
+    MemberVO findUserPwd(MemberVO memberVO) throws Exception;
+
+    void updateUserPwd(MemberVO memberVO) throws Exception;
 }

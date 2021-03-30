@@ -9,6 +9,7 @@ public class MemberVO {
 
     private String userId;
     private String userPwd;
+    private String userName;
     private String email;
     private Timestamp joinDate;
     private String authKey;
@@ -30,6 +31,14 @@ public class MemberVO {
 
     public void setUserPwd(String userPwd) {
         this.userPwd = userPwd;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {

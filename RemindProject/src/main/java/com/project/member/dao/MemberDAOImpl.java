@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository("memberDAO")
@@ -41,5 +42,20 @@ public class MemberDAOImpl implements MemberDAO {
     @Override
     public int searchOverlapId(String userId) throws DataAccessException {
         return sqlSession.selectOne("mapper.member.searchOverlapId",userId);
+    }
+
+    @Override
+    public List<MemberVO> findUserId(MemberVO memberVO) throws DataAccessException {
+        return sqlSession.selectList("mapper.member.findUserId",memberVO);
+    }
+
+    @Override
+    public MemberVO findUserPwd(MemberVO memberVO) throws DataAccessException {
+        return sqlSession.selectOne("mapper.member.findUserPwd",memberVO);
+    }
+
+    @Override
+    public void updateUserPwd(MemberVO memberVO) throws DataAccessException {
+        sqlSession.update("mapper.member.updateUserPwd",memberVO);
     }
 }

@@ -13,18 +13,20 @@
         <result property="phone1" column="phone1"/>
         <result property="phone2" column="phone2"/>
         <result property="phone3" column="phone3"/>
+        <result property="userName" column="userName"/>
     </resultMap>
 
     <insert id="addMember" parameterType="MemberVO">
 		<![CDATA[
-        insert into member(userId, userPwd, email, joinDate, authKey, phone1, phone2, phone3)
-        values (#{userId}, #{userPwd}, #{email},current_timestamp , #{authKey}, #{phone1}, #{phone2}, #{phone3})
+        insert into member(userId, userPwd, email, joinDate, authKey, phone1, phone2, phone3, userName)
+        values (#{userId}, #{userPwd}, #{email}, current_timestamp, #{authKey}, #{phone1}, #{phone2}, #{phone3},
+                #{userName})
         ]]>
 	</insert>
 
     <select id="login" resultType="MemberVO" parameterType="java.util.Map">
         <![CDATA[
-        select userId,authKey
+        select userId, authKey
         from member
         where userId = #{userId}
           and userPwd = #{userPwd}
@@ -32,20 +34,50 @@
     </select>
 
     <select id="selectAuthKey" resultType="String" parameterType="java.util.Map">
+        <![CDATA[
         select authKey
         from member
         where userId = #{userId}
+        ]]>
     </select>
 
     <update id="updateAuthKey" parameterType="java.util.Map">
+        <![CDATA[
         UPDATE member
         set authKey = "Y"
-        where userId= #{userId}
+        where userId = #{userId}
+        ]]>
     </update>
 
     <select id="searchOverlapId" resultType="int" parameterType="String">
+        <![CDATA[
         select count(*)
         from member
         where userId = #{userId}
+        ]]>
     </select>
+
+    <select id="findUserId" resultType="MemberVO" parameterType="java.util.List">
+        select userId, email, joinDate, authKey
+        from member
+        where userName = #{userName}
+          and email = #{email}
+    </select>
+
+    <select id="findUserPwd" resultType="MemberVO" parameterType="MemberVO">
+        <![CDATA[
+        select userId, email, userName
+        from member
+        where userId = #{userId}
+          and email = #{email}
+        ]]>
+    </select>
+
+    <update id="updateUserPwd" parameterType="MemberVO">
+        <![CDATA[
+        update member
+        set userPwd = #{userPwd}
+        where userId = #{userId}
+        ]]>
+    </update>
 </mapper>

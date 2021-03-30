@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 @Transactional(propagation = Propagation.REQUIRED)
 @Service("memberService")
@@ -42,5 +43,20 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int searchOverlapId(String userId) throws Exception {
         return memberDAO.searchOverlapId(userId);
+    }
+
+    @Override
+    public List<MemberVO> findUserId(MemberVO memberVO) throws Exception {
+        return memberDAO.findUserId(memberVO);
+    }
+
+    @Override
+    public MemberVO findUserPwd(MemberVO memberVO) throws Exception {
+        return memberDAO.findUserPwd(memberVO);
+    }
+
+    @Override
+    public void updateUserPwd(MemberVO memberVO) throws Exception {
+        memberDAO.updateUserPwd(memberVO);
     }
 }

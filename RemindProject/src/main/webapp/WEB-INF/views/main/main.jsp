@@ -39,5 +39,7 @@
     <input type="password" name="userPwd">
     <input type="submit" value="로그인">
 </form>
+<a href="${contextPath}/member/findUserIdForm.do">아이디 찾기</a>
+<a href="${contextPath}/member/findUserPwdForm.do">비밀번호 찾기</a>
 </body>
 </html>

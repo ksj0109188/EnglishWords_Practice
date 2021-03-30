@@ -40,32 +40,32 @@
 
         function checkValidPassword() {
             var userpwd = document.getElementById("userPwd1");
-                var pw = userpwd.value;
-                var num = pw.search(/[0-9]/g);
-                var eng = pw.search(/[a-z]/ig);
-                var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-                if (pw == "" || pw.length <= 0) {
-                    alert("비밀번호를 입력해주세요.");
-                    userpwd.focus();
-                    return false;
-                }
-                if (pw.length < 10 || pw.length > 20) {
-                    alert("비밀번호를 10자리 ~ 20자리 이내로 입력해주세요.");
-                    userpwd.focus();
-                    return false;
-                }
+            var pw = userpwd.value;
+            var num = pw.search(/[0-9]/g);
+            var eng = pw.search(/[a-z]/ig);
+            var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+            if (pw == "" || pw.length <= 0) {
+                alert("비밀번호를 입력해주세요.");
+                userpwd.focus();
+                return false;
+            }
+            if (pw.length < 10 || pw.length > 20) {
+                alert("비밀번호를 10자리 ~ 20자리 이내로 입력해주세요.");
+                userpwd.focus();
+                return false;
+            }
 
-                if (pw.search(/₩s/) != -1) {
-                    alert("비밀번호는 공백없이 입력해주세요.");
-                    userpwd.focus();
-                    return false;
-                }
-                if ((num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0)) {
-                    alert("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
-                    userpwd.focus();
-                    return false;
-                }
-                return true;
+            if (pw.search(/₩s/) != -1) {
+                alert("비밀번호는 공백없이 입력해주세요.");
+                userpwd.focus();
+                return false;
+            }
+            if ((num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0)) {
+                alert("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+                userpwd.focus();
+                return false;
+            }
+            return true;
         }
 
         function checkPasswordOverlap() {
@@ -104,7 +104,7 @@
             if (userBox.value == "") {
                 alert("아이디를 올바르게 입력해주세요.");
                 return;
-            }else if(!checkValidId()){
+            } else if (!checkValidId()) {
                 return;
             }
             $.ajax({
@@ -128,6 +128,7 @@
 
         function submitForm() {
             var form = document.getElementById("userForm");
+            var userNameValue = document.getElementById("userName").value;
             var phone1Value = document.getElementById("phone1").value;
             var phone2Value = document.getElementById("phone2").value;
             var phone3Value = document.getElementById("phone3").value;
@@ -145,6 +146,8 @@
             } else if (phone1Value == "" || phone2Value == "" || phone3Value == "") {
                 alert("휴대폰 번호를 입력해주세요.");
                 return;
+            } else if (userNameValue == "") {
+                alert("이름을 입력해주세요.")
             } else {
                 form.submit();
             }
@@ -155,6 +158,9 @@
 </head>
 <body>
 <form id="userForm" action="${contextPath}/member/addMember.do" method="post">
+    <div>
+        이름 : <input type="text" id="userName" name="userName" placeholder="아이디를 찾을 때 사용됩니다.">
+    </div>
     <div>
         아이디
         <input type="text" id="userId" name="userId" minlength="4" maxlength="12">

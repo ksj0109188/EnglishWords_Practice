@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController("MemberController")
@@ -49,18 +51,18 @@ public class MemberControllerImpl extends BaseController implements MemberContro
     }
 
     @RequestMapping(value = "/overlap")
-    public ResponseEntity searchOverlapId (HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId){
-        ResponseEntity responseEntity ;
+    public ResponseEntity searchOverlapId(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId) {
+        ResponseEntity responseEntity;
         try {
             int userIdCount = memberService.searchOverlapId(userId);
             if (userIdCount == 0) {
                 responseEntity = new ResponseEntity<String>("notOverlapping", HttpStatus.OK);
-            }else{
+            } else {
                 responseEntity = new ResponseEntity<String>("Overlapping", HttpStatus.OK);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<String>("error",HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -120,5 +122,47 @@ public class MemberControllerImpl extends BaseController implements MemberContro
             session.removeAttribute("userId");
         }
         return modelAndView;
+    }
+
+    @RequestMapping(value = "findUserId", method = RequestMethod.GET)
+    public ModelAndView findUserId(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) {
+        ModelAndView modelAndView;
+        List<MemberVO> memberVOItems;
+        try {
+            memberVOItems = memberService.findUserId(memberVO);
+            if (memberVOItems == null || memberVOItems.size() <= 0) {
+                modelAndView = new ModelAndView("/member/foundUserIdForm");
+                modelAndView.addObject("message", "empty");
+            } else {
+                modelAndView = new ModelAndView("/member/foundUserIdForm");
+                modelAndView.addObject("memberVOItems", memberVOItems);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView = new ModelAndView("/common/error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "findUserPwd", method = RequestMethod.GET)
+    public ResponseEntity findUserPwd(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) {
+        ResponseEntity responseEntity;
+        String contextPath = request.getContextPath();
+        try {
+            MemberVO _memberVO = memberService.findUserPwd(memberVO);
+            if (_memberVO == null) {
+                responseEntity = new ResponseEntity<String>("NotFounded", HttpStatus.OK);
+            } else {
+                String newPwd = mailService.getKey(false,14);
+                mailService.findPwdMail(newPwd,_memberVO.getUserId(),_memberVO.getUserName(),_memberVO.getEmail(),contextPath);
+                _memberVO.setUserPwd(newPwd);
+                memberService.updateUserPwd(_memberVO);
+                responseEntity = new ResponseEntity<String>("founded", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
     }
 }
