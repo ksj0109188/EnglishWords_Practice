@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.word">
+    <resultMap id="wordResult" type="wordVO">
+        <result property="wordId" column="wordId"/>
+        <result property="word" column="word"/>
+        <result property="mean" column="mean"/>
+        <result property="savedDate" column="savedDate"/>
+        <result property="wordCount" column="wordCount"/>
+        <result property="userId" column="userId"/>
+        <result property="dailyWord_dailyId" column="dailyWord_dailyId"/>
+        <result property="isNewCard" column="isNewCard"/>
+        <result property="isWrongCard" column="isWrongCard"/>
+        <result property="isReviewCard" column="isReviewCard"/>
+        <result property="appearanceDate" column="appearanceDate"/>
+    </resultMap>
+
+    <select id="maxWordId" resultType="int">
+        <![CDATA[
+        select IFNULL(MAX(wordId), 0) + 1
+        from savedword;
+        ]]>
+    </select>
+
+    <insert id="addword" parameterType="wordVO">
+		<![CDATA[
+        insert into savedword(wordId, word, mean, wordcount, userId)
+        values (#{wordId}, #{word}, #{mean}, 0, #{userId})
+        ]]>
+	</insert>
+
+    <insert id="addDailyWord" parameterType="wordVO">
+		<![CDATA[
+        insert into savedword(wordId, word, mean, wordcount, userId, dailyId)
+        values (#{wordId}, #{word}, #{mean}, 0, #{userId}, #{dailyWord_dailyId})
+        ]]>
+	</insert>
+
+    <select id="selectReviewCard" resultType="wordVO" parameterType="java.util.Map">
+    <![CDATA[
+        select wordId, word, mean, appearanceDate, wordCount, userId
+        from savedword
+        where userId = #{userId}
+          and appearanceDate <= current_timestamp
+          and isNewcard = false
+          and isWrongcard = false
+          and isReviewCard = true LIMIT 1
+        ]]>
+    </select>
+
+    <select id="selectRemainedReviewCard" resultType="wordVO" parameterType="java.util.Map">
+        select wordId, word, mean, appearanceDate, wordCount, userId
+        from savedword
+        <where>
+            userId = #{userId}
+            <if test="selectState == 'notEmpty' and studyMode =='review' ">
+                <![CDATA[
+                and savedDate <= current_timestamp
+                and isNewcard = false
+                and isWrongcard = true
+                and isReviewCard = true
+                ]]>
+            </if>
+
+            <if test="selectState == 'empty' and studyMode =='review'">
+                <![CDATA[
+                and isNewcard = false
+                and isWrongcard = true
+                and isReviewCard = true
+                ]]>
+            </if>
+        </where>
+        ORDER BY savedDate
+        LIMIT 1
+    </select>
+
+    <update id="updateWrongCard" parameterType="java.util.Map">
+        <![CDATA[
+        update savedword
+        set wordcount      = #{wordCount},
+            appearanceDate = #{appearanceDate},
+            isWrongcard    = true
+        where userId = #{userId}
+          and wordId = #{wordId}
+        ]]>
+    </update>
+
+    <update id="updateReviewCard_Appropriate" parameterType="java.util.Map">
+        <![CDATA[
+        update savedword
+        set wordcount      = #{wordCount},
+            appearanceDate = #{appearanceDate},
+            isWrongcard    = false
+        where userId = #{userId}
+          and wordId = #{wordId}
+        ]]>
+    </update>
+
+    <select id="countWrongReviewCard" resultType="int" parameterType="java.util.Map">
+        <![CDATA[
+        select count(*)
+        from savedword
+        where userId = #{userId}
+          and isNewCard = false
+          and isWrongcard = true
+          and isReviewCard = true
+        ]]>
+    </select>
+
+    <select id="countReviewCard" resultType="int" parameterType="java.util.Map">
+        <![CDATA[
+        select count(*)
+        from savedword
+        where userId = #{userId}
+          and isNewCard = false
+          and isWrongcard = false
+          and isReviewCard = true
+          and appearanceDate <= current_timestamp
+        ]]>
+    </select>
+
+    <select id="countWrongNewCard" resultType="int" parameterType="java.util.Map">
+        <![CDATA[
+        select count(*)
+        from savedword
+        where userId = #{userId}
+          and isNewCard = true
+          and isWrongcard = true
+          and isReviewCard = false
+        ]]>
+    </select>
+
+    <select id="countNewCard" resultType="int" parameterType="java.util.Map">
+        <![CDATA[
+        select count(*)
+        from savedword
+        where userId = #{userId}
+          and isNewCard = true
+          and isWrongcard = false
+          and isReviewCard = false
+        ]]>
+    </select>
+
+    <select id="selectNewCard" resultType="wordVO" parameterType="java.util.Map">
+        <![CDATA[
+        select wordId, word, mean, appearanceDate, wordCount, userId
+        from savedword
+        where userId = #{userId}
+          and isNewCard = true
+          and isWrongcard = false
+          and isReviewCard = false limit 1
+        ]]>
+    </select>
+
+    <select id="selectRemainedNewCard" resultType="wordVO" parameterType="java.util.Map">
+        select wordId, word, mean, appearanceDate, wordCount, userId
+        from savedword
+        <where>
+            userId = #{userId}
+            <if test="selectState == 'notEmpty' and studyMode =='newCardStudy' ">
+                <![CDATA[
+                and appearanceDate <= current_timestamp
+                and isNewcard = true
+                and isWrongcard = true
+                and isReviewCard = false
+                ]]>
+            </if>
+
+            <if test="selectState == 'empty' and studyMode =='newCardStudy'">
+                <![CDATA[
+                and isNewcard = true
+                and isWrongcard = true
+                and isReviewCard = false
+                ]]>
+            </if>
+        </where>
+        ORDER BY savedDate
+        LIMIT 1
+    </select>
+
+    <update id="updateNewCard_Appropriate" parameterType="java.util.Map">
+        <![CDATA[
+        update savedword
+        set wordcount      = #{wordCount},
+            appearanceDate = #{appearanceDate},
+            isWrongcard    = false,
+            isReviewCard   = true,
+            isNewCard      = false
+        where userId = #{userId}
+          and wordId = #{wordId}
+        ]]>
+    </update>
+
+    <select id="selectModifyWord" resultType="wordVO" parameterType="java.util.Map">
+        <![CDATA[
+        select wordId, word, mean, savedDate, appearanceDate
+        from savedWord
+        where userId = #{userId}
+        ]]>
+        <if test="selectMode=='like'">
+        <![CDATA[
+        and word like CONCAT('%',#{search},'%')
+        ]]>
+        </if>
+        order by wordId
+        limit 10 offset #{startPage}
+    </select>
+
+    <select id="totalCount" resultType="int" parameterType="java.util.Map">
+        select count(*)
+        from savedWord
+        where userId = #{userId}
+    </select>
+
+    <select id="selectSpecificWord" resultType="wordVO" parameterType="java.util.Map">
+        select wordId, word, mean, savedDate, appearanceDate
+        from savedWord
+        where userId = #{userId} and wordId = #{wordId}
+    </select>
+
+    <update id="updateWord" parameterType="java.util.Map">
+        update savedWord
+        set word = #{word}, mean = #{mean}
+        where userId = #{userId} and wordId = #{wordId}
+    </update>
+
+    <delete id="deleteWord" parameterType="java.util.Map">
+        delete from savedWord
+        where userId= #{userId} and wordId = #{wordId}
+    </delete>
+</mapper>

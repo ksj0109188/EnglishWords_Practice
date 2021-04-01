@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.inquiryBoard">
+    <resultMap id="inquiryBoardVO" type="inquiryBoardVO">
+        <result property="boardId" column="boardId"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="writeDate" column="writeDate"/>
+        <result property="userId" column="userId"/>
+    </resultMap>
+
+    <resultMap id="imageVO" type="imageVO">
+        <result property="imageFileId" column="imageFileId"/>
+        <result property="imageFileName" column="imageFileName"/>
+        <result property="savedDate" column="savedDate"/>
+        <result property="boardId" column="boardId"/>
+    </resultMap>
+
+    <resultMap id="AnswerVO" type="AnswerVO">
+        <result property="AnswerId" column="AnswerId"/>
+        <result property="boardId" column="boardId"/>
+        <result property="content" column="content"/>
+        <result property="userId" column="userId"/>
+        <result property="savedDate" column="savedDate"/>
+    </resultMap>
+
+    <select id="maxBoardId" resultType="int">
+        select IFNULL(MAX(boardId), 0) + 1
+        from inquiryBoard
+    </select>
+
+    <select id="maxBoardImageFileId" resultType="int">
+        select IFNULL(MAX(imageFileId), 0) + 1
+        from inquiry_imageFile
+    </select>
+
+    <select id="maxAnswerId" resultType="int">
+        select IFNULL(MAX(AnswerId), 0) + 1
+        from inquiry_Answer
+    </select>
+
+    <select id="selectInquiryBoard" resultType="inquiryBoardVO" parameterType="java.util.Map">
+        <![CDATA[
+        select boardId, title, writeDate, userId
+        from inquiryBoard
+        ]]>
+        <if test="selectMode=='like'">
+        <![CDATA[
+        where title like CONCAT('%',#{title},'%')
+        ]]>
+        </if>
+        <![CDATA[
+        order by boardId
+        limit 10 offset #{startPage}
+        ]]>
+    </select>
+
+    <select id="selectTotalCountBoard" resultType="int">
+        <![CDATA[
+        select count(*)
+        from inquiryBoard
+        ]]>
+        <if test="selectMode=='like'">
+            where title like CONCAT('%',#{title},'%')
+        </if>
+    </select>
+
+    <select id="selectBoardDetail" resultType="inquiryBoardVO" parameterType="java.util.Map">
+        <![CDATA[
+        select boardId, title, content, writeDate, userId
+        from inquiryBoard
+        where boardId = #{boardId}
+        ]]>
+    </select>
+
+    <select id="selectBoardAnswer" resultType="AnswerVO" parameterType="java.util.Map">
+        <![CDATA[
+        select *
+        from (inquiry_Answer as Answer
+                 join inquiryBoard as Board on Answer.boardId = Board.BoardId)
+        where Board.BoardId = #{boardId}
+        ]]>
+    </select>
+
+    <insert id="writeBoard" parameterType="java.util.Map">
+        insert into inquiryBoard(boardId, title, content, userId)
+        values (#{boardId}, #{title}, #{content}, #{userId})
+    </insert>
+
+    <insert id="writeImageBoard" parameterType="java.util.Map">
+        insert into inquiry_imageFile(imageFileId, imageFileName, boardId)
+        <foreach collection="list" item="item" separator=",">
+            values(#{item.imageFileId},#{item.imageFileName},#{item.boardId})
+        </foreach>
+    </insert>
+
+    <select id="selectBoardImage" parameterType="java.util.Map" resultType="imageVO">
+        <![CDATA[
+        select imageFileId, imageFileName, boardId, savedDate
+        from inquiry_imageFile
+        where boardId = #{boardId}
+        ]]>
+    </select>
+
+    <insert id="writeAnswer" parameterType="java.util.Map">
+        <![CDATA[
+        insert into inquiry_Answer(boardId, content, savedDate, userId, AnswerId)
+        values (#{boardId}, #{content}, current_timestamp, #{userId}, #{AnswerId})
+        ]]>
+    </insert>
+
+    <update id="updateBoard" parameterType="java.util.Map">
+        <![CDATA[
+        Update inquiryBoard
+        set title  = #{title},
+            content=#{content}
+        where boardId = #{boardId}
+        ]]>
+    </update>
+
+    <update id="updateImageBoard" parameterType="java.util.Map">
+        <foreach collection="list" item="item" separator="," close="">
+            Update inquiry_imageFile
+            set imageFileName = #{item.imageFileName}, savedDate=current_timestamp
+            where imageFileId = #{item.imageFileId}
+        </foreach>
+    </update>
+
+    <delete id="deleteBoard" parameterType="java.util.Map">
+        <![CDATA[
+        DELETE
+        FROM inquiryBoard
+        WHERE boardId = #{boardId}
+        ]]>
+    </delete>
+
+    <update id="modifyAnswer" parameterType="java.util.Map">
+        <![CDATA[
+        UPDATE inquiry_Answer
+        set content   = #{content},
+            savedDate = current_timestamp
+        where AnswerId = #{AnswerId}
+        ]]>
+    </update>
+
+    <delete id="deleteAnswer" parameterType="java.util.Map">
+        DELETE
+        FROM inquiry_Answer
+        WHERE  AnswerId= #{AnswerId}
+    </delete>
+</mapper>

@@ -1,0 +1,4 @@
+GET http://inquiryBoard/board/{{boardId}}
+
+###
+
