@@ -29,17 +29,18 @@
 
 </head>
 <body>
+<div>
+    <form action="${contextPath}/member/registerMemberForm.do" method="post">
+        <button type="submit">회원가입</button>
+    </form>
 
-<form action="${contextPath}/member/registerMemberForm.do" method="post">
-    <button type="submit">회원가입</button>
-</form>
-
-<form action="${contextPath}/member/login" method="post">
-    <input type="text" id="userId" name="userId">
-    <input type="password" name="userPwd">
-    <input type="submit" value="로그인">
-</form>
-<a href="${contextPath}/member/findUserIdForm.do">아이디 찾기</a>
-<a href="${contextPath}/member/findUserPwdForm.do">비밀번호 찾기</a>
+    <form action="${contextPath}/member/login" method="post">
+        <input type="text" id="userId" name="userId">
+        <input type="password" name="userPwd">
+        <input type="submit" value="로그인">
+    </form>
+    <a href="${contextPath}/member/findUserIdForm.do">아이디 찾기</a>
+    <a href="${contextPath}/member/findUserPwdForm.do">비밀번호 찾기</a>
+</div>
 </body>
 </html>

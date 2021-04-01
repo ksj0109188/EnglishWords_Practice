@@ -104,7 +104,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("userId", userId);
                 httpSession.setAttribute("isLogin", true);
-                modelAndView.setViewName("/main/mainContent");
+                modelAndView.setViewName("/introduction/introductionPage");
             }
         } else {
             modelAndView.addObject("message", "loginFail");
