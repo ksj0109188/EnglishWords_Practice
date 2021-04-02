@@ -13,9 +13,6 @@
 <html>
 <head>
     <title>문의 게시판</title>
-    <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
-
-
     <c:if test="${empty inquiryBoardVO}">
         <script>
             window.onload = function () {

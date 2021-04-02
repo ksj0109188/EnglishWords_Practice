@@ -15,7 +15,6 @@
 <html>
 <head>
     <title>newCardStudy Page</title>
-    <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
     <script>
 
         function showAnswer() {

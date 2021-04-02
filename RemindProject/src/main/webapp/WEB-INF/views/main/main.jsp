@@ -23,7 +23,7 @@
     </script>
     <c:if test="${not empty userId}">
         <script>
-            location.href = "${contextPath}/main/mainContent";
+            location.href = "${contextPath}/main/introduction.do";
         </script>
     </c:if>
 

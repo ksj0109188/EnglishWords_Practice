@@ -9,7 +9,7 @@
 <html>
 <head>
     <title><tiles:insertAttribute name="title"/></title>
-
+    <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
 </head>
 <body>
 <div>

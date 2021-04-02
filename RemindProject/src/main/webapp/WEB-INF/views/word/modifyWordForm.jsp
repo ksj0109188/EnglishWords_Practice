@@ -5,7 +5,6 @@
 <html>
 <head>
     <title>단어 수정페이지</title>
-    <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
     <script>
         function modifyWord() {
             var wordIdValue = document.getElementById("wordId").value;

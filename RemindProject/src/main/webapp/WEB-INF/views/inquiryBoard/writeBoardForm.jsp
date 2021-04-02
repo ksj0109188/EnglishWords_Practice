@@ -5,7 +5,6 @@
 <html>
 <head>
     <title>문의 게시판 작성</title>
-    <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
     <script>
         var cnt = 0;
         function addImage() {

@@ -6,7 +6,6 @@
 <html>
 <head>
     <title>문의 게시판 상세보기</title>
-    <script type="text/javascript" src="<c:url value="/webjars/jquery/2.2.1/jquery.min.js"/>"></script>
     <script>
         function writeAnswer(boardId) {
             var contentValue = document.getElementById("content").value;

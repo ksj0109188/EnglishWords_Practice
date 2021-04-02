@@ -18,6 +18,8 @@
     <li><a href="${contextPath}/inquiryBoard/boardForm"/>문의게시판</li>
     <li><a href="${contextPath}/statistic/statisticForm.do"/>통계</li>
 </ul>
+
 <a href="${contextPath}/member/logout">로그아웃</a>
+
 <hr>
 </body>
