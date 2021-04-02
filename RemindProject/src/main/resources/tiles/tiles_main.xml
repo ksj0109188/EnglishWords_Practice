@@ -11,11 +11,18 @@
 		<put-attribute name="footer" value="/WEB-INF/views/common/tiles/footer.jsp" />
 	</definition>
 
+	<definition name="/common/error" extends="baseLayout">
+		<put-attribute name="title" value="에러 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/common/error.jsp" />
+	</definition>
+
 	<definition name="/main/main" extends="baseLayout">
 		<put-attribute name="title" value="Remind 메인페이지" />
 		<put-attribute name="header" value=""/>
 		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
 	</definition>
+
+
 </tiles-definitions>
 
 

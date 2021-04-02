@@ -14,16 +14,16 @@ public class MainController {
 
     @RequestMapping(value="/main.do", method ={RequestMethod.POST,RequestMethod.GET})
     public ModelAndView main(HttpServletResponse response, HttpServletRequest request) throws Exception{
-        String viewName = (String) request.getAttribute("viewNAme");
+        String viewName = (String) request.getAttribute("viewName");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
         return modelAndView;
     }
 
-    @RequestMapping(value="/mainContent")
+    @RequestMapping(value="/introduction.do")
     public ModelAndView mainContent(HttpServletRequest request, HttpServletResponse response){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/main/mainContent");
+        modelAndView.setViewName("/introduction/introductionPage");
         return modelAndView;
     }
 }

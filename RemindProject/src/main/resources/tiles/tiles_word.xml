@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="/word/saveWordForm" extends="baseLayout">
+		<put-attribute name="title" value="단어 저장 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/word/saveWordForm.jsp" />
+	</definition>
+
+	<definition name="/word/wordBoardForm" extends="baseLayout">
+		<put-attribute name="title" value="저장된 단어 출력 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/word/wordBoardForm.jsp" />
+	</definition>
+
+	<definition name="/word/modifyWordForm" extends="baseLayout">
+		<put-attribute name="title" value="단어 수정 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/word/modifyWordForm.jsp" />
+	</definition>
+
+	<definition name="/word/settingStudyForm" extends="baseLayout">
+		<put-attribute name="title" value="학습설정 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/word/settingStudyForm.jsp" />
+	</definition>
+
+	<definition name="/word/newCardForm" extends="baseLayout">
+		<put-attribute name="title" value="새카드 학습 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/word/newCardForm.jsp" />
+	</definition>
+
+	<definition name="/word/reviewCardForm" extends="baseLayout">
+		<put-attribute name="title" value="복습카드 학습 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/word/reviewCardForm.jsp" />
+	</definition>
+
+
+</tiles-definitions>
+
+

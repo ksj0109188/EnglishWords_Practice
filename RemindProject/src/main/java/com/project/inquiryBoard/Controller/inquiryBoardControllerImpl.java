@@ -52,13 +52,13 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
 
             boardMap.put("inquiryBoardVO", inquiryBoardVO);
             boardMap.put("totalCount", totalCount);
-            ModelAndView modelAndView = new ModelAndView("inquiryBoard/inquiryBoardForm");
+            ModelAndView modelAndView = new ModelAndView("/inquiryBoard/inquiryBoardForm");
             modelAndView.addObject("boardMap", boardMap);
 
             return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
-            return new ModelAndView("common/error");
+            return new ModelAndView("/common/error");
         }
     }
 
@@ -83,12 +83,12 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
 
             boardMap.put("inquiryBoardVO", inquiryBoardVO);
             boardMap.put("totalCount", totalCount);
-            ModelAndView modelAndView = new ModelAndView("inquiryBoard/inquiryBoardForm");
+            ModelAndView modelAndView = new ModelAndView("/inquiryBoard/inquiryBoardForm");
             modelAndView.addObject("boardMap", boardMap);
             return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
-            return new ModelAndView("common/error");
+            return new ModelAndView("/common/error");
         }
 
     }
@@ -107,14 +107,14 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             inquiryBoardVO = inquiryBoardService.selectBoardDetail(boardMap);
             AnswerVO = inquiryBoardService.selectBoardAnswer(boardMap);
             imageVO = inquiryBoardService.selectBoardImage(boardMap);
-            ModelAndView modelAndView = new ModelAndView("inquiryBoard/detailBoardForm");
+            ModelAndView modelAndView = new ModelAndView("/inquiryBoard/detailBoardForm");
             modelAndView.addObject("inquiryBoardVO", inquiryBoardVO);
             modelAndView.addObject("AnswerVO", AnswerVO);
             modelAndView.addObject("imageVO", imageVO);
             return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
-            return new ModelAndView("common/error");
+            return new ModelAndView("/common/error");
         }
     }
 
@@ -307,7 +307,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             return new ModelAndView("redirect:/inquiryBoard/boardForm.do");
         } catch (Exception e) {
             e.printStackTrace();
-            return new ModelAndView("common/error");
+            return new ModelAndView("/common/error");
         }
     }
 

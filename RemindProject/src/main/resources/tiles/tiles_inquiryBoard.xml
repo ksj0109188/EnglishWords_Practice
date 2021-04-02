@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="/inquiryBoard/inquiryBoardForm" extends="baseLayout">
+		<put-attribute name="title" value="문의 게시판 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/inquiryBoard/inquiryBoardForm.jsp" />
+	</definition>
+
+	<definition name="/inquiryBoard/detailBoardForm" extends="baseLayout">
+		<put-attribute name="title" value="문의 게시판 상세 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/inquiryBoard/detailBoardForm.jsp" />
+	</definition>
+
+	<definition name="/inquiryBoard/writeBoardForm" extends="baseLayout">
+		<put-attribute name="title" value="문의 게시판 작성 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/inquiryBoard/writeBoardForm.jsp" />
+	</definition>
+
+	<definition name="/inquiryBoard/modifyBoardForm" extends="baseLayout">
+		<put-attribute name="title" value="문의 게시판 수정 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/inquiryBoard/modifyBoardForm.jsp" />
+	</definition>
+
+
+
+</tiles-definitions>
+
+

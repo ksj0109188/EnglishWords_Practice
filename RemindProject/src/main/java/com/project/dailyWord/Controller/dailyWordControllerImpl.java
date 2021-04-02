@@ -63,12 +63,12 @@ public class dailyWordControllerImpl extends BaseController implements dailyWord
         List<dailyWordVO> wordVOElements;
         try {
             wordVOElements = dailyWordService.selectDailyWord();
-            ModelAndView modelAndView = new ModelAndView("dailyWord/dailyWordForm");
+            ModelAndView modelAndView = new ModelAndView("/dailyWord/dailyWordForm");
             modelAndView.addObject("dailyWordVO",wordVOElements);
             return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
-            ModelAndView modelAndView = new ModelAndView("common/error");
+            ModelAndView modelAndView = new ModelAndView("/common/error");
             return modelAndView;
         }
     }
