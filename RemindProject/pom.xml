@@ -270,11 +270,12 @@
             <artifactId>tiles-servlet</artifactId>
             <version>2.2.2</version>
         </dependency>
-<!--        spring loaded-->
+
+        <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>springloaded</artifactId>
-            <version>1.2.0.RELEASE</version>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.6.0</version>
         </dependency>
 
     </dependencies>
