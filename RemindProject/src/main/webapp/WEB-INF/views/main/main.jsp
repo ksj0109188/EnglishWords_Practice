@@ -28,18 +28,16 @@
     </c:if>
 
 </head>
-<body class="bg-primary">
-<div class="col-lg-5">
-
-</div>
+<body>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm">
             <div class="jumbotron mt-5">
                 <h1>반갑습니다!!!</h1>
                 <p>Remind는 효율적인 영어단어 학습이 가능한 웹 사이트이며 비용없이 사이트를 이용하실 수 있습니다.</p>
-                <p>로그인 후 웹 페이지를 이용하실 수 있으며, 민감한 개인정보를 묻지 않으니 걱정없이 사용하실 수 있습니다.</p>
                 <p>사용자가 외울 단어를 직접 저장하거나 매일 업데이트되는 단어를 통해 영어단어를 쉽게 암기해보세요.</p>
+                <p>로그인 후 웹 페이지를 이용하실 수 있으며, 민감한 개인정보를 묻지 않으니 걱정없이 사용하실 수 있습니다.</p>
+                <p>감사합니다.</p>
             </div>
         </div>
         <div class="col-sm">
@@ -51,13 +49,13 @@
                     <form action="${contextPath}/member/login" method="post">
                         <div class="form-group">
                             <label class="small mb-1" for="userId">ID</label>
-                            <input type="id" class="form-control py-4" id="userId" name="userId"
-                                   placeholder="Enter id">
+                            <input type="text" class="form-control py-4" id="userId" name="userId"
+                                   placeholder="Enter ID">
                         </div>
                         <div class="form-group">
                             <label class="small mb-1" for="userPwd">PASSWORD</label>
                             <input type="password" class="form-control py-4" id="userPwd" name="userPwd"
-                                   placeholder="Enter password">
+                                   placeholder="Enter Password">
                         </div>
                         <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                             <a class="small" href="${contextPath}/member/findUserIdForm.do">Forgot ID?</a>

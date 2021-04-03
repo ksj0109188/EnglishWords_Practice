@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kim
-  Date: 2021/02/18
-  Time: 7:06 오후창
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -156,39 +149,100 @@
     </script>
 </head>
 <body>
-<form id="userForm" action="${contextPath}/member/addMember.do" method="post">
-    <div>
-        이름 : <input type="text" id="userName" name="userName" placeholder="아이디를 찾을 때 사용됩니다.">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">Create Account</h3>
+                </div>
+                <div class="card-body">
+                    <form id="userForm" action="${contextPath}/member/addMember.do" method="post">
+                        <div class="form-group">
+                            <label class="small mb-1" for="userName">Name</label>
+                            <input class="form-control py-4" type="text" id="userName" name="userName"
+                                   placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="userId">ID</label>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <input class="form-control py-4" type="text" id="userId" name="userId" minlength="4"
+                                           maxlength="12" placeholder="Enter ID">
+                                </div>
+                                <div class="col-md-3 align-self-center">
+                                    <input class="btn btn-primary" type="button" id="overlapButton" value="중복확인하기"
+                                           onclick="checkOverlap()">
+                                </div>
+                            </div>
+                            <div class="small mb-3 text-muted">아이디는 4~12자 이내</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="userPwd1">Password</label>
+                                    <input class="form-control py-4" type="password" id="userPwd1" name="userPwd"
+                                           minlength="10" maxlength="20"
+                                           placeholder="Enter Password">
+                                    <div class="small mb-1 text-muted">10~20자리 숫자,문자, 특수문자 중 2개 이상을 혼합</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="userPwd2">Confirm Password</label>
+                                    <input class="form-control py-4" type="password" id="userPwd2" name="userPwd2"
+                                           minlength="10"
+                                           maxlength="20" placeholder="Confirm Password">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="small mb-1" for="userEmail">Email</label>
+                            <input class="form-control py-4" type="email" id="userEmail" name="email"
+                                   placeholder="Enter Email">
+                        </div>
+                        <div>
+                            <label class="small mb-1" for="phone1">Phone Number</label>
+                        </div>
+                        <div class="form-row ">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select class="form-control py-2" id="phone1" name="phone1">
+                                        <option>없음</option>
+                                        <option selected value="010">010</option>
+                                        <option value="011">011</option>
+                                        <option value="016">016</option>
+                                        <option value="017">017</option>
+                                        <option value="018">018</option>
+                                        <option value="019">019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ">
+                                <div class="form-group">
+                                    <input class="form-control py-2" type="text" id="phone2" name="phone2">
+                                </div>
+                            </div>
+                            <div class="col-md-4 ">
+                                <div class="form-group">
+                                    <input class="form-control py-2" type="text" id="phone3"
+                                           name="phone3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <a class="small" href="${contextPath}/main/main.do">Return to Main</a>
+                            <input class="btn btn-primary" type="button" id="submitButton" value="가입하기"
+                                   onclick="submitForm()">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        아이디
-        <input type="text" id="userId" name="userId" minlength="4" maxlength="12">
-        <span>아이디는 4~12자 이내로 정해주세요.(이메일 형식이 아닙니다.)</span>
-        <input type="button" id="overlapButton" value="중복확인하기" onclick="checkOverlap()">
-    </div>
-    <div>
-        비밀번호<input type="password" id="userPwd1" name="userPwd" minlength="10" maxlength="20"
-                   placeholder="">
-        <span>10~20자리 숫자,문자, 특수문자 중 2개 이상을 혼합해 입력하세요.</span><br>
-        재입력<input type="password" id="userPwd2" name="userPwd2" minlength="10"
-                  maxlength="20" placeholder="비밀번호 재입력">
-    </div>
-    <div>
-        email<input type="text" id="userEmail" name="email">
-    </div>
-    <div>
-        <select id="phone1" name="phone1">
-            <option>없음</option>
-            <option selected value="010">010</option>
-            <option value="011">011</option>
-            <option value="016">016</option>
-            <option value="017">017</option>
-            <option value="018">018</option>
-            <option value="019">019</option>
-        </select>
-        <input type="text" id="phone2" name="phone2"> - <input type="text" id="phone3" name="phone3">
-        <input type="button" id="submitButton" value="가입하기" onclick="submitForm()">
-    </div>
-</form>
+</div>
 </body>
 </html>

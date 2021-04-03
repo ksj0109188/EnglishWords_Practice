@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kim
-  Date: 2021/02/18
-  Time: 7:06 오후창
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -35,13 +28,41 @@
     </script>
 </head>
 <body>
-
-<div>
-    <form>
-        <input type="text" id="userId" name="userId" value="아이디">
-        <input type="text" id="email" name="email" value="이메일">
-        <input type="button" value="비밀번호 찾기" onclick="findUserPwd()">
-    </form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">
+                        Find Password
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="small mb-3 text-muted">계정, 이메일을 입력하시면 해당 이메일로 임시 비밀번호를 발송합니다.</div>
+                    <form>
+                        <div class="form-group">
+                            <label class="small mb-1" for="userId">ID</label>
+                            <input class="form-control py-4" type="text" id="userId" name="userId"
+                                   placeholder="Enter ID">
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="email">Email</label>
+                            <input class="form-control py-4" type="text" id="email" name="email" value="이메일">
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <a class="small" href="${contextPath}/main/main.do">Return to Main</a>
+                            <input class="btn btn-primary" type="button" value="Find" onclick="findUserPwd()">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <div class="small">
+                        <a href="${contextPath}/member/registerMemberForm.do">Need an account? Sing up!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

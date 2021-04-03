@@ -17,33 +17,33 @@
 
     <%--    custome style--%>
     <link href="${contextPath}/resources/css/styles.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
+            crossorigin="anonymous"></script>
     <style type="text/css">
-
-        .layoutFooter{
-            width:100%;
-            height:100px;
-            position:absolute;
-            bottom:0;
-            background:#5eaeff;
+        .layoutFooter {
+            width: 100%;
+            height: 100px;
+            position: fixed;
+            bottom: 0;
+            background: #5eaeff;
             text-align: center;
             color: white;
         }
     </style>
 </head>
-<body>
+<body class="bg-primary">
 
 <header>
     <tiles:insertAttribute name="header"/>
 </header>
 
-    <article>
-        <tiles:insertAttribute name="body"/>
-    </article>
-<div class="layoutFooter">
+<article>
+    <tiles:insertAttribute name="body"/>
+</article>
+
 <footer>
     <tiles:insertAttribute name="footer"/>
 </footer>
-</div>
+
 </body>
 </html>

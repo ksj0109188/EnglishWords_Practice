@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kim
-  Date: 2021/02/18
-  Time: 7:06 오후창
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -31,28 +24,58 @@
             }
         }
 
-        function checkValidText(){
+        function checkValidText() {
             var form = document.getElementById("userForm")
             var userName = document.getElementById("userName");
             var userNameValue = userName.value;
-            if(userNameValue=="" || userNameValue.length<=0){
+            if (userNameValue == "" || userNameValue.length <= 0) {
                 alert("이름을 입력해주세요.");
                 userName.focus();
-            }else if(!checkValidEmail){
+            } else if (!checkValidEmail) {
                 return;
-            }else{
+            } else {
                 form.submit();
             }
         }
     </script>
 </head>
 <body>
-<div>
-    <form id="userForm" action="${contextPath}/member/findUserId" method="get">
-        이름<input type="text" name="userName" id="userName">
-        이메일<input type="text" name="email" id="email">
-        <input type="button" value="아이디 찾기" onclick="checkValidText()">
-    </form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">
+                        Find ID
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="small mb-3 text-muted">가입에 사용된 이름, 이메일을 입력하시면 가입한 아이디를 출력합니다.</div>
+                    <form id="userForm" action="${contextPath}/member/findUserId" method="get">
+                        <div class="form-group">
+                            <label class="small mb-1" for="userName">Name</label>
+                            <input class="form-control py-4" type="text" id="userName" name="userName"
+                                   placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="email">Email</label>
+                            <input class="form-control py-4" type="text" name="email" id="email"
+                                   placeholder="Enter Email">
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <a class="small" href="${contextPath}/main/main.do">Return to Main</a>
+                            <input class="btn btn-primary" type="button" value="Find" onclick="checkValidText()">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <div class="small">
+                        <a href="${contextPath}/member/registerMemberForm.do">Need an account? Sing up!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
