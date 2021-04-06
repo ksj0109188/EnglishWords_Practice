@@ -55,18 +55,15 @@ public class wordControllerImpl extends BaseController implements wordController
             wordvo.setWordId(wordId);
             wordservice.addWord(wordvo);
             statisticservice.addWord(wordvo);
-
-            message = "<script>";
-            message += "alert('저장완료.');";
-            message += "location.href='" + request.getContextPath() + "/word/saveWordForm.do';";
-            message += "</script>";
+            message = "단어저장 완료";
+            return new ResponseEntity<String>(message,responseHeader, HttpStatus.OK);
         } catch (Exception e) {
             message = "<script>";
             message += "alert('저장실패 잠시 후 다시 시도해주세요.');";
             message += "location.href='" + request.getContextPath() + "/word/saveWordForm.do';";
             message += "</script>";
+            return new ResponseEntity(message, responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity(message, responseHeader, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/DailyWord", method = RequestMethod.POST)
@@ -118,8 +115,8 @@ public class wordControllerImpl extends BaseController implements wordController
 
             if (countWrongReviewCard == 0 && countReviewCard == 0 && countWrongNewCard == 0 && countNewCard == 0) {
                 modelAndView = new ModelAndView();
-                modelAndView.setViewName("/main/mainContent");
-                modelAndView.addObject("finish", "true");
+                modelAndView.setViewName("/main/introductionPage");
+                modelAndView.addObject("isFinish", "true");
                 return modelAndView;
             }
             modelAndView = new ModelAndView("/word/settingStudyForm");
@@ -505,7 +502,7 @@ public class wordControllerImpl extends BaseController implements wordController
             String text = URLEncoder.encode(word, "UTF-8");
             String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
             URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("X-Naver-Client-Id", clientId);
             con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
@@ -518,7 +515,7 @@ public class wordControllerImpl extends BaseController implements wordController
             wr.close();
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            if(responseCode==200) { // 정상 호출
+            if (responseCode == 200) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else {  // 에러 발생
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
@@ -533,10 +530,10 @@ public class wordControllerImpl extends BaseController implements wordController
             JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBuffer.toString());
             jsonObject = (JSONObject) jsonParser.parse(jsonObject.get("message").toString());
             jsonObject = (JSONObject) jsonParser.parse(jsonObject.get("result").toString());
-            return new ResponseEntity<Object>(jsonObject,HttpStatus.OK);
+            return new ResponseEntity<Object>(jsonObject, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<String>("error",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
