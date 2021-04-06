@@ -9,6 +9,8 @@
         function findUserPwd() {
             var userIdValue = document.getElementById("userId").value;
             var emailValue = document.getElementById("email").value;
+            var button = document.getElementById("findPasswordButton");
+            button.setAttribute("disabled","true");
             $.ajax({
                 method: "get",
                 url: "${contextPath}/member/findUserPwd",
@@ -47,11 +49,11 @@
                         </div>
                         <div class="form-group">
                             <label class="small mb-1" for="email">Email</label>
-                            <input class="form-control py-4" type="text" id="email" name="email" value="이메일">
+                            <input class="form-control py-4" type="text" id="email" name="email" placeholder="Enter email">
                         </div>
                         <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                             <a class="small" href="${contextPath}/main/main.do">Return to Main</a>
-                            <input class="btn btn-primary" type="button" value="Find" onclick="findUserPwd()">
+                            <input class="btn btn-primary" id="findPasswordButton" type="button" value="Find" onclick="findUserPwd()">
                         </div>
                     </form>
                 </div>

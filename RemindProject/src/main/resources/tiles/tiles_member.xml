@@ -5,29 +5,32 @@
 <tiles-definitions>
 
 	<definition name="/member/registerMemberForm" extends="baseLayout">
-		<put-attribute name="header" value=""/>
 		<put-attribute name="title" value="회원가입 페이지"/>
-		<put-attribute name="footer" value=""/>
+		<put-attribute name="header" value=""/>
 		<put-attribute name="body" value="/WEB-INF/views/member/registerMemberForm.jsp" />
+		<put-attribute name="footer" value=""/>
 
 	</definition>
 
 	<definition name="/member/findUserIdForm" extends="baseLayout">
-		<put-attribute name="header" value="" />
 		<put-attribute name="title" value="아이디 찾기 페이지" />
+		<put-attribute name="header" value=""/>
 		<put-attribute name="body" value="/WEB-INF/views/member/findUserIdForm.jsp" />
+		<put-attribute name="footer" value=""/>
 	</definition>
 
 	<definition name="/member/foundUserIdForm" extends="baseLayout">
-		<put-attribute name="header" value="" />
+		<put-attribute name="header" value=""/>
 		<put-attribute name="title" value="사용자 아이디 출력 페이지" />
 		<put-attribute name="body" value="/WEB-INF/views/member/foundUserIdForm.jsp" />
+		<put-attribute name="footer" value=""/>
 	</definition>
 
 	<definition name="/member/findUserPwdForm" extends="baseLayout">
 		<put-attribute name="header" value="" />
 		<put-attribute name="title" value="비밀번호 찾기 페이지" />
 		<put-attribute name="body" value="/WEB-INF/views/member/findUserPwdForm.jsp" />
+		<put-attribute name="footer" value=""/>
 	</definition>
 
 	<definition name="/member/authMember" extends="baseLayout">

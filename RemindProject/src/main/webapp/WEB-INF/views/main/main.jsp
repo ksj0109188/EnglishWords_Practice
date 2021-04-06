@@ -8,19 +8,23 @@
     <script>
         <c:choose>
         <c:when test="${message eq 'loginFail'}">
-        alert("아이디 혹은 비밀번호가 틀렸습니다 다시 로그인해주세요.");
+        alert("아이디 혹은 비밀번호가 틀렸습니다 다시 로그인해 주세요.");
         </c:when>
         <c:when test="${message eq 'notAuthorization'}">
-        alert("이메일 인증먼저 해주세요.");
+        alert("이메일 인증 먼저 해주세요.");
         </c:when>
         <c:when test="${message eq 'registerSuccess'}">
-        alert("이메일 인증후 해당 계정으로 이용하실수 있습니다.");
+        alert("이메일 인증 후 해당 계정으로 이용하실 수 있습니다.");
         </c:when>
         <c:when test="${message eq 'authFalse'}">
-        alert("올바른 이메일로 인증해주세요.");
+        alert("올바른 이메일로 인증해 주세요.");
+        </c:when>
+        <c:when test="${message eq 'certified'}">
+        alert("이미 인증하셨습니다.");
         </c:when>
         </c:choose>
     </script>
+
     <c:if test="${not empty userId}">
         <script>
             location.href = "${contextPath}/main/introduction.do";

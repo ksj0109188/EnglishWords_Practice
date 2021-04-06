@@ -19,7 +19,6 @@
         ]]>
     </select>
 
-
     <insert id="insertDailyWord" parameterType="java.util.Map">
         insert into dailyWord(dailyId, word, mean, savedDate) values
         <foreach item="item" collection="list" separator=",">

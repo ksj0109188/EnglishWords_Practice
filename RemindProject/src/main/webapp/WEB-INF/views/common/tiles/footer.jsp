@@ -2,8 +2,7 @@
          pageEncoding="utf-8"
          isELIgnored="false"
 %>
-<div class="layoutFooter" >
-<footer class="py-4 bg-light mt-auto">
+<footer class="py-4 bg-light mt-3">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between small">
             <div class="text-muted">
@@ -18,4 +17,3 @@
         </div>
     </div>
 </footer>
-</div>

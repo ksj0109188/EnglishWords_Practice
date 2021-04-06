@@ -120,6 +120,7 @@
 
         function submitForm() {
             var form = document.getElementById("userForm");
+            var submitButton = document.getElementById("submitButton");
             var userNameValue = document.getElementById("userName").value;
             var phone1Value = document.getElementById("phone1").value;
             var phone2Value = document.getElementById("phone2").value;
@@ -141,6 +142,7 @@
             } else if (userNameValue == "") {
                 alert("이름을 입력해주세요.")
             } else {
+                submitButton.setAttribute("disabled","true");
                 form.submit();
             }
         }
@@ -157,7 +159,7 @@
                     <h3 class="text-center font-weight-light my-4">Create Account</h3>
                 </div>
                 <div class="card-body">
-                    <form id="userForm" action="${contextPath}/member/addMember.do" method="post">
+                    <form id="userForm" action="${contextPath}/member/addMember" method="post">
                         <div class="form-group">
                             <label class="small mb-1" for="userName">Name</label>
                             <input class="form-control py-4" type="text" id="userName" name="userName"
@@ -171,7 +173,7 @@
                                            maxlength="12" placeholder="Enter ID">
                                 </div>
                                 <div class="col-md-3 align-self-center">
-                                    <input class="btn btn-primary" type="button" id="overlapButton" value="중복확인하기"
+                                    <input class="btn btn-info" type="button" id="overlapButton" value="중복확인하기"
                                            onclick="checkOverlap()">
                                 </div>
                             </div>
@@ -238,7 +240,6 @@
                                    onclick="submitForm()">
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

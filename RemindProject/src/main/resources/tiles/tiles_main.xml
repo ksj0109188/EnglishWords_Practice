@@ -22,6 +22,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
 	</definition>
 
+	<definition name="/main/introductionPage" extends="baseLayout">
+		<put-attribute name="title" value="Remind 소개 페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/main/introductionPage.jsp" />
+	</definition>
 
 </tiles-definitions>
 

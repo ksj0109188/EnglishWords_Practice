@@ -14,7 +14,6 @@
     <%--    bootStrap core  --%>
     <link rel="stylesheet" href="${contextPath}/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
     <script src="${contextPath}/webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
-
     <%--    custome style--%>
     <link href="${contextPath}/resources/css/styles.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
@@ -23,27 +22,30 @@
         .layoutFooter {
             width: 100%;
             height: 100px;
-            position: fixed;
+            position: absolute;
             bottom: 0;
             background: #5eaeff;
             text-align: center;
             color: white;
         }
     </style>
+
 </head>
 <body class="bg-primary">
-
-<header>
-    <tiles:insertAttribute name="header"/>
-</header>
-
-<article>
-    <tiles:insertAttribute name="body"/>
-</article>
-
-<footer>
-    <tiles:insertAttribute name="footer"/>
-</footer>
-
+<div id="layoutAuthentication">
+    <header>
+        <tiles:insertAttribute name="header"/>
+    </header>
+    <div id="layoutAuthentication_content">
+        <article>
+            <tiles:insertAttribute name="body"/>
+        </article>
+    </div>
+    <div id="layoutAuthentication_footer">
+        <footer>
+            <tiles:insertAttribute name="footer"/>
+        </footer>
+    </div>
+</div>
 </body>
 </html>
