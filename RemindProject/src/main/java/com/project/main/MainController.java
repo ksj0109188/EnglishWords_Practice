@@ -23,7 +23,7 @@ public class MainController {
     @RequestMapping(value="/introduction.do")
     public ModelAndView mainContent(HttpServletRequest request, HttpServletResponse response){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/introduction/introductionPage");
+        modelAndView.setViewName("/main/introductionPage");
         return modelAndView;
     }
 }

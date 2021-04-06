@@ -51,6 +51,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
     }
 
     @RequestMapping(value = "/overlap")
+    @Override
     public ResponseEntity searchOverlapId(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId) {
         ResponseEntity responseEntity;
         try {
@@ -68,6 +69,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
     }
 
     @RequestMapping(value = "/authMember.do")
+    @Override
     public ModelAndView authMember(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId, @RequestParam("authKey") String authKey) {
         Map<String, Object> memberMap = new HashMap<String, Object>();
         ModelAndView modelAndView;
@@ -78,7 +80,11 @@ public class MemberControllerImpl extends BaseController implements MemberContro
             if (authKey.equals(savedAuthKey)) {
                 modelAndView = new ModelAndView("/member/authMember");
                 memberService.updateAuthKey(memberMap);
-            } else {
+            } else if (savedAuthKey.equals("Y")) {
+                modelAndView = new ModelAndView("/main/main");
+                modelAndView.addObject("message", "certified");
+            }
+             else {
                 modelAndView = new ModelAndView("/main/main");
                 modelAndView.addObject("message", "authFalse");
             }
@@ -104,7 +110,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("userId", userId);
                 httpSession.setAttribute("isLogin", true);
-                modelAndView.setViewName("/introduction/introductionPage");
+                modelAndView.setViewName("/main/introductionPage");
             }
         } else {
             modelAndView.addObject("message", "loginFail");
@@ -114,6 +120,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
     }
 
     @RequestMapping(value = "/logout")
+    @Override
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView("/main/main");
         HttpSession session = request.getSession();
@@ -125,6 +132,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
     }
 
     @RequestMapping(value = "findUserId", method = RequestMethod.GET)
+    @Override
     public ModelAndView findUserId(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) {
         ModelAndView modelAndView;
         List<MemberVO> memberVOItems;
