@@ -56,14 +56,15 @@
 
     <select id="search" resultType="statisticVO" parameterType="java.util.Map">
         <![CDATA[
-        select statistcTable.word,statistcTable.wrongCount,statistcTable.correctCount
+        select statistcTable.word, wordTable.savedDate, statistcTable.wrongCount, statistcTable.correctCount
         from (
               savedword as wordTable
                  join wordStatistic as statistcTable
                       on wordTable.wordId = statistcTable.wordId
 
             )
-        where userId = #{userId} and statistcTable.word = #{word}
+        where userId = #{userId}
+          and statistcTable.word = #{word}
         ]]>
     </select>
 

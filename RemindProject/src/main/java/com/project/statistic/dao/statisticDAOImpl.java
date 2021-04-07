@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository("statisticDAO")
@@ -40,8 +41,8 @@ public class statisticDAOImpl implements statisticDAO {
     }
 
     @Override
-    public statisticVO search(Map staMap) throws DataAccessException {
-        return session.selectOne("mapper.statistic.search", staMap);
+    public List<statisticVO> search(Map staMap) throws DataAccessException {
+        return session.selectList("mapper.statistic.search", staMap);
     }
 
 

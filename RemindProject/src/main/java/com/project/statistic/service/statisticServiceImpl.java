@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 @Transactional(propagation = Propagation.REQUIRED)
@@ -42,7 +43,7 @@ public class statisticServiceImpl implements statisticService {
     }
 
     @Override
-    public statisticVO search(Map staMap) throws Exception {
+    public List<statisticVO> search(Map staMap) throws Exception {
         return statisticDAO.search(staMap);
     }
 

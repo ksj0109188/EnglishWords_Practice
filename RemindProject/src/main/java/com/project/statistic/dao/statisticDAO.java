@@ -4,6 +4,7 @@ import com.project.statistic.vo.statisticVO;
 import com.project.word.vo.wordVO;
 import org.springframework.dao.DataAccessException;
 
+import java.util.List;
 import java.util.Map;
 
 public interface statisticDAO {
@@ -17,5 +18,5 @@ public interface statisticDAO {
 
     int countWord(Map staMap) throws DataAccessException;
 
-    statisticVO search(Map staMap) throws DataAccessException;
+    List<statisticVO> search(Map staMap) throws DataAccessException;
 }

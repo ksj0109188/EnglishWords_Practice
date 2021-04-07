@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping(value = "/statistic")
@@ -56,12 +57,13 @@ public class statisticControllerImpl extends BaseController implements statistic
         staMap.put("userId", userId);
         staMap.put("word", word);
         ResponseEntity responseEntity;
+        List<statisticVO> statisticVO ;
         try {
-            statisticVO statisticVO = statisticService.search(staMap);
+            statisticVO = statisticService.search(staMap);
             if (statisticVO == null) {
                 responseEntity = new ResponseEntity<String>("Empty", HttpStatus.OK);
             } else {
-                responseEntity = new ResponseEntity<statisticVO>(statisticVO, HttpStatus.OK);
+                responseEntity = new ResponseEntity<List<statisticVO>>(statisticVO, HttpStatus.OK);
             }
         } catch (Exception e) {
             e.printStackTrace();

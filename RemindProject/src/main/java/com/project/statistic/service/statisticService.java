@@ -3,6 +3,7 @@ package com.project.statistic.service;
 import com.project.statistic.vo.statisticVO;
 import com.project.word.vo.wordVO;
 
+import java.util.List;
 import java.util.Map;
 
 public interface statisticService {
@@ -16,5 +17,5 @@ public interface statisticService {
 
     int countWord(Map staMap) throws Exception;
 
-    statisticVO search(Map staMap) throws Exception;
+    List<statisticVO> search(Map staMap) throws Exception;
 }

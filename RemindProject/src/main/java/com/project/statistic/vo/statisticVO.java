@@ -2,6 +2,8 @@ package com.project.statistic.vo;
 
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+
 @Component("statisticVO")
 public class statisticVO {
 
@@ -9,6 +11,7 @@ public class statisticVO {
     private String word;
     private int wrongCount;
     private int correctCount;
+    private Timestamp savedDate;
 
     public int getWordId() {
         return wordId;
@@ -40,5 +43,13 @@ public class statisticVO {
 
     public void setCorrectCount(int correctCount) {
         this.correctCount = correctCount;
+    }
+
+    public Timestamp getSavedDate() {
+        return savedDate;
+    }
+
+    public void setSavedDate(Timestamp savedDate) {
+        this.savedDate = savedDate;
     }
 }
