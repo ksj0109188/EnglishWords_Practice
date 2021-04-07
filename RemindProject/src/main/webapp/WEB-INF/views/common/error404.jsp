@@ -19,8 +19,8 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="text-center mt-4">
-                            <h1 class="display-1">ERROR</h1>
-                            <p>에러발생</p>
+                            <h1 class="display-1">404 ERROR</h1>
+                            <p>This requested URL was not found on this server.</p>
                             <a class="small" href="${contextPath}/main/main.do">메인 페이지로</a>
                         </div>
                     </div>

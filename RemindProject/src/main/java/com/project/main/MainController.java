@@ -1,5 +1,6 @@
 package com.project.main;
 
+import com.project.common.base.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller("mainController")
 @RequestMapping(value="/main")
-public class MainController {
+public class MainController extends BaseController {
 
     @RequestMapping(value="/main.do", method ={RequestMethod.POST,RequestMethod.GET})
     public ModelAndView main(HttpServletResponse response, HttpServletRequest request) throws Exception{

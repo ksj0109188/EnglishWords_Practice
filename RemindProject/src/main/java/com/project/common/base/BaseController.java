@@ -31,6 +31,7 @@ public abstract class BaseController {
         modelAndView.setViewName("/common/error");
         return modelAndView;
     }
+
     protected List<String> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
         List<String> fileList= new ArrayList<String>();
         Iterator<String> fileNames = multipartRequest.getFileNames();
