@@ -28,7 +28,7 @@
         <div class="card-header">
             <form action="${contextPath}/inquiryBoard/title" method="get">
                 <div class="input-group mb-3">
-                    <input class="form-control" type="text" name="title" placeholder="글 제목을 입력하세요.">
+                    <input class="form-control" type="text" name="title" placeholder="글 제목을 입력하세요">
                     <div class="input-group-append">
                         <input class="btn btn-primary" type="submit" value="검색하기">
                     </div>
@@ -49,7 +49,7 @@
                 <c:forEach var="item" items="${inquiryBoardVO}" varStatus="itemStatus">
                     <tr role="row">
                         <td>${item.boardId}</td>
-                        <td><a oninput="" href="${contextPath}/inquiryBoard/board/${item.boardId}"
+                        <td><a href="${contextPath}/inquiryBoard/board/${item.boardId}"
                                methods="get">${item.title}</a>
                         </td>
                         <td>${item.userId}</td>

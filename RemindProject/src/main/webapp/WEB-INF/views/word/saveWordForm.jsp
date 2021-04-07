@@ -55,12 +55,12 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="small mb-1" for="word">영어 단어</label>
-                        <input class="form-control py-4" type="text" id="word" name="word"
+                        <input class="form-control py-4" type="text" id="word" name="word" maxlength="200"
                                placeholder="저장하실 단어를 입력하세요">
                     </div>
                     <div class="form-group">
                         <label class="small mb-1" for="mean">단어 뜻</label>
-                        <input class="form-control py-4" type="text" id="mean" name="mean"
+                        <input class="form-control py-4" type="text" id="mean" name="mean" maxlength="500"
                                placeholder="저장하실 단어의 뜻을 입력하세요">
                     </div>
                 </div>

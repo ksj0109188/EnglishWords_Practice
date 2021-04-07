@@ -127,11 +127,11 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <input class="form-control py-4 text-center" type="button" id="word" name="word"
+                                <input class="form-control text-center" type="button" id="word" name="word"
                                        value="${wordvo.word}">
                             </div>
                             <div class="form-group">
-                                <input class="form-control py-4 text-center" type="button" id="mean" name="mean"
+                                <input class="form-control text-center" type="button" id="mean" name="mean"
                                        value="${wordvo.mean}" style="display: none">
                             </div>
                         </div>

@@ -53,12 +53,12 @@
                     <form action="${contextPath}/member/login" method="post">
                         <div class="form-group">
                             <label class="small mb-1" for="userId">ID</label>
-                            <input type="text" class="form-control py-4" id="userId" name="userId"
+                            <input class="form-control py-4" type="text" id="userId" name="userId"
                                    placeholder="Enter ID">
                         </div>
                         <div class="form-group">
                             <label class="small mb-1" for="userPwd">PASSWORD</label>
-                            <input type="password" class="form-control py-4" id="userPwd" name="userPwd"
+                            <input class="form-control py-4" type="password" id="userPwd" name="userPwd"
                                    placeholder="Enter Password">
                         </div>
                         <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">

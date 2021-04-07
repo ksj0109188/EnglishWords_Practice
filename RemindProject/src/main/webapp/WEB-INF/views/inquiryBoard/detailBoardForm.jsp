@@ -54,24 +54,24 @@
             form.submit();
         }
 
-            function setModifyAnswer(index) {
-                var modifyTable = document.getElementsByName("modifyTable")[index];
-                var AnswerContent = document.getElementsByName("AnswerContent")[index];
-                AnswerContent.removeAttribute("disabled");
-                var applyButton = document.getElementsByName("applyAnswerButton")[index];
-                alert(applyButton);
-                if (!applyButton) {
-                    var modifyAnswerButton = document.createElement("input");
-                    modifyAnswerButton.setAttribute("type", "button");
-                    modifyAnswerButton.setAttribute("name", "applyAnswerButton");
-                    modifyAnswerButton.setAttribute("class", "btn btn-primary mt-1");
-                    modifyAnswerButton.setAttribute("onclick", "modifyAnswer(" + index + ")");
-                    modifyAnswerButton.setAttribute("value", "적용하기");
-                    modifyTable.appendChild(modifyAnswerButton);
-                } else {
-                    return;
-                }
+        function setModifyAnswer(index) {
+            var modifyTable = document.getElementsByName("modifyTable")[index];
+            var AnswerContent = document.getElementsByName("AnswerContent")[index];
+            AnswerContent.removeAttribute("disabled");
+            var applyButton = document.getElementById("applyAnswerButton"+index);
+            alert(applyButton);
+            if (applyButton===null) {
+                var modifyAnswerButton = document.createElement("input");
+                modifyAnswerButton.setAttribute("type", "button");
+                modifyAnswerButton.setAttribute("id", "applyAnswerButton"+index);
+                modifyAnswerButton.setAttribute("class", "btn btn-primary mt-1");
+                modifyAnswerButton.setAttribute("onclick", "modifyAnswer(" + index + ")");
+                modifyAnswerButton.setAttribute("value", "적용하기");
+                modifyTable.appendChild(modifyAnswerButton);
+            } else {
+                return null;
             }
+        }
 
         function modifyAnswer(index) {
             var AnswerContentValue = document.getElementsByName("AnswerContent")[index].value;
@@ -154,7 +154,6 @@
                         </c:if>
                     </div>
                 </div>
-
                 <c:if test="${not empty AnswerVO}">
                 <c:forEach var="item" items="${AnswerVO}" varStatus="itemStatus">
                     <hr>

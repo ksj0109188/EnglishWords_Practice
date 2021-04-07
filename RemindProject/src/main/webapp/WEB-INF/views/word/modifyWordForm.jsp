@@ -21,7 +21,7 @@
                 contentType: "application/json",
                 data: JSON.stringify(data),
                 success: function (data) {
-                    if(data =="sucess"){
+                    if (data == "sucess") {
                         alert("수정되었습니다.");
                         location.href = "${contextPath}/word/wordBoardForm.do";
                     }
@@ -44,7 +44,7 @@
                 contentType: "application/json",
                 data: JSON.stringify(data),
                 success: function (data) {
-                    if(data =="success"){
+                    if (data == "success") {
                         alert("삭제되었습니다.");
                         location.href = "${contextPath}/word/wordBoardForm.do";
                     }
@@ -58,16 +58,34 @@
     </script>
 </head>
 <body>
-<div>
-    <input type="hidden" id="wordId" name="wordId" value="${wordvo.wordId}">
-    <span>단어<br><input type="text" id="word" name="word" value="${wordvo.word}"></span>
-    <span>의미<br><input type="text" id="mean" name="mean" value="${wordvo.mean}"></span>
-    <span>저장날짜<br><input type="text" value="${wordvo.savedDate}" disabled></span>
-    <span>복습날짜<br><input type="text" value="${wordvo.appearanceDate}" disabled></span>
-</div>
-<div>
-    <input type="button" value="수정하기" onclick="modifyWord()">
-    <input type="button" value="삭제하기" onclick="deleteWord()">
+<div class="container">
+    <div class="card shadow-lg border-0 rounded-lg mt-5">
+        <div class="card-header">
+            <h3 class="text-center font-weight-light my-4">단어 수정</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label class="small mb-1" for="word">단어</label>
+                <input class="form-control py-4" type="text" id="word" name="word" value="${wordvo.word}">
+            </div>
+            <div class="form-group">
+                <label class="small mb-1" for="mean">의미</label>
+                <input class="form-control py-4" ype="text" id="mean" name="mean" value="${wordvo.mean}">
+            </div>
+            <div class="form-group text-center">
+                <span class="badge badge-primary">저장 날짜:${wordvo.savedDate}</span>
+                <span class="badge badge-success">복습 날짜${wordvo.appearanceDate}</span>
+            </div>
+            <input type="hidden" id="wordId" name="wordId" value="${wordvo.wordId}">
+        </div>
+        <div class="card-footer text-center">
+            <a href="${contextPath}/word/wordBoardForm.do">
+                <button class="btn btn-primary">취소하기</button>
+            </a>
+            <input class="btn btn-primary" type="button" value="수정하기" onclick="modifyWord()">
+            <input class="btn btn-danger" type="button" value="삭제하기" onclick="deleteWord()">
+        </div>
+    </div>
 </div>
 </body>
 </html>
