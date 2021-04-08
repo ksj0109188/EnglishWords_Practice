@@ -80,4 +80,32 @@
         where userId = #{userId}
         ]]>
     </update>
+
+    <select id="selectMemberInfo" parameterType="MemberVO" resultType="MemberVO">
+        <![CDATA[
+        select userId, authKey, joinDate, userName, phone1, phone2, phone3
+        from member
+        where userId = #{userId}
+        ]]>
+    </select>
+
+    <update id="modifyMember" parameterType="MemberVO">
+        <![CDATA[
+        update member
+        set userPwd  = #{userPwd},
+            userName = #{userName},
+            phone1=#{phone1},
+            phone2=#{phone2},
+            phone3=#{phone3}
+        where userId = #{userId}
+        ]]>
+    </update>
+
+    <delete id="deleteMember" parameterType="java.util.Map">
+        <![CDATA[
+        delete
+        from member
+        where userId = #{userId}
+        ]]>
+    </delete>
 </mapper>

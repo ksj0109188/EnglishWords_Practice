@@ -24,4 +24,10 @@ public interface MemberDAO {
     MemberVO findUserPwd(MemberVO memberVO) throws DataAccessException;
 
     void updateUserPwd(MemberVO memberVO) throws DataAccessException;
+
+    MemberVO selectMemberInfo(Map<String, String> memberMap)throws DataAccessException;
+
+    void modifyMember(MemberVO memberVO) throws DataAccessException;
+
+    void deleteMember(Map<String, String> memberMap) throws DataAccessException;
 }

@@ -83,8 +83,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
             } else if (savedAuthKey.equals("Y")) {
                 modelAndView = new ModelAndView("/main/main");
                 modelAndView.addObject("message", "certified");
-            }
-             else {
+            } else {
                 modelAndView = new ModelAndView("/main/main");
                 modelAndView.addObject("message", "authFalse");
             }
@@ -131,7 +130,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
         return modelAndView;
     }
 
-    @RequestMapping(value = "findUserId", method = RequestMethod.GET)
+    @RequestMapping(value = "/findUserId", method = RequestMethod.GET)
     @Override
     public ModelAndView findUserId(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) {
         ModelAndView modelAndView;
@@ -152,7 +151,8 @@ public class MemberControllerImpl extends BaseController implements MemberContro
         return modelAndView;
     }
 
-    @RequestMapping(value = "findUserPwd", method = RequestMethod.GET)
+    @RequestMapping(value = "/findUserPwd", method = RequestMethod.GET)
+    @Override
     public ResponseEntity findUserPwd(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) {
         ResponseEntity responseEntity;
         String contextPath = request.getContextPath();
@@ -161,8 +161,8 @@ public class MemberControllerImpl extends BaseController implements MemberContro
             if (_memberVO == null) {
                 responseEntity = new ResponseEntity<String>("NotFounded", HttpStatus.OK);
             } else {
-                String newPwd = mailService.getKey(false,14);
-                mailService.findPwdMail(newPwd,_memberVO.getUserId(),_memberVO.getUserName(),_memberVO.getEmail(),contextPath);
+                String newPwd = mailService.getKey(false, 14);
+                mailService.findPwdMail(newPwd, _memberVO.getUserId(), _memberVO.getUserName(), _memberVO.getEmail(), contextPath);
                 _memberVO.setUserPwd(newPwd);
                 memberService.updateUserPwd(_memberVO);
                 responseEntity = new ResponseEntity<String>("founded", HttpStatus.OK);
@@ -172,5 +172,57 @@ public class MemberControllerImpl extends BaseController implements MemberContro
             responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
+    }
+
+    @RequestMapping(value = "/modifyMemberForm.do", method = RequestMethod.GET)
+    public ModelAndView modifyMemberForm(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView modelAndView;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        Map<String, String> memberMap = new HashMap<>();
+        memberMap.put("userId", userId);
+        try {
+            MemberVO memberVO = memberService.selectMemberInfo(memberMap);
+            modelAndView = new ModelAndView("/member/modifyMemberForm");
+            modelAndView.addObject("memberVO", memberVO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView = new ModelAndView("/common/error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/modifyMember", method = RequestMethod.POST)
+    public ModelAndView modifyMember(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) {
+        ModelAndView modelAndView;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        memberVO.setUserId(userId);
+        try {
+            memberService.modifyMember(memberVO);
+            modelAndView = new ModelAndView("redirect:/member/logout");
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView = new ModelAndView("/common/error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/deleteMember", method = RequestMethod.POST)
+    public ModelAndView deleteMember(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView modelAndView;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        Map<String, String> memberMap = new HashMap<>();
+        memberMap.put("userId",userId);
+        try {
+            memberService.deleteMember(memberMap);
+            session.removeAttribute("userId");
+            modelAndView = new ModelAndView("/main/main");
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView = new ModelAndView("/common/error");
+        }
+        return modelAndView;
     }
 }

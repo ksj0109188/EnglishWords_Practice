@@ -19,4 +19,10 @@ public interface MemberService {
     MemberVO findUserPwd(MemberVO memberVO) throws Exception;
 
     void updateUserPwd(MemberVO memberVO) throws Exception;
+
+    MemberVO selectMemberInfo(Map<String, String> memberMap) throws Exception;
+
+    void modifyMember(MemberVO memberVO) throws Exception;
+
+    void deleteMember(Map<String, String> memberMap) throws Exception;
 }

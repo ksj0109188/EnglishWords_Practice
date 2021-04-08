@@ -59,4 +59,19 @@ public class MemberServiceImpl implements MemberService {
     public void updateUserPwd(MemberVO memberVO) throws Exception {
         memberDAO.updateUserPwd(memberVO);
     }
+
+    @Override
+    public MemberVO selectMemberInfo(Map<String, String> memberMap) throws Exception{
+        return memberDAO.selectMemberInfo(memberMap);
+    }
+
+    @Override
+    public void modifyMember(MemberVO memberVO) throws Exception {
+        memberDAO.modifyMember(memberVO);
+    }
+
+    @Override
+    public void deleteMember(Map<String, String> memberMap) throws Exception {
+        memberDAO.deleteMember(memberMap);
+    }
 }
