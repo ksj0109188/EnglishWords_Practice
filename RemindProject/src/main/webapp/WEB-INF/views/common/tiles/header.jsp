@@ -19,6 +19,7 @@
             </a>
             <div class="dropdown-menu">
                 <span class="dropdown-item">${userId}</span>
+                <a class="dropdown-item" href="${contextPath}/member/modifyMemberForm.do">회원정보 수정</a>
                 <hr>
                 <a class="dropdown-item" href="${contextPath}/word/wordBoardForm.do">단어수정</a>
                 <a class="dropdown-item" href="${contextPath}/statistic/statisticForm.do">통계</a>

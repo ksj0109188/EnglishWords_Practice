@@ -19,7 +19,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="text-center mt-4">
-                            <h1 class="display-1">401 ERROR</h1>
+                            <h1 class="display-1">500 ERROR</h1>
                             <p>Internal Server Error</p>
                             <a class="small" href="${contextPath}/main/main.do">메인 페이지로</a>
                         </div>
