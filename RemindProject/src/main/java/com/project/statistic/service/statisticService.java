@@ -11,11 +11,11 @@ public interface statisticService {
 
     void addDailyWord(wordVO wordvo) throws Exception;
 
-    void updateWrongCard(Map wordMap)  throws Exception;
+    void updateWrongCard(Map<String, Object> wordMap) throws Exception;
 
-    void updateAppropriateCard(Map wordMap) throws Exception;
+    void updateAppropriateCard(Map<String, Object> wordMap) throws Exception;
 
-    int countWord(Map staMap) throws Exception;
+    int countWord(Map<String, Object> staMap) throws Exception;
 
-    List<statisticVO> search(Map staMap) throws Exception;
+    List<statisticVO> search(Map<String, Object> staMap) throws Exception;
 }

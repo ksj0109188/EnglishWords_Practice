@@ -2,19 +2,68 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="word" />
+      <artifact name="RemindProject:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75227137-f0f4-41d3-9f32-90d65db815ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/mail-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/mail-context.xml" afterDir="false" />
-    </list>
-    <list id="484f2593-54e3-43b3-a197-f078d325b917" name="출련된 오늘의 단어를 사용자의 학습카드로 이동하는 로직 구현." comment="">
+    <list default="true" id="75227137-f0f4-41d3-9f32-90d65db815ab" name="Default Changelist" comment="1. ModelAndView, tiles 매핑작업">
+      <change beforePath="$PROJECT_DIR$/.idea/RemindProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RemindProject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/RemindProject_war.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/RemindProject_war_exploded.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/word.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_13_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_1_4_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_common_1_4_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_4_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_4_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_springloaded_1_2_0_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_03_26_1_00__________.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_03_26_1_00_오전_[출련된_오늘의_단어를_사용자의_학습카드로_이동하는_로직_구현/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/common/Interceptor/loginInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/common/Interceptor/loginInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/common/advice/LoggingAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/common/advice/LoggingAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/common/base/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/common/base/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/common/file/fileDownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/common/file/fileDownloadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/common/mail/mailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/common/mail/mailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/dailyWord/Controller/dailyWordControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/dailyWord/Controller/dailyWordControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/dao/inquiryBoardDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/dao/inquiryBoardDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/dao/inquiryBoardDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/dao/inquiryBoardDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/service/inquiryBoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/service/inquiryBoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/service/inquiryBoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/service/inquiryBoardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/member/Controller/MemberControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/member/Controller/MemberControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/member/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/statistic/Controller/statisticController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/statistic/Controller/statisticController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/statistic/Controller/statisticControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/statistic/Controller/statisticControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/statistic/dao/statisticDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/statistic/dao/statisticDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/statistic/dao/statisticDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/statistic/dao/statisticDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/statistic/service/statisticService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/statistic/service/statisticService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/statistic/service/statisticServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/statistic/service/statisticServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/word/dao/wordDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/word/dao/wordDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/word/dao/wordDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/word/dao/wordDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/word/service/wordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/word/service/wordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/word/service/wordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/word/service/wordServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/config/jdbc/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/config/jdbc/jdbc.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/inquiryBoard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/inquiryBoard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/statistic.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/statistic.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/word.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/word.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/registerMemberForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/registerMemberForm.jsp" afterDir="false" />
     </list>
+    <list id="484f2593-54e3-43b3-a197-f078d325b917" name="출련된 오늘의 단어를 사용자의 학습카드로 이동하는 로직 구현." comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +76,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Aspect" />
         <option value="Class" />
       </list>
     </option>
@@ -41,6 +91,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/webapp/resources/css/styles.css" root0="SKIP_INSPECTION" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -65,22 +118,23 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/tiles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15039062" />
     <property name="project.structure.side.proportion" value="0.5383693" />
-    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.XML" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/tiles" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/introudction" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/tiles" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
+      <recent name="$PROJECT_DIR$/src/main/resources/tiles" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/recources" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/tiles" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/error" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
@@ -139,9 +193,9 @@
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="word">
+        <artifact name="RemindProject:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/word" />
+            <option name="CONTEXT_PATH" value="/Remind" />
           </settings>
         </artifact>
       </deployment>
@@ -219,7 +273,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="word" />
+          <artifact name="RemindProject:war exploded" />
         </option>
       </method>
     </configuration>
@@ -351,6 +405,20 @@
       <workItem from="1617016484223" duration="16285000" />
       <workItem from="1617097038082" duration="6583000" />
       <workItem from="1617277695463" duration="6679000" />
+      <workItem from="1617293414067" duration="2397000" />
+      <workItem from="1617370856080" duration="4577000" />
+      <workItem from="1617426074521" duration="25183000" />
+      <workItem from="1617496578807" duration="5241000" />
+      <workItem from="1617509188543" duration="71024000" />
+      <workItem from="1617840945857" duration="25482000" />
+      <workItem from="1617887285729" duration="61000" />
+      <workItem from="1618143743186" duration="526000" />
+      <workItem from="1618206091372" duration="18095000" />
+      <workItem from="1618273663460" duration="2000" />
+      <workItem from="1618273674667" duration="273000" />
+      <workItem from="1618276887196" duration="562000" />
+      <workItem from="1618279083752" duration="4243000" />
+      <workItem from="1618312378261" duration="1484000" />
     </task>
     <task id="LOCAL-00001" summary="학습페이지 구현완료(리팩토링 필요)">
       <created>1615475887437</created>
@@ -506,7 +574,112 @@
       <option name="project" value="LOCAL" />
       <updated>1617283799077</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="1. ModelAndView, tiles 매핑작업">
+      <created>1617374324505</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1617374324505</updated>
+    </task>
+    <task id="LOCAL-00024" summary="1. jquery 라이브러리 import 수정">
+      <created>1617403226143</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1617403226143</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Main Page css작업(bootStrap template 활용)">
+      <created>1617456025400</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1617456025400</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Front 작업 (css, BootStrap 적용)">
+      <created>1617468108643</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1617468108643</updated>
+    </task>
+    <task id="LOCAL-00027" summary="REST API 수정">
+      <created>1617695954640</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1617695954640</updated>
+    </task>
+    <task id="LOCAL-00028" summary="리팩토링">
+      <created>1617696017762</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1617696017762</updated>
+    </task>
+    <task id="LOCAL-00029" summary="프론트(CSS, BootStrap)적용">
+      <created>1617729563502</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1617729563502</updated>
+    </task>
+    <task id="LOCAL-00030" summary="기능추가(저장날짜 출력)">
+      <created>1617764972603</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1617764972603</updated>
+    </task>
+    <task id="LOCAL-00031" summary="프론트 작업(CSS, BootStrap)적용">
+      <created>1617765006922</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1617765006922</updated>
+    </task>
+    <task id="LOCAL-00032" summary="서버 에러페이지 커스텀">
+      <created>1617795279590</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1617795279590</updated>
+    </task>
+    <task id="LOCAL-00033" summary="1. 회원수정, 탈퇴 기능 구현">
+      <created>1617884052911</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1617884052911</updated>
+    </task>
+    <task id="LOCAL-00034" summary="1. Logging Advice(AOP)적용">
+      <created>1617884158186</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1617884158186</updated>
+    </task>
+    <task id="LOCAL-00035" summary="프론트작업(CSS, BootStrap)적용">
+      <created>1617884266197</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1617884266197</updated>
+    </task>
+    <task id="LOCAL-00036" summary="테스트(junit5)">
+      <created>1617884360797</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1617884360797</updated>
+    </task>
+    <task id="LOCAL-00037" summary="중복로그인 방지 기능 구현">
+      <created>1618282865127</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1618282865127</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,15 +708,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="학습페이지 구현완료(리팩토링 필요)" />
-    <MESSAGE value="학습페이지 리펙토링" />
-    <MESSAGE value="하루 영어단어(네이버사전 크롤링) DB저장 및 페이지 출력 구현 완료." />
-    <MESSAGE value="문의게시판 기능(게시판 출력, 댓글 출력)부분 완료" />
-    <MESSAGE value="문의게시판, 게시글 출력 및 해당 글의 댓글 출력기능 구현." />
-    <MESSAGE value="문의게시판, 게시글 출력 및 해당 게시글 댓글 출력기능 구현." />
-    <MESSAGE value="출련된 오늘의 단어를 사용자의 학습카드로 이동하는 로직 구현." />
-    <MESSAGE value="출력된 오늘의 단어를 사용자의 학습카드로 이동하는 로직 구현." />
-    <MESSAGE value="게시판, 댓글 출력 기능" />
     <MESSAGE value="게시판 이미지 파일 업로드 기능 구현" />
     <MESSAGE value="게시판 작성하기 및 이미지파일 출력 기능 구현" />
     <MESSAGE value="게시글 댓글 작성하기 기능 구현." />
@@ -554,104 +718,147 @@
     <MESSAGE value="단어 저장페이지 PaPagoAPI적용(학습할 단어 저장시 자동으로 번역)" />
     <MESSAGE value="1.회원가입 메일인증 기능 구현&#10;2.아이디, 비밀번호, 이메일 유효성 검사 구현(프론트 영역)" />
     <MESSAGE value="1. 타일리조버 적용 및 소개페이지 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 타일리조버 적용 및 소개페이지 추가" />
+    <MESSAGE value="1. ModelAndView, tiles 매핑작업" />
+    <MESSAGE value="1. jquery 라이브러리 import 수정" />
+    <MESSAGE value="Main Page css작업(bootStrap template 활용)" />
+    <MESSAGE value="Front 작업 (css, BootStrap 적용)" />
+    <MESSAGE value="REST API 수정" />
+    <MESSAGE value="리팩토링" />
+    <MESSAGE value="프론트(CSS, BootStrap)적용" />
+    <MESSAGE value="기능추가(저장날짜 출력)" />
+    <MESSAGE value="프론트 작업(CSS, BootStrap)적용" />
+    <MESSAGE value="서버 에러페이지 커스텀" />
+    <MESSAGE value="1. 회원수정, 탈퇴 기능 구현" />
+    <MESSAGE value="1. Logging Advice(AOP)적용" />
+    <MESSAGE value="프론트작업(CSS, BootStrap)적용" />
+    <MESSAGE value="테스트(junit5)" />
+    <MESSAGE value="중복로그인 방지 기능 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="중복로그인 방지 기능 구현" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordControllerImpl.java</url>
-          <line>83</line>
+          <line>86</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordControllerImpl.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>253</line>
+          <line>257</line>
           <option name="timeStamp" value="83" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/service/inquiryBoardServiceImpl.java</url>
           <line>76</line>
           <option name="timeStamp" value="90" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/service/inquiryBoardServiceImpl.java</url>
           <line>77</line>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>247</line>
+          <line>251</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>117</line>
-          <option name="timeStamp" value="109" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>123</line>
-          <option name="timeStamp" value="112" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>37</line>
+          <line>41</line>
           <option name="timeStamp" value="114" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>80</line>
+          <line>84</line>
           <option name="timeStamp" value="115" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordControllerImpl.java</url>
-          <line>98</line>
+          <line>101</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/statistic/Controller/statisticControllerImpl.java</url>
-          <line>59</line>
+          <line>66</line>
           <option name="timeStamp" value="120" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/statistic/Controller/statisticControllerImpl.java</url>
-          <line>63</line>
+          <line>70</line>
           <option name="timeStamp" value="121" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordControllerImpl.java</url>
-          <line>188</line>
+          <line>191</line>
           <option name="timeStamp" value="122" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordControllerImpl.java</url>
-          <line>534</line>
-          <option name="timeStamp" value="138" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/member/Controller/MemberControllerImpl.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="139" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/Interceptor/loginInterceptor.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="162" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/project/word/cloneTest.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="166" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/project/word/cloneTest.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="167" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/member/Controller/MemberControllerImpl.java</url>
+          <line>217</line>
+          <option name="timeStamp" value="184" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/project/member/Controller/MemberControllerImpl.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="139" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/base/BaseController.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="197" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/base/BaseController.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="198" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/base/BaseController.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="199" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/base/BaseController.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="201" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/sessionListener/sessionConfig.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="202" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/sessionListener/sessionConfig.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="205" />
         </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="java.sql.SQLSyntaxErrorException" package="java.sql" />
           <option name="timeStamp" value="47" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/service/inquiryBoardService.java</url>
           <line>26</line>
-          <properties class="com.project.inquiryBoard.service.inquiryBoardService" method="updateImageBoard">
-            <option name="EMULATED" value="true" />
-          </properties>
+          <properties class="com.project.inquiryBoard.service.inquiryBoardService" method="updateImageBoard" />
           <option name="timeStamp" value="88" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/service/inquiryBoardServiceImpl.java</url>
           <line>74</line>
           <properties class="com.project.inquiryBoard.service.inquiryBoardServiceImpl" method="updateImageBoard">
@@ -659,37 +866,77 @@
           </properties>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>314</line>
+          <line>318</line>
           <properties class="com.project.inquiryBoard.Controller.inquiryBoardControllerImpl" method="modifyAnswer">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="111" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>328</line>
+          <line>332</line>
           <properties class="com.project.inquiryBoard.Controller.inquiryBoardControllerImpl" method="deleteAnswer">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/inquiryBoard/Controller/inquiryBoardControllerImpl.java</url>
-          <line>65</line>
+          <line>69</line>
           <properties class="com.project.inquiryBoard.Controller.inquiryBoardControllerImpl" method="selectTitle">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="116" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/member/Controller/MemberControllerImpl.java</url>
-          <line>147</line>
+          <line>160</line>
           <properties class="com.project.member.Controller.MemberControllerImpl" method="findUserPwd">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="159" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/word/Controller/wordControllerImpl.java</url>
+          <line>50</line>
+          <properties class="com.project.word.Controller.wordControllerImpl" method="addWord">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="177" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/sessionListener/sessionConfig.java</url>
+          <line>31</line>
+          <properties class="com.project.common.sessionListener.sessionConfig" method="sessionCreated">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="204" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/sessionListener/sessionConfig.java</url>
+          <line>36</line>
+          <properties class="com.project.common.sessionListener.sessionConfig" method="sessionDestroyed">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="207" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/sessionListener/sessionConfig.java</url>
+          <line>12</line>
+          <properties class="com.project.common.sessionListener.sessionConfig" method="SessionCheck">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="208" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/common/sessionListener/sessionConfig.java</url>
+          <line>23</line>
+          <properties class="com.project.common.sessionListener.sessionConfig" method="removeOverlapIdSession">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="209" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

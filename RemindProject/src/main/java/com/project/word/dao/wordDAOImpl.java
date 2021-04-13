@@ -21,27 +21,27 @@ public class wordDAOImpl implements wordDAO {
 
     @Override
     public void addDailyWord(wordVO wordvo) throws DataAccessException {
-        session.insert("mapper.word.addDailyWord",wordvo);
+        session.insert("mapper.word.addDailyWord", wordvo);
     }
 
     @Override
-    public int countWrongReviewCard(Map wordMap) throws DataAccessException {
+    public int countWrongReviewCard(Map<String, Object> wordMap) throws DataAccessException {
         return session.selectOne("mapper.word.countWrongReviewCard", wordMap);
     }
 
     @Override
-    public int countReviewCard(Map wordMap) throws DataAccessException {
-        return session.selectOne("mapper.word.countReviewCard",wordMap);
+    public int countReviewCard(Map<String, Object> wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.countReviewCard", wordMap);
     }
 
     @Override
-    public int countWrongNewCard(Map wordMap) throws DataAccessException {
-        return session.selectOne("mapper.word.countWrongNewCard",wordMap);
+    public int countWrongNewCard(Map<String, Object> wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.countWrongNewCard", wordMap);
     }
 
     @Override
-    public int countNewCard(Map wordMap) throws DataAccessException {
-        return session.selectOne("mapper.word.countNewCard",wordMap);
+    public int countNewCard(Map<String, Object> wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.countNewCard", wordMap);
     }
 
     @Override
@@ -50,63 +50,63 @@ public class wordDAOImpl implements wordDAO {
     }
 
     @Override
-    public wordVO selectReviewCard(Map wordMap) throws DataAccessException {
+    public wordVO selectReviewCard(Map<String, Object> wordMap) throws DataAccessException {
         return session.selectOne("mapper.word.selectReviewCard", wordMap);
     }
 
     @Override
-    public wordVO selectNewCard(Map wordMap)throws  DataAccessException {
+    public wordVO selectNewCard(Map<String, Object> wordMap) throws DataAccessException {
         return session.selectOne("mapper.word.selectNewCard", wordMap);
     }
 
     @Override
-    public void updateWrongCard(Map wordMap) throws DataAccessException {
-        session.update("mapper.word.updateWrongCard",wordMap);
+    public void updateWrongCard(Map<String, Object> wordMap) throws DataAccessException {
+        session.update("mapper.word.updateWrongCard", wordMap);
     }
 
     @Override
-    public void updateReviewCard_Appropriate(Map wordMap) throws DataAccessException {
+    public void updateReviewCard_Appropriate(Map<String, Object> wordMap) throws DataAccessException {
         session.update("mapper.word.updateReviewCard_Appropriate", wordMap);
     }
 
     @Override
-    public wordVO selectRemainedReviewCard(Map wordMap) throws DataAccessException {
+    public wordVO selectRemainedReviewCard(Map<String, Object> wordMap) throws DataAccessException {
         return session.selectOne("mapper.word.selectRemainedReviewCard", wordMap);
     }
 
     @Override
-    public wordVO selectRemainedNewCard(Map wordMap) throws DataAccessException {
-        return session.selectOne("mapper.word.selectRemainedNewCard",wordMap);
+    public wordVO selectRemainedNewCard(Map<String, Object> wordMap) throws DataAccessException {
+        return session.selectOne("mapper.word.selectRemainedNewCard", wordMap);
     }
 
     @Override
-    public void updateNewCard_Appropriate(Map wordMap) throws DataAccessException {
-        session.update("mapper.word.updateNewCard_Appropriate",wordMap);
+    public void updateNewCard_Appropriate(Map<String, Object> wordMap) throws DataAccessException {
+        session.update("mapper.word.updateNewCard_Appropriate", wordMap);
     }
 
     @Override
     public List<wordVO> selectModifyWord(Map<String, Object> wordMap) {
-        return session.selectList("mapper.word.selectModifyWord",wordMap);
+        return session.selectList("mapper.word.selectModifyWord", wordMap);
     }
 
     @Override
     public int totalCount(Map<String, Object> wordMap) throws DataAccessException {
-        return session.selectOne("mapper.word.totalCount",wordMap);
+        return session.selectOne("mapper.word.totalCount", wordMap);
     }
 
     @Override
     public wordVO selectSpecificWord(Map<String, Object> wordMap) {
-        return session.selectOne("mapper.word.selectSpecificWord",wordMap);
+        return session.selectOne("mapper.word.selectSpecificWord", wordMap);
     }
 
     @Override
     public void updateWord(Map<String, Object> wordMap) throws DataAccessException {
-        session.selectOne("mapper.word.updateWord",wordMap);
+        session.selectOne("mapper.word.updateWord", wordMap);
     }
 
     @Override
     public void deleteWord(Map<String, Object> wordMap) throws DataAccessException {
-        session.delete("mapper.word.deleteWord",wordMap);
+        session.delete("mapper.word.deleteWord", wordMap);
     }
 
 

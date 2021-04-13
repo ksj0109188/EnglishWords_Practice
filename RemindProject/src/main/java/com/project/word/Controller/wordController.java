@@ -23,26 +23,27 @@ public interface wordController {
                                @RequestParam(value = "pageNum", defaultValue = "1") int pageNum);
 
     ModelAndView searchTitle(HttpServletRequest request, HttpServletResponse response,
-                                    @RequestParam(value = "search") String search,
-                                    @RequestParam(value = "section", defaultValue = "1") int section,
-                                    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum);
+                             @RequestParam(value = "search") String search,
+                             @RequestParam(value = "section", defaultValue = "1") int section,
+                             @RequestParam(value = "pageNum", defaultValue = "1") int pageNum);
+
     ModelAndView modifyWordForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("wordId") int wordId);
 
     ResponseEntity modifyWord(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> wordMap);
 
     ModelAndView reviewCardForm(HttpServletRequest request, HttpServletResponse response);
 
-    ResponseEntity reviewStudy_Wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ResponseEntity reviewStudy_Wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String,Object> wordMap);
 
     ResponseEntity reviewCardSelect(HttpServletRequest request, HttpServletResponse response);
 
-    ResponseEntity reviewStudy_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ResponseEntity reviewStudy_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String,Object> wordMap);
 
     ModelAndView newCardForm(HttpServletRequest request, HttpServletResponse response);
 
-    ResponseEntity newCardStudy_wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ResponseEntity newCardStudy_wrong(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String,Object> wordMap);
 
-    ResponseEntity newCardUpdate_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map wordMap);
+    ResponseEntity newCardUpdate_appropriate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map <String,Object>wordMap);
 
     ResponseEntity newCardSelect(HttpServletRequest request, HttpServletResponse response);
 

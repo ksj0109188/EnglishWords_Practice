@@ -1,8 +1,11 @@
 package com.project.statistic.Controller;
 
 import com.project.common.base.BaseController;
+import com.project.member.Controller.MemberControllerImpl;
 import com.project.statistic.service.statisticService;
 import com.project.statistic.vo.statisticVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,8 @@ import java.util.Map;
 @RequestMapping(value = "/statistic")
 @RestController("statisticController")
 public class statisticControllerImpl extends BaseController implements statisticController {
+
+    private static final Logger logger = LoggerFactory.getLogger(statisticControllerImpl.class);
 
     @Autowired
     statisticService statisticService;
@@ -43,7 +48,7 @@ public class statisticControllerImpl extends BaseController implements statistic
             modelAndView.addObject("staMap", staMap);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("/common/error");
         }
         return modelAndView;
@@ -53,11 +58,11 @@ public class statisticControllerImpl extends BaseController implements statistic
     public ResponseEntity search(HttpServletRequest request, HttpServletResponse response, @PathVariable("word") String word) {
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
-        Map staMap = new HashMap<>();
+        Map<String, Object> staMap = new HashMap<>();
         staMap.put("userId", userId);
         staMap.put("word", word);
         ResponseEntity responseEntity;
-        List<statisticVO> statisticVO ;
+        List<statisticVO> statisticVO;
         try {
             statisticVO = statisticService.search(staMap);
             if (statisticVO == null) {
@@ -66,7 +71,7 @@ public class statisticControllerImpl extends BaseController implements statistic
                 responseEntity = new ResponseEntity<List<statisticVO>>(statisticVO, HttpStatus.OK);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;

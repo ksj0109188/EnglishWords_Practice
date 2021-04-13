@@ -28,22 +28,22 @@ public class statisticServiceImpl implements statisticService {
     }
 
     @Override
-    public void updateWrongCard(Map wordMap) throws Exception {
+    public void updateWrongCard(Map<String, Object> wordMap) throws Exception {
         statisticDAO.updateWrongCard(wordMap);
     }
 
     @Override
-    public void updateAppropriateCard(Map wordMap) throws Exception {
+    public void updateAppropriateCard(Map<String, Object> wordMap) throws Exception {
         statisticDAO.updateAppropriateCard(wordMap);
     }
 
     @Override
-    public int countWord(Map staMap) throws Exception {
+    public int countWord(Map<String, Object> staMap) throws Exception {
         return statisticDAO.countWord(staMap);
     }
 
     @Override
-    public List<statisticVO> search(Map staMap) throws Exception {
+    public List<statisticVO> search(Map<String, Object> staMap) throws Exception {
         return statisticDAO.search(staMap);
     }
 

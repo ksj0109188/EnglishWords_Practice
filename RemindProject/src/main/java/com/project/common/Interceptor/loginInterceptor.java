@@ -1,6 +1,5 @@
 package com.project.common.Interceptor;
 
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 

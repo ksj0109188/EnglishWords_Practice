@@ -20,22 +20,22 @@ public class inquiryBoardServiceImpl implements inquiryBoardService {
     inquiryBoardDAO inquiryBoardDAO;
 
     @Override
-    public List<inquiryBoardVO> selectInquiryBoard(Map inquiryBoardMap) {
+    public List<inquiryBoardVO> selectInquiryBoard(Map<String,Object> inquiryBoardMap) {
         return inquiryBoardDAO.selectInquiryBoard(inquiryBoardMap);
     }
 
     @Override
-    public inquiryBoardVO selectBoardDetail(Map boardMap) throws Exception {
+    public inquiryBoardVO selectBoardDetail(Map<String,Object> boardMap) throws Exception {
         return inquiryBoardDAO.selectBoardDetail(boardMap);
     }
 
     @Override
-    public List<AnswerVO> selectBoardAnswer(Map boardMap) throws Exception {
+    public List<AnswerVO> selectBoardAnswer(Map<String,Object> boardMap) throws Exception {
         return inquiryBoardDAO.selectBoardAnswer(boardMap);
     }
 
     @Override
-    public int writeBoard(Map boardMap) throws Exception {
+    public int writeBoard(Map<String,Object> boardMap) throws Exception {
         int maxBoardId = inquiryBoardDAO.maxBoardId();
         boardMap.put("boardId", maxBoardId);
         inquiryBoardDAO.writeBoard(boardMap);
@@ -43,7 +43,7 @@ public class inquiryBoardServiceImpl implements inquiryBoardService {
     }
 
     @Override
-    public void writeImageBoard(Map boardMap) throws Exception {
+    public void writeImageBoard(Map<String,Object> boardMap) throws Exception {
         int maxBoardImageFileId = inquiryBoardDAO.maxBoardImageFileId();
         List<imageVO> fileList = (List<imageVO>) boardMap.get("imageFileList");
         int boardId = (int) boardMap.get("boardId");
@@ -55,24 +55,24 @@ public class inquiryBoardServiceImpl implements inquiryBoardService {
     }
 
     @Override
-    public List<imageVO> selectBoardImage(Map boardMap) throws Exception {
+    public List<imageVO> selectBoardImage(Map<String,Object> boardMap) throws Exception {
         return inquiryBoardDAO.selectBoardImage(boardMap);
     }
 
     @Override
-    public void writeAnswer(Map boardMap) throws Exception {
+    public void writeAnswer(Map<String,Object> boardMap) throws Exception {
         int AnswerId = inquiryBoardDAO.maxAnswerId();
         boardMap.put("AnswerId", AnswerId);
         inquiryBoardDAO.writeAnswer(boardMap);
     }
 
     @Override
-    public void updateBoard(Map boardMap) throws Exception {
+    public void updateBoard(Map<String,Object> boardMap) throws Exception {
         inquiryBoardDAO.updateBoard(boardMap);
     }
 
     @Override
-    public void updateImageBoard(Map boardMap) throws Exception {
+    public void updateImageBoard(Map<String,Object> boardMap) throws Exception {
         List<imageVO> fileList = (List<imageVO>) boardMap.get("imageFileList");
         List<imageVO> exist = inquiryBoardDAO.selectBoardImage(boardMap);
         if (exist != null && exist.size() != 0) {
@@ -92,22 +92,22 @@ public class inquiryBoardServiceImpl implements inquiryBoardService {
     }
 
     @Override
-    public void deleteBoard(Map boardMap) throws Exception {
+    public void deleteBoard(Map<String,Object> boardMap) throws Exception {
         inquiryBoardDAO.deleteBoard(boardMap);
     }
 
     @Override
-    public void modifyAnswer(Map answerMap) throws Exception {
+    public void modifyAnswer(Map<String,Object> answerMap) throws Exception {
         inquiryBoardDAO.modifyAnswer(answerMap);
     }
 
     @Override
-    public void deleteAnswer(Map answerMap) throws Exception {
+    public void deleteAnswer(Map<String,Object> answerMap) throws Exception {
         inquiryBoardDAO.deleteAnswer(answerMap);
     }
 
     @Override
-    public int selectTotalCountBoard(Map boardMap) throws Exception {
+    public int selectTotalCountBoard(Map<String,Object> boardMap) throws Exception {
         return inquiryBoardDAO.selectTotalCountBoard(boardMap);
     }
 }

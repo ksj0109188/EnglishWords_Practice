@@ -18,39 +18,6 @@ public class LoggingAdvice {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggingAdvice.class);
 
-//    @Before("execution(* com.project.*.service.*.*(..)) or " + "execution(* com.project.*.dao.*.*(..))")
-//    public void beforeLogging(JoinPoint jp) {
-//        logger.info("-------------------------------------");
-//        logger.info("------------beforeLogging------------");
-//
-//        logger.info("1:" + Arrays.toString(jp.getArgs()));
-//
-//        logger.info("2:" + jp.getKind());
-//
-//        logger.info("3:" + jp.getSignature().getName());
-//
-//        logger.info("4:" + jp.getTarget().toString());
-//
-//        logger.info("5:" + jp.getThis().toString());
-//    }
-
-//    @After("execution(* com.project.*.service.*.*(..)) or " + "execution(* com.project.*.dao.*.*(..))")
-//    public void afterLogging(JoinPoint jp) {
-//        logger.info("-------------------------------------");
-//        logger.info("-------------afterLogging------------");
-//
-//        logger.info("1:" + Arrays.toString(jp.getArgs()));
-//
-//        logger.info("2:" + jp.getKind());
-//
-//        logger.info("3:" + jp.getSignature().getName());
-//
-//        logger.info("4:" + jp.getTarget().toString());
-//
-//        logger.info("5:" + jp.getThis().toString());
-//
-//    }
-
     @Around("execution(* com.project.*.service.*.*(..)) or " + "execution(* com.project.*.dao.*.*(..))")
     public Object aroundLogging(ProceedingJoinPoint pjp) throws Throwable {
         long startTime = System.currentTimeMillis();

@@ -8,29 +8,29 @@ import java.util.List;
 import java.util.Map;
 
 public interface inquiryBoardService {
-    List<inquiryBoardVO> selectInquiryBoard(Map inquiryBoardMap) throws Exception;
+    List<inquiryBoardVO> selectInquiryBoard(Map<String,Object> inquiryBoardMap) throws Exception;
 
-    inquiryBoardVO selectBoardDetail(Map boardMap) throws Exception;
+    inquiryBoardVO selectBoardDetail(Map<String,Object> boardMap) throws Exception;
 
-    List<AnswerVO> selectBoardAnswer(Map boardMap) throws Exception;
+    List<AnswerVO> selectBoardAnswer(Map<String,Object> boardMap) throws Exception;
 
-    int writeBoard(Map boardMap)throws Exception;
+    int writeBoard(Map<String,Object> boardMap)throws Exception;
 
-    void writeImageBoard(Map boardMap) throws Exception;
+    void writeImageBoard(Map<String,Object> boardMap) throws Exception;
 
-    List<imageVO> selectBoardImage(Map boardMap) throws Exception;
+    List<imageVO> selectBoardImage(Map<String,Object> boardMap) throws Exception;
 
-    void writeAnswer(Map boardMap) throws Exception;
+    void writeAnswer(Map<String,Object> boardMap) throws Exception;
 
-    void updateBoard(Map boardMap) throws Exception;
+    void updateBoard(Map<String,Object> boardMap) throws Exception;
 
-    void updateImageBoard(Map boardMap) throws Exception;
+    void updateImageBoard(Map<String,Object> boardMap) throws Exception;
 
-    void deleteBoard(Map boardMap) throws Exception;
+    void deleteBoard(Map<String,Object> boardMap) throws Exception;
 
-    void modifyAnswer(Map answerMap) throws Exception;
+    void modifyAnswer(Map<String,Object> answerMap) throws Exception;
 
-    void deleteAnswer(Map answerMap) throws Exception;
+    void deleteAnswer(Map<String,Object> answerMap) throws Exception;
 
-    int selectTotalCountBoard(Map boardMap) throws Exception;
+    int selectTotalCountBoard(Map<String,Object> boardMap) throws Exception;
 }

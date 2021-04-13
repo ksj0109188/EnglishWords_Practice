@@ -26,17 +26,17 @@ public class statisticDAOImpl implements statisticDAO {
     }
 
     @Override
-    public void updateWrongCard(Map wordMap) throws DataAccessException {
+    public void updateWrongCard(Map<String, Object> wordMap) throws DataAccessException {
         session.update("mapper.statistic.updateWrongCard", wordMap);
     }
 
     @Override
-    public void updateAppropriateCard(Map wordMap) throws DataAccessException {
+    public void updateAppropriateCard(Map<String, Object> wordMap) throws DataAccessException {
         session.update("mapper.statistic.updateAppropriateCard", wordMap);
     }
 
     @Override
-    public int countWord(Map staMap) throws DataAccessException {
+    public int countWord(Map<String, Object> staMap) throws DataAccessException {
         return session.selectOne("mapper.statistic.countWord", staMap);
     }
 

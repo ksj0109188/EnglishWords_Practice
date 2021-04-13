@@ -1,12 +1,15 @@
 package com.project.word.Controller;
 
 import com.project.common.base.BaseController;
+import com.project.statistic.Controller.statisticControllerImpl;
 import com.project.statistic.service.statisticService;
 import com.project.word.service.wordService;
 import com.project.word.vo.wordVO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,6 +35,8 @@ import java.util.Map;
 @RestController("wordcontroller")
 @RequestMapping("/word")
 public class wordControllerImpl extends BaseController implements wordController {
+    private static final Logger logger = LoggerFactory.getLogger(wordControllerImpl.class);
+
     @Autowired
     wordVO wordvo;
 
@@ -56,8 +61,9 @@ public class wordControllerImpl extends BaseController implements wordController
             wordservice.addWord(wordvo);
             statisticservice.addWord(wordvo);
             message = "단어저장 완료";
-            return new ResponseEntity<String>(message,responseHeader, HttpStatus.OK);
+            return new ResponseEntity<String>(message, responseHeader, HttpStatus.OK);
         } catch (Exception e) {
+            logger.debug("DEBUG : " + e);
             message = "<script>";
             message += "alert('저장실패 잠시 후 다시 시도해주세요.');";
             message += "location.href='" + request.getContextPath() + "/word/saveWordForm.do';";
@@ -85,7 +91,7 @@ public class wordControllerImpl extends BaseController implements wordController
             message += "</script>";
             return new ResponseEntity(message, responseHeader, HttpStatus.CREATED);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             message = "<script>";
             message += "alert('잠시후 다시 시도해주세요.');";
             message += "</script>";
@@ -123,7 +129,7 @@ public class wordControllerImpl extends BaseController implements wordController
             modelAndView.addObject("setting", setting);
             return modelAndView;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("/common/error");
             return modelAndView;
         }
@@ -155,7 +161,7 @@ public class wordControllerImpl extends BaseController implements wordController
             modelAndView = new ModelAndView("/word/wordBoardForm");
             modelAndView.addObject("wordMap", wordMap);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("common/error");
         }
         return modelAndView;
@@ -191,7 +197,7 @@ public class wordControllerImpl extends BaseController implements wordController
             modelAndView = new ModelAndView("/word/wordBoardForm");
             modelAndView.addObject("wordMap", wordMap);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("common/error");
         }
         return modelAndView;
@@ -212,7 +218,7 @@ public class wordControllerImpl extends BaseController implements wordController
             modelAndView = new ModelAndView("/word/modifyWordForm");
             modelAndView.addObject("wordvo", _wordvo);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("common/error");
         }
         return modelAndView;
@@ -228,7 +234,7 @@ public class wordControllerImpl extends BaseController implements wordController
             wordservice.updateWord(wordMap);
             responseEntity = new ResponseEntity<String>("sucess", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -244,7 +250,7 @@ public class wordControllerImpl extends BaseController implements wordController
             wordservice.deleteWord(wordMap);
             responseEntity = new ResponseEntity<String>("success", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -257,7 +263,7 @@ public class wordControllerImpl extends BaseController implements wordController
         String userId = (String) session.getAttribute("userId");
         ModelAndView modelAndView = new ModelAndView();
         wordVO _wordvo = null;
-        Map<String, String> wordMap = new HashMap<String, String>();
+        Map<String, Object> wordMap = new HashMap<>();
         wordMap.put("userId", userId);
         wordMap.put("studyMode", "review");
         wordMap.put("selectState", "notEmpty");
@@ -275,7 +281,7 @@ public class wordControllerImpl extends BaseController implements wordController
             return modelAndView;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView();
             modelAndView.setViewName("/common/error");
             return modelAndView;
@@ -300,7 +306,7 @@ public class wordControllerImpl extends BaseController implements wordController
             ResponseMap.put("Message", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             Map ResponseMap = new HashMap();
             ResponseMap.put("Message", "FAIL");
             return new ResponseEntity(ResponseMap, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -335,7 +341,7 @@ public class wordControllerImpl extends BaseController implements wordController
             }
             return new ResponseEntity<String>("Empty", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             return new ResponseEntity<String>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -358,7 +364,7 @@ public class wordControllerImpl extends BaseController implements wordController
             ResponseMap.put("MESSAGE", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             ResponseMap.put("MESSAGE", "ERROR");
             return new ResponseEntity(ResponseMap, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -371,7 +377,7 @@ public class wordControllerImpl extends BaseController implements wordController
         String userId = (String) session.getAttribute("userId");
         ModelAndView modelAndView = new ModelAndView();
         wordVO _wordvo = null;
-        Map<String, String> wordMap = new HashMap<String, String>();
+        Map<String, Object> wordMap = new HashMap<>();
         wordMap.put("userId", userId);
         wordMap.put("studyMode", "newCardStudy");
         wordMap.put("selectState", "notEmpty");
@@ -388,7 +394,7 @@ public class wordControllerImpl extends BaseController implements wordController
             modelAndView.setViewName("/word/newCardForm");
             return modelAndView;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView();
             modelAndView.setViewName("/common/error");
             return modelAndView;
@@ -414,7 +420,7 @@ public class wordControllerImpl extends BaseController implements wordController
             ResponseMap.put("Message", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             Map ResponseMap = new HashMap();
             ResponseMap.put("Message", "FAIL");
             return new ResponseEntity(ResponseMap, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -437,7 +443,7 @@ public class wordControllerImpl extends BaseController implements wordController
             ResponseMap.put("MESSAGE", "SUCESS");
             return new ResponseEntity(ResponseMap, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             ResponseMap.put("MESSAGE", "ERROR");
             return new ResponseEntity(ResponseMap, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -470,7 +476,7 @@ public class wordControllerImpl extends BaseController implements wordController
             }
             return new ResponseEntity<String>("Study_Done", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             return new ResponseEntity<String>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -532,7 +538,7 @@ public class wordControllerImpl extends BaseController implements wordController
             jsonObject = (JSONObject) jsonParser.parse(jsonObject.get("result").toString());
             return new ResponseEntity<Object>(jsonObject, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

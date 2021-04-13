@@ -2,8 +2,11 @@ package com.project.member.Controller;
 
 import com.project.common.base.BaseController;
 import com.project.common.mail.mailService;
+import com.project.common.sessionListener.sessionConfig;
 import com.project.member.service.MemberService;
 import com.project.member.vo.MemberVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,8 @@ import java.util.Map;
 @RestController("MemberController")
 @RequestMapping(value = "/member")
 public class MemberControllerImpl extends BaseController implements MemberController {
+
+    private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
 
     @Autowired
     MemberVO memberVO;
@@ -44,7 +48,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
             modelAndView = new ModelAndView("/main/main");
             modelAndView.addObject("message", "registerSuccess");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("/common/error");
         }
         return modelAndView;
@@ -62,7 +66,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
                 responseEntity = new ResponseEntity<String>("Overlapping", HttpStatus.OK);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -71,7 +75,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
     @RequestMapping(value = "/authMember.do")
     @Override
     public ModelAndView authMember(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId, @RequestParam("authKey") String authKey) {
-        Map<String, Object> memberMap = new HashMap<String, Object>();
+        Map<String, Object> memberMap = new HashMap<>();
         ModelAndView modelAndView;
         try {
             memberMap.put("userId", userId);
@@ -88,7 +92,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
                 modelAndView.addObject("message", "authFalse");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("/common/error");
         }
         return modelAndView;
@@ -106,6 +110,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
                 return modelAndView;
             } else {
                 String userId = membervo.getUserId();
+                sessionConfig.SessionCheck(userId);
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("userId", userId);
                 httpSession.setAttribute("isLogin", true);
@@ -145,7 +150,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
                 modelAndView.addObject("memberVOItems", memberVOItems);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("/common/error");
         }
         return modelAndView;
@@ -154,7 +159,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
     @RequestMapping(value = "/findUserPwd", method = RequestMethod.GET)
     @Override
     public ResponseEntity findUserPwd(HttpServletRequest request, HttpServletResponse response, @ModelAttribute MemberVO memberVO) {
-        ResponseEntity responseEntity;
+        ResponseEntity<String> responseEntity;
         String contextPath = request.getContextPath();
         try {
             MemberVO _memberVO = memberService.findUserPwd(memberVO);
@@ -168,7 +173,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
                 responseEntity = new ResponseEntity<String>("founded", HttpStatus.OK);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             responseEntity = new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -186,7 +191,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
             modelAndView = new ModelAndView("/member/modifyMemberForm");
             modelAndView.addObject("memberVO", memberVO);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("/common/error");
         }
         return modelAndView;
@@ -202,7 +207,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
             memberService.modifyMember(memberVO);
             modelAndView = new ModelAndView("redirect:/member/logout");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("/common/error");
         }
         return modelAndView;
@@ -214,13 +219,13 @@ public class MemberControllerImpl extends BaseController implements MemberContro
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
         Map<String, String> memberMap = new HashMap<>();
-        memberMap.put("userId",userId);
+        memberMap.put("userId", userId);
         try {
             memberService.deleteMember(memberMap);
             session.removeAttribute("userId");
             modelAndView = new ModelAndView("/main/main");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             modelAndView = new ModelAndView("/common/error");
         }
         return modelAndView;

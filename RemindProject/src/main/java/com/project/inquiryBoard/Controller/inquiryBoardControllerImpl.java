@@ -6,6 +6,8 @@ import com.project.inquiryBoard.vo.AnswerVO;
 import com.project.inquiryBoard.vo.imageVO;
 import com.project.inquiryBoard.vo.inquiryBoardVO;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ import java.util.*;
 @RequestMapping(value = "/inquiryBoard")
 @RestController("inquiryBoardController")
 public class inquiryBoardControllerImpl extends BaseController implements inquiryBoardController {
+    private static final Logger logger = LoggerFactory.getLogger(inquiryBoardControllerImpl.class);
+
     @Autowired
     inquiryBoardService inquiryBoardService;
 
@@ -40,8 +44,8 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
     public ModelAndView selectInquiryBoard(HttpServletRequest request, HttpServletResponse response,
                                            @RequestParam(value = "section", defaultValue = "1") int section,
                                            @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
-        Map boardMap = new HashMap();
-        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10 );
+        Map<String,Object> boardMap = new HashMap();
+        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10);
         boardMap.put("pageNum", pageNum);
         boardMap.put("section", section);
         boardMap.put("startPage", startPage);
@@ -57,7 +61,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
 
             return modelAndView;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             return new ModelAndView("/common/error");
         }
     }
@@ -68,10 +72,10 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
                                     @RequestParam(value = "section", defaultValue = "1") int section,
                                     @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
 
-        Map boardMap = new HashMap();
-        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10 );
+        Map<String,Object> boardMap = new HashMap();
+        int startPage = ((section - 1) * 100) + ((pageNum - 1) * 10);
 
-        boardMap.put("title",title);
+        boardMap.put("title", title);
         boardMap.put("pageNum", pageNum);
         boardMap.put("section", section);
         boardMap.put("startPage", startPage);
@@ -87,7 +91,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             modelAndView.addObject("boardMap", boardMap);
             return modelAndView;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             return new ModelAndView("/common/error");
         }
 
@@ -97,7 +101,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
     public ModelAndView selectBoardDetail(HttpServletRequest request, HttpServletResponse response, @PathVariable int boardId) {
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
-        Map boardMap = new HashMap();
+        Map<String, Object> boardMap = new HashMap();
         boardMap.put("boardId", boardId);
         boardMap.put("userId", userId);
         inquiryBoardVO inquiryBoardVO;
@@ -113,7 +117,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             modelAndView.addObject("imageVO", imageVO);
             return modelAndView;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             return new ModelAndView("/common/error");
         }
     }
@@ -127,7 +131,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
         String message;
         HttpSession session = multipartRequest.getSession();
         String userId = (String) session.getAttribute("userId");
-        Map boardMap = new HashMap();
+        Map<String,Object> boardMap = new HashMap();
         boardMap.put("userId", userId);
 
         List<inquiryBoardVO> inquiryBoardVO = new ArrayList<inquiryBoardVO>();
@@ -167,7 +171,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             message += " </script>";
             responseEntity = new ResponseEntity(message, responseHeader, HttpStatus.CREATED);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             if (imageFileList != null && imageFileList.size() != 0) {
                 for (imageVO imageVO : imageFileList) {
                     imageFileName = imageVO.getImageFileName();
@@ -185,7 +189,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
     }
 
     @RequestMapping(value = "/writeAnswer", method = RequestMethod.POST)
-    public ResponseEntity writeAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> boardMap) {
+    public ResponseEntity writeAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> boardMap) {
         ResponseEntity responseEntity = null;
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
@@ -196,7 +200,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             inquiryBoardService.writeAnswer(boardMap);
             responseEntity = new ResponseEntity<String>("댓글이 작성되었습니다.", responseHeader, HttpStatus.CREATED);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             String message = "<script>";
             message += " alert('잠시후 다시 시도해주세요.');";
             message += " location.href='" + request.getContextPath() + "/inquiryBoard/error'; ";
@@ -210,7 +214,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
     public ModelAndView modifyForm(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId", required = true) int boardId) {
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
-        Map boardMap = new HashMap();
+        Map<String,Object> boardMap = new HashMap();
         boardMap.put("boardId", boardId);
         boardMap.put("userId", userId);
         List<imageVO> imageVO;
@@ -223,7 +227,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             modelAndView.setViewName("/inquiryBoard/modifyBoardForm");
             return modelAndView;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.addObject("inquiryBoardVO", inquiryBoardVO);
             modelAndView.setViewName("/common/error");
@@ -235,7 +239,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
     public ModelAndView modifyBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
         HttpSession session = multipartRequest.getSession();
         String userId = (String) session.getAttribute("userId");
-        Map boardMap = new HashMap();
+        Map<String,Object> boardMap = new HashMap();
         boardMap.put("userId", userId);
 
         List<inquiryBoardVO> inquiryBoardVO = new ArrayList<inquiryBoardVO>();
@@ -278,7 +282,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             modelAndView.setViewName("redirect:/inquiryBoard/board/" + boardId);
             return modelAndView;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             if (imageFileList != null && imageFileList.size() != 0) {
                 for (imageVO imageVO : imageFileList) {
                     imageFileName = imageVO.getImageFileName();
@@ -293,7 +297,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
     @RequestMapping(value = "/deleteBoard", method = RequestMethod.POST)
     public ModelAndView deleteBoard(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId") int boardId,
                                     @RequestParam(value = "imageFileName") String imageFileName) {
-        Map boardMap = new HashMap();
+        Map<String,Object> boardMap = new HashMap();
         boardMap.put("boardId", boardId);
         boardMap.put("imageFileName", imageFileName);
         try {
@@ -306,14 +310,14 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
             inquiryBoardService.deleteBoard(boardMap);
             return new ModelAndView("redirect:/inquiryBoard/boardForm.do");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             return new ModelAndView("/common/error");
         }
     }
 
     @RequestMapping(value = "/modifyAnswer", method = RequestMethod.PUT)
-    public ResponseEntity modifyAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map AnswerMap) {
-        ResponseEntity responseEntity = null;
+    public ResponseEntity<String> modifyAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> AnswerMap) {
+        ResponseEntity<String> responseEntity = null;
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
         try {
@@ -330,7 +334,7 @@ public class inquiryBoardControllerImpl extends BaseController implements inquir
         ResponseEntity responseEntity = null;
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.add("content-type", "text/html; charset=utf-8");
-        Map AnswerMap = new HashMap();
+        Map<String,Object> AnswerMap = new HashMap();
         AnswerMap.put("AnswerId", AnswerId);
         try {
             inquiryBoardService.deleteAnswer(AnswerMap);

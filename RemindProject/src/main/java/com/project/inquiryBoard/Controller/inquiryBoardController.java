@@ -26,7 +26,7 @@ public interface inquiryBoardController {
 
     ResponseEntity writeBoard(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 
-    ResponseEntity writeAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> boardMap);
+    ResponseEntity writeAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> boardMap);
 
     ModelAndView modifyForm(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId", required = true) int boardId);
 
@@ -35,7 +35,7 @@ public interface inquiryBoardController {
     ModelAndView deleteBoard(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "boardId") int boardId,
                              @RequestParam(value = "imageFileName") String imageFileName);
 
-    ResponseEntity modifyAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map AnswerMap);
+    ResponseEntity modifyAnswer(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String,Object> AnswerMap);
 
     ResponseEntity deleteAnswer(HttpServletRequest request, HttpServletResponse response, @PathVariable int AnswerId);
 }

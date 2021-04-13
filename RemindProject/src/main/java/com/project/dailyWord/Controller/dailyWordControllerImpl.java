@@ -2,12 +2,15 @@ package com.project.dailyWord.Controller;
 
 
 import com.project.common.base.BaseController;
+import com.project.common.mail.mailServiceImpl;
 import com.project.dailyWord.service.dailyWordService;
 import com.project.dailyWord.vo.dailyWordVO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,6 +27,8 @@ import java.util.*;
 @Controller("dailyWord")
 @RequestMapping(value = "/dailyWord")
 public class dailyWordControllerImpl extends BaseController implements dailyWordController {
+
+    private static final Logger logger = LoggerFactory.getLogger(dailyWordControllerImpl.class);
 
     @Autowired
     dailyWordVO dailyWordvo;
@@ -53,7 +58,7 @@ public class dailyWordControllerImpl extends BaseController implements dailyWord
             }
             dailyWordService.insertDailyWord(wordVOElements);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
         }
     }
 
@@ -67,7 +72,7 @@ public class dailyWordControllerImpl extends BaseController implements dailyWord
             modelAndView.addObject("dailyWordVO",wordVOElements);
             return modelAndView;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("DEBUG : " + e);
             ModelAndView modelAndView = new ModelAndView("/common/error");
             return modelAndView;
         }

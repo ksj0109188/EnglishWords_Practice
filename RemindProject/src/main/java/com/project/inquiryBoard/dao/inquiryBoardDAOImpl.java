@@ -15,19 +15,20 @@ import java.util.Map;
 public class inquiryBoardDAOImpl implements inquiryBoardDAO {
     @Autowired
     SqlSession session;
+
     @Override
-    public List<inquiryBoardVO> selectInquiryBoard(Map inquiryBoardMap) throws DataAccessException {
-        return session.selectList("mapper.inquiryBoard.selectInquiryBoard",inquiryBoardMap);
+    public List<inquiryBoardVO> selectInquiryBoard(Map<String, Object> inquiryBoardMap) throws DataAccessException {
+        return session.selectList("mapper.inquiryBoard.selectInquiryBoard", inquiryBoardMap);
     }
 
     @Override
-    public inquiryBoardVO selectBoardDetail(Map boardMap) throws DataAccessException {
-        return session.selectOne("mapper.inquiryBoard.selectBoardDetail",boardMap);
+    public inquiryBoardVO selectBoardDetail(Map<String, Object> boardMap) throws DataAccessException {
+        return session.selectOne("mapper.inquiryBoard.selectBoardDetail", boardMap);
     }
 
     @Override
-    public List<AnswerVO> selectBoardAnswer(Map boardMap) throws DataAccessException {
-        return session.selectList("mapper.inquiryBoard.selectBoardAnswer",boardMap);
+    public List<AnswerVO> selectBoardAnswer(Map<String, Object> boardMap) throws DataAccessException {
+        return session.selectList("mapper.inquiryBoard.selectBoardAnswer", boardMap);
     }
 
     @Override
@@ -36,8 +37,8 @@ public class inquiryBoardDAOImpl implements inquiryBoardDAO {
     }
 
     @Override
-    public void writeBoard(Map boardMap) throws DataAccessException {
-        session.insert("mapper.inquiryBoard.writeBoard",boardMap);
+    public void writeBoard(Map<String, Object> boardMap) throws DataAccessException {
+        session.insert("mapper.inquiryBoard.writeBoard", boardMap);
     }
 
     @Override
@@ -52,12 +53,12 @@ public class inquiryBoardDAOImpl implements inquiryBoardDAO {
 
     @Override
     public List<imageVO> selectBoardImage(Map boardMap) throws DataAccessException {
-        return session.selectList("mapper.inquiryBoard.selectBoardImage",boardMap);
+        return session.selectList("mapper.inquiryBoard.selectBoardImage", boardMap);
     }
 
     @Override
-    public void writeAnswer(Map boardMap) throws DataAccessException {
-        session.insert("mapper.inquiryBoard.writeAnswer",boardMap);
+    public void writeAnswer(Map<String, Object> boardMap) throws DataAccessException {
+        session.insert("mapper.inquiryBoard.writeAnswer", boardMap);
     }
 
     @Override
@@ -66,8 +67,8 @@ public class inquiryBoardDAOImpl implements inquiryBoardDAO {
     }
 
     @Override
-    public void updateBoard(Map boardMap) throws DataAccessException {
-        session.update("mapper.inquiryBoard.updateBoard",boardMap);
+    public void updateBoard(Map<String, Object> boardMap) throws DataAccessException {
+        session.update("mapper.inquiryBoard.updateBoard", boardMap);
     }
 
     @Override
@@ -76,22 +77,22 @@ public class inquiryBoardDAOImpl implements inquiryBoardDAO {
     }
 
     @Override
-    public void deleteBoard(Map boardMap) throws DataAccessException {
-        session.delete("mapper.inquiryBoard.deleteBoard",boardMap);
+    public void deleteBoard(Map<String, Object> boardMap) throws DataAccessException {
+        session.delete("mapper.inquiryBoard.deleteBoard", boardMap);
     }
 
     @Override
     public void modifyAnswer(Map answerMap) throws DataAccessException {
-        session.update("mapper.inquiryBoard.modifyAnswer",answerMap);
+        session.update("mapper.inquiryBoard.modifyAnswer", answerMap);
     }
 
     @Override
     public void deleteAnswer(Map answerMap) throws DataAccessException {
-        session.delete("mapper.inquiryBoard.deleteAnswer",answerMap);
+        session.delete("mapper.inquiryBoard.deleteAnswer", answerMap);
     }
 
     @Override
     public int selectTotalCountBoard(Map boardMap) throws DataAccessException {
-        return session.selectOne("mapper.inquiryBoard.selectTotalCountBoard",boardMap);
+        return session.selectOne("mapper.inquiryBoard.selectTotalCountBoard", boardMap);
     }
 }
