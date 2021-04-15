@@ -43,6 +43,9 @@ public abstract class BaseController {
             String fileName = fileNames.next();
             MultipartFile mFile = multipartRequest.getFile(fileName);
             String originalFileName = mFile.getOriginalFilename();
+            if(originalFileName.equals("")){
+                return null;
+            }
             fileList.add(originalFileName);
             File file = new File(BOARD_IMAGE + "/" + fileName);
             if (mFile.getSize() != 0) {
