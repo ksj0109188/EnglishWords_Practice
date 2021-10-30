@@ -41,20 +41,32 @@ public class dailyWordControllerImpl extends BaseController implements dailyWord
         String connectURL = "https://learn.dict.naver.com/m/endic/today/words.nhn";
         try {
             Document doc = Jsoup.connect(connectURL).get();
-            String[] words = doc.select("em.words").html().split("\n");
-            Elements mean = doc.select("p.txt_ct2");
-            Iterator<Element> iterable = mean.iterator();
+            Elements words = doc.select("div#word_card.word_card");
+            Iterator<Element> nhnHtmlIterator = words.iterator();
+
             int maxId = dailyWordService.selectmaxId();
             List<dailyWordVO> wordVOElements = new ArrayList<dailyWordVO>();
-            int wordsIndex = 0;
-            while (iterable.hasNext()) {
+
+            while (nhnHtmlIterator.hasNext()) {
                 dailyWordVO _dailyWordvo = new dailyWordVO();
+                String word = "";
+                String mean = "";
+                Element nhnHtmlElements = nhnHtmlIterator.next();
+                Elements word_shown_title_elements = nhnHtmlElements.select("div.word_card_header > div.word_card_title >  span.letter");
+                Elements word_mean_elements = nhnHtmlElements.select("div.mean > span");
+                Iterator<Element> word_title_iterator = word_shown_title_elements.iterator();
+                Iterator<Element> word_mean_iterator = word_mean_elements.iterator();
+                while (word_title_iterator.hasNext()) {
+                    word += word_title_iterator.next().text();
+                }
+                while (word_mean_iterator.hasNext()) {
+                    mean += word_mean_iterator.next().text();
+                }
                 _dailyWordvo.setDailyId(maxId);
-                _dailyWordvo.setWord(words[wordsIndex]);
-                _dailyWordvo.setMean(iterable.next().text());
+                _dailyWordvo.setWord(word);
+                _dailyWordvo.setMean(mean);
                 wordVOElements.add(_dailyWordvo);
                 maxId++;
-                wordsIndex++;
             }
             dailyWordService.insertDailyWord(wordVOElements);
         } catch (Exception e) {
