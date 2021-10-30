@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
 public abstract class BaseController {
     protected static final String BOARD_IMAGE = "/Users/kim/IdeaProjects/EnglishWords_Practice/images";
 
@@ -47,7 +48,7 @@ public abstract class BaseController {
                 return null;
             }
             fileList.add(originalFileName);
-            File file = new File(BOARD_IMAGE + "/" + fileName);
+            File file = new File(System.getProperty("user.dir"), BOARD_IMAGE + "/" + "temp" + "/" + fileName);
             if (mFile.getSize() != 0) {
                 if (!file.exists()) {
                     if (file.getParentFile().mkdirs()) {
