@@ -62,9 +62,4 @@
   <img width="50%" alt="스크린샷 2021-11-03 오후 7 38 10" src="https://user-images.githubusercontent.com/48472569/140046077-0ad9a073-c65a-4e0f-a437-65f6ed5f9034.png"></>
 
   <h2>Architecture<h2/>
-   ![스크린샷 2021-11-03 오후 8 45 39](https://user-images.githubusercontent.com/48472569/140054914-24f40d42-c325-491f-8600-259705bdadf7.png)
-
-
-
- 
-
+  <img width="50%" alt="스크린샷 2021-11-03 오후 7 38 10" src="https://user-images.githubusercontent.com/48472569/140054914-24f40d42-c325-491f-8600-259705bdadf7.png"></>
