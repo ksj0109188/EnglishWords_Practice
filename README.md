@@ -29,7 +29,7 @@
   <li>비밀번호 찾기</>
   <li>회원정보 수정</>
   
-<h4><a href="https://github.com/ksj0109188/EnglishWords_Practice/blob/master/RemindProject/src/main/java/com/project/word/Controller/wordControllerImpl.java"영어단어</a></>
+<h4><a href="https://github.com/ksj0109188/EnglishWords_Practice/blob/master/RemindProject/src/main/java/com/project/word/Controller/wordControllerImpl.java">영어단어</a></>
   <li>단어 저장하기</>
   <li>단어 수정하기</>
   <li>단어 삭제하기</>
@@ -58,6 +58,7 @@
   <li>단어별 틀릿횟수, 맞은횟수 출력</>
   
   <h2>DB schema</h2>
-  
+  <img width="60%" alt="스크린샷 2021-11-03 오후 7 38 10" src="https://user-images.githubusercontent.com/48472569/140046077-0ad9a073-c65a-4e0f-a437-65f6ed5f9034.png">
   
   <h2>Architecture</>
+  
