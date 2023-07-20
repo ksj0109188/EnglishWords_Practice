@@ -5,8 +5,6 @@
   <li><span>Remind 프로젝트에 접목시킨 이론:<a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10532183&language=ko_KR">Remind Desertation</a></span>
   </li>
   <li>URL : <a href="http://34.64.175.88">Remind</a> 
-  <li>Test ID:test 
-  <li>Password:123456  
 </span>
 <h2>Skills</h2>
   <h4>Frontend</>
